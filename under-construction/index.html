@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wayfarer Games</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Basic body styling */
+    body {
+      font-family: 'Poppins', sans-serif; /* Body font */
+      color: #FFFFFF; /* Text color */
+      background-color: #141227; /* Background color */
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+      overflow: hidden; /* Prevent scrollbars if eye goes near edge during calculation */
+    }
+
+    /* Heading styling */
+    h1 {
+      font-family: 'Proxima Nova', sans-serif; /* Heading font */
+      font-size: 3rem; /* Heading size */
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #FFFFFF;
+    }
+
+    /* Paragraph styling */
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #FFFFFF;
+    }
+
+    /* Container to center the triangle */
+    .triangle-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    /* CSS Triangle using borders */
+    .triangle {
+      width: 200px; /* Base width of the triangle's bounding box */
+      height: 0;
+      border-left: 100px solid transparent; /* Left transparent border */
+      border-right: 100px solid transparent; /* Right transparent border */
+      border-bottom: 173px solid #5EA2D6; /* Blue bottom border creates the visible triangle */
+      position: relative; /* Positioning context for the eye */
+    }
+
+    /* Googly Eye styling */
+    .eye {
+      width: 70px; /* Eye width */
+      height: 70px; /* Eye height */
+      background-color: #FFFFFF; /* Eye background */
+      border-radius: 50%; /* Make it circular */
+      position: absolute; /* Position relative to the triangle */
+      /* Position the top edge of the eye. Calculated to center the eye vertically within the triangle shape. */
+      top: 80px;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust horizontal position to true center */
+      display: flex; /* Use flexbox to center pupil initially */
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* Hide pupil if it somehow goes outside bounds */
+    }
+
+    /* Pupil styling */
+    .pupil {
+      width: 40px; /* Pupil width */
+      height: 40px; /* Pupil height */
+      background-color: #141227; /* Pupil color */
+      border-radius: 50%; /* Make it circular */
+      position: relative; /* Needed for transform to work correctly relative to flex center */
+      transition: transform 0.1s linear; /* Add a slight smoothing effect */
+    }
+
+    /* Links container styling */
+    .links {
+      display: flex;
+      flex-direction: column; /* Stack links vertically */
+      align-items: center; /* Center links horizontally */
+      gap: 1rem; /* Space between links */
+      margin-bottom: 2rem;
+    }
+
+    /* Link button styling */
+    .link-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #FFFFFF; /* Text color */
+      background-color: #5EA2D6; /* Button background color */
+      border-radius: 0.5rem; /* Rounded corners */
+      text-decoration: none; /* Remove underline */
+      transition: background-color 0.3s ease; /* Smooth hover effect */
+      width: 250px; /* Fixed width for consistency */
+    }
+
+    /* Link button hover effect */
+    .link-button:hover {
+      background-color: #467CA3; /* Darker blue on hover */
+    }
+
+    /* Footer styling */
+    footer {
+      font-size: 0.9rem;
+      color: #FFFFFF;
+      margin-top: 2rem;
+    }
+
+    /* Responsive adjustments for tablets and smaller devices */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      /* Adjust triangle size */
+      .triangle {
+        width: 150px;
+        border-left: 75px solid transparent;
+        border-right: 75px solid transparent;
+        border-bottom: 130px solid #5EA2D6; /* Adjusted height */
+      }
+      /* Adjust eye size */
+      .eye {
+        width: 52px; /* Adjusted size */
+        height: 52px; /* Adjusted size */
+        top: 61px; /* Adjusted top position */
+      }
+      /* Adjust pupil size */
+      .pupil {
+        width: 30px; /* Adjusted size */
+        height: 30px; /* Adjusted size */
+      }
+      /* Make buttons wider on smaller screens */
+      .link-button {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    /* Responsive adjustments for mobile phones */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+      /* Adjust triangle size */
+      .triangle {
+        width: 120px;
+        border-left: 60px solid transparent;
+        border-right: 60px solid transparent;
+        border-bottom: 104px solid #5EA2D6; /* Adjusted height */
+      }
+      /* Adjust eye size */
+      .eye {
+        width: 42px; /* Adjusted size */
+        height: 42px; /* Adjusted size */
+        top: 48px; /* Adjusted top position */
+      }
+      /* Adjust pupil size */
+      .pupil {
+        width: 24px; /* Adjusted size */
+        height: 24px; /* Adjusted size */
+      }
+      .links {
+        gap: 1rem;
+      }
+      /* Adjust button padding and font size */
+      .link-button {
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
+      }
+      footer {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-4xl font-bold mb-4 text-white">Wayfarer Games</h1>
+  <p class="text-lg mb-8 text-white">Website Under Construction. Stay tuned!</p>
+
+  <div class="triangle-container">
+    <div class="triangle">
+      <div class="eye" id="eye">
+        <div class="pupil" id="pupil"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="https://store.steampowered.com/app/1804980/Polyfury/" class="link-button" target="_blank" rel="noopener noreferrer">Polyfury on Steam</a>
+    <a href="https://www.xbox.com/en-GB/games/store/polyfury/9N71MVPH8C67" class="link-button" target="_blank" rel="noopener noreferrer">Polyfury on Xbox</a>
+    <a href="https://prf.hn/click/camref:1101lwk2s/destination:https://assetstore.unity.com/packages/slug/199208" class="link-button" target="_blank" rel="noopener noreferrer">Bulletfury on Unity Asset Store</a>
+    <a href="https://discord.gg/Tt7TxTp" class="link-button" target="_blank" rel="noopener noreferrer">Wayfarer Games Discord Server</a>
+  </div>
+
+  <footer class="text-gray-300 mt-8">
+    &copy; <?php echo date("Y"); ?> Wayfarer Games. All rights reserved.
+  </footer>
+</div>
+
+<script>
+  // Wait for the DOM to be fully loaded before running the script
+  document.addEventListener('DOMContentLoaded', () => {
+    // Get references to the eye and pupil elements by their IDs
+    const eye = document.getElementById('eye');
+    const pupil = document.getElementById('pupil');
+
+    // Check if elements exist to prevent errors
+    if (!eye || !pupil) {
+      console.error("Eye or pupil element not found!");
+      return;
+    }
+
+    // Add an event listener to track mouse movement on the whole window
+    window.addEventListener('mousemove', (event) => {
+      // Get the position and size of the eye element
+      const eyeRect = eye.getBoundingClientRect();
+
+      // Calculate the center coordinates of the eye
+      // Note: pageXOffset and pageYOffset are needed if the page is scrollable,
+      // but getBoundingClientRect accounts for the current viewport.
+      const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+      const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+      // Get the current mouse coordinates
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+
+      // Calculate the angle between the eye center and the mouse position
+      const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+
+      // Calculate the maximum distance the pupil can move from the center
+      // This is the radius of the eye minus the radius of the pupil
+      const eyeRadius = eyeRect.width / 2;
+      const pupilRadius = pupil.offsetWidth / 2; // Get the pupil's current rendered width / 2
+      const maxPupilOffset = eyeRadius - pupilRadius;
+
+      // Calculate the actual distance the pupil should move based on the angle.
+      // We use the maximum offset to make the pupil always touch the edge
+      // in the direction of the mouse cursor.
+      const pupilX = Math.cos(angle) * maxPupilOffset;
+      const pupilY = Math.sin(angle) * maxPupilOffset;
+
+      // Apply the calculated position to the pupil using CSS transform
+      // This moves the pupil relative to its centered position (due to flexbox)
+      pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+    });
+
+    // Optional: Reset pupil position when mouse leaves the window
+    window.addEventListener('mouseout', () => {
+      // You might want to reset the pupil to the center, or not.
+      // pupil.style.transform = 'translate(0px, 0px)';
+    });
+  });
+</script>
+</body>
+</html>
