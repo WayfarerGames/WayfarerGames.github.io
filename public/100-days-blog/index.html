@@ -156,6 +156,18 @@
         if (button) setActiveButton(button);
       };
 
+      const slugify = (value) => {
+        return (value || "untitled")
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)+/g, "");
+      };
+
+      const buildPostId = (post, index) => {
+        const datePart = post.pubDate ? new Date(post.pubDate).toISOString() : "";
+        return `${slugify(post.title)}-${index}-${datePart.slice(0, 10)}`;
+      };
+
       fetch("/road-to-release.json")
         .then((response) => {
           if (!response.ok) throw new Error("Failed to load posts.");
@@ -166,13 +178,19 @@
             return new Date(a.pubDate) - new Date(b.pubDate);
           });
 
-          sortedPosts.forEach((post) => {
+          const postMap = new Map();
+
+          sortedPosts.forEach((post, index) => {
+            const postId = buildPostId(post, index);
+            postMap.set(postId, post);
+
             const item = document.createElement("li");
             item.className = "post-item";
 
             const button = document.createElement("button");
             button.type = "button";
             button.setAttribute("aria-pressed", "false");
+            button.dataset.postId = postId;
 
             const title = document.createElement("span");
             title.className = "post-title";
@@ -183,11 +201,28 @@
             date.textContent = formatDate(post.pubDate);
 
             button.append(title, date);
-            button.addEventListener("click", () => renderPost(post, button));
+            button.addEventListener("click", () => {
+              const url = new URL(window.location.href);
+              url.hash = `post-${postId}`;
+              window.history.replaceState(null, "", url);
+              renderPost(post, button);
+            });
 
             item.appendChild(button);
             listEl.appendChild(item);
           });
+
+          const hash = window.location.hash.replace(/^#/, "");
+          if (hash.startsWith("post-")) {
+            const postId = hash.slice("post-".length);
+            const post = postMap.get(postId);
+            const button = listEl.querySelector(
+              `button[data-post-id="${postId}"]`,
+            );
+            if (post && button) {
+              renderPost(post, button);
+            }
+          }
         })
         .catch((error) => {
           headingEl.textContent = "Unable to load posts";
