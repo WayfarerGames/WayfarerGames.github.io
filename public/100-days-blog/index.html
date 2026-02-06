@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>100 Days Blog</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: #0f1115;
+        color: #f5f7fa;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        border-right: 1px solid #242833;
+        padding: 24px;
+        background: #141823;
+        overflow-y: auto;
+      }
+
+      .sidebar h1 {
+        font-size: 1.25rem;
+        margin: 0 0 16px;
+      }
+
+      .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+      }
+
+      .post-item button {
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        border: 1px solid #2a2f3a;
+        border-radius: 10px;
+        background: #191e2b;
+        color: inherit;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .post-item button:hover {
+        border-color: #3a4252;
+        background: #1f2535;
+      }
+
+      .post-item button[aria-pressed="true"] {
+        border-color: #7c92ff;
+        background: #20284a;
+      }
+
+      .post-title {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .post-date {
+        font-size: 0.85rem;
+        color: #b8c0d4;
+      }
+
+      .content {
+        padding: 32px clamp(24px, 4vw, 64px);
+        overflow-y: auto;
+      }
+
+      .content h2 {
+        margin-top: 0;
+      }
+
+      .content .placeholder {
+        color: #b8c0d4;
+        font-style: italic;
+      }
+
+      .content img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: none;
+          border-bottom: 1px solid #242833;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <aside class="sidebar">
+        <h1>100 Days Blog</h1>
+        <ul id="post-list" class="post-list"></ul>
+      </aside>
+      <main class="content">
+        <h2 id="post-heading">Select a post</h2>
+        <div id="post-content" class="placeholder">
+          Choose a post from the list to view it here.
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const listEl = document.getElementById("post-list");
+      const headingEl = document.getElementById("post-heading");
+      const contentEl = document.getElementById("post-content");
+
+      const formatDate = (value) => {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return value ?? "";
+        return date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      };
+
+      const setActiveButton = (activeButton) => {
+        listEl.querySelectorAll("button").forEach((button) => {
+          button.setAttribute(
+            "aria-pressed",
+            button === activeButton ? "true" : "false",
+          );
+        });
+      };
+
+      const renderPost = (post, button) => {
+        headingEl.textContent = post.title || "Untitled";
+        contentEl.classList.remove("placeholder");
+        contentEl.innerHTML = post.content || "";
+        if (button) setActiveButton(button);
+      };
+
+      fetch("/road-to-release.json")
+        .then((response) => {
+          if (!response.ok) throw new Error("Failed to load posts.");
+          return response.json();
+        })
+        .then((posts) => {
+          const sortedPosts = [...posts].sort((a, b) => {
+            return new Date(a.pubDate) - new Date(b.pubDate);
+          });
+
+          sortedPosts.forEach((post) => {
+            const item = document.createElement("li");
+            item.className = "post-item";
+
+            const button = document.createElement("button");
+            button.type = "button";
+            button.setAttribute("aria-pressed", "false");
+
+            const title = document.createElement("span");
+            title.className = "post-title";
+            title.textContent = post.title || "Untitled";
+
+            const date = document.createElement("span");
+            date.className = "post-date";
+            date.textContent = formatDate(post.pubDate);
+
+            button.append(title, date);
+            button.addEventListener("click", () => renderPost(post, button));
+
+            item.appendChild(button);
+            listEl.appendChild(item);
+          });
+        })
+        .catch((error) => {
+          headingEl.textContent = "Unable to load posts";
+          contentEl.classList.remove("placeholder");
+          contentEl.textContent = error?.message ?? "Unexpected error.";
+        });
+    </script>
+  </body>
+</html>
