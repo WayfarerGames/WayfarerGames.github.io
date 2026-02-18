@@ -37,10 +37,11 @@ jobs:
         run: |
           rm -rf _site
           mkdir -p _site
-          cp -R under-construction/. _site/
-          mkdir -p _site/100-days-blog
-          cp -R public/100-days-blog/. _site/100-days-blog/
-          cp public/road-to-release.json _site/road-to-release.json
+          cp index.html _site/index.html
+          cp -R public/. _site/
+          mkdir -p _site/under-construction
+          cp -R under-construction/. _site/under-construction/
+          if [ -f CNAME ]; then cp CNAME _site/CNAME; fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
