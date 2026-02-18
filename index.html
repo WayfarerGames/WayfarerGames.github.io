@@ -1,13 +1,325 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wayfarer Games — Shape Parade</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#141226; --poly:#5AD6FF; --lime:#FF8A66; --lav:#B693FF; --sky:var(--poly); --white:#FAFCFF; --open:var(--lime); --wip:var(--lav); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--white); font-family:"Nunito",sans-serif; overflow-x:hidden; cursor:none; }
+    #cursor { position:fixed; width:26px; height:26px; border-radius:50%; background:var(--lime); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+    .bg-shapes { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+
+    @keyframes float1 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(22px,-34px) rotate(180deg)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-22px,-30px) rotate(-150deg)} }
+    @keyframes float3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(22px,-28px) scale(1.12)} }
+    @keyframes bounceIn { 0%{opacity:0;transform:scale(.35) rotate(-12deg)} 65%{opacity:1;transform:scale(1.08) rotate(4deg)} 100%{transform:scale(1) rotate(0)} }
+
+    .reveal { opacity:0; transform:translateY(18px) scale(.98); transition:opacity .7s, transform .7s; }
+    .reveal.on { opacity:1; transform:translateY(0) scale(1); }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:16px 44px; display:flex; justify-content:space-between; align-items:center; gap:12px; background:rgba(20,18,38,.88); backdrop-filter:blur(16px); border-bottom:2px solid rgba(255,138,102,.15); }
+    .links { display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .nlink { font-family:"Fredoka",sans-serif; font-size:16px; font-weight:600; color:rgba(250,252,255,.68); text-decoration:none; padding:4px 8px; border-radius:6px; transition:.2s; }
+    .nlink:hover { color:var(--white); background:rgba(255,255,255,.06); }
+
+    .pill { display:inline-flex; align-items:center; font-family:"Fredoka",sans-serif; font-weight:600; font-size:14px; line-height:1; text-decoration:none; padding:10px 20px; border-radius:999px; transition:.2s; }
+    .pill:hover { transform:translateY(-2px) scale(1.03); }
+    .pill-lime { background:var(--lime); color:var(--bg); }
+    .pill-poly { background:var(--poly); color:var(--bg); }
+    .pill-out { background:transparent; color:var(--white); border:2px solid rgba(255,255,255,.25); }
+    .pill-out:hover { border-color:var(--lime); color:var(--lime); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      line-height: 1;
+      font-family: "Fredoka", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 0 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .triangle-container {
+      display:flex;
+      justify-content:center;
+      margin-bottom:2rem;
+    }
+    .triangle {
+      width:200px;
+      height:0;
+      border-left:100px solid transparent;
+      border-right:100px solid transparent;
+      border-bottom:173px solid var(--poly);
+      position:relative;
+      filter:drop-shadow(0 10px 22px rgba(90,214,255,.35));
+    }
+    .eye {
+      width:70px;
+      height:70px;
+      background-color:#FFFFFF;
+      border-radius:50%;
+      position:absolute;
+      top:80px;
+      left:50%;
+      transform:translateX(-50%);
+      overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,.28);
+    }
+    .pupil {
+      width:40px;
+      height:40px;
+      background-color:#141227;
+      border-radius:50%;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      transition:transform .06s linear;
+      will-change:transform;
+    }
+
+    .container { max-width:1200px; margin:0 auto; }
+    .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:118px 44px 74px; position:relative; z-index:1; overflow:hidden; text-align:center; }
+    .section { padding:86px 44px; position:relative; z-index:1; }
+    .poly-grid { display:grid; grid-template-columns:1.15fr 1fr; gap:28px; align-items:center; }
+    .work-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; }
+
+    .card { border-radius:20px; overflow:hidden; background:rgba(255,255,255,.04); border:2px solid rgba(255,255,255,.08); transition:.28s; }
+    .card:hover { transform:translateY(-6px); }
+    .card.poly:hover { border-color:rgba(90,214,255,.35); box-shadow:0 16px 40px rgba(90,214,255,.2); }
+    .card.open:hover { border-color:rgba(255,138,102,.35); box-shadow:0 16px 40px rgba(255,138,102,.2); }
+    .card.wip:hover { border-color:rgba(182,147,255,.35); box-shadow:0 16px 40px rgba(182,147,255,.2); }
+    .video-wrap { border-radius:16px; overflow:hidden; border:3px solid rgba(90,214,255,.45); box-shadow:0 16px 48px rgba(90,214,255,.2); }
+    video { width:100%; display:block; object-fit:cover; }
+
+    @media (max-width:1100px) {
+      .poly-grid, .about-grid { grid-template-columns:1fr; }
+      .work-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:768px) {
+      body { cursor:auto; }
+      #cursor { display:none; }
+      nav { position:sticky; top:0; padding:10px 12px; align-items:flex-start; }
+      .nlink { font-size:13px; padding:2px 6px; }
+      .hero { padding:84px 14px 50px; }
+      .section { padding:62px 14px; }
+      .work-grid { grid-template-columns:1fr; gap:14px; }
+      .triangle { width:140px; border-left:70px solid transparent; border-right:70px solid transparent; border-bottom:121px solid var(--poly); }
+      .eye { width:52px; height:52px; top:55px; }
+      .pupil { width:30px; height:30px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <div class="bg-shapes" id="bgShapes"></div>
+
+  <nav>
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
+    </a>
+    <div class="links">
+      <a href="#polyfury" class="nlink">Polyfury</a>
+      <a href="/blog/" class="nlink">Blog</a>
+      <a href="#work" class="nlink">My Work</a>
+      <a href="https://store.steampowered.com/app/1804980/Polyfury/" target="_blank" class="pill pill-lime">Play Now</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div style="position:absolute;top:15%;left:5%;width:78px;height:78px;background:var(--poly);border-radius:50%;opacity:.55;animation:float1 6s ease-in-out infinite;"></div>
+    <div style="position:absolute;top:20%;right:8%;width:58px;height:58px;background:var(--lime);opacity:.5;animation:float2 8s ease-in-out infinite;"></div>
+    <div style="position:absolute;bottom:24%;left:7%;width:46px;height:46px;background:var(--sky);clip-path:polygon(50% 0%,0% 100%,100% 100%);opacity:.5;animation:float3 7s ease-in-out infinite;"></div>
+    <div style="position:absolute;bottom:18%;right:6%;width:66px;height:66px;background:var(--lav);border-radius:10px;opacity:.43;animation:float1 9s ease-in-out infinite;"></div>
+
+    <div class="container" style="max-width:860px;">
+      <div style="animation:bounceIn .8s ease .1s both;">
+        <div class="triangle-container">
+          <div class="triangle">
+            <div class="eye" id="eye">
+              <div class="pupil" id="pupil"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="animation:bounceIn .9s ease .2s both;">
+        <div style="font-family:'Fredoka',sans-serif;font-size:14px;font-weight:600;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">Sheffield, UK</div>
+        <h1 style="font-family:'Fredoka',sans-serif;font-size:clamp(56px,10vw,122px);line-height:.9;font-weight:700;margin-bottom:14px;">
+          <span style="display:block;color:var(--white);">WAYFARER</span>
+          <span style="display:block;color:var(--poly);">GAMES</span>
+        </h1>
+        <p style="font-size:clamp(16px,2vw,21px);font-weight:700;color:rgba(250,252,255,.68);line-height:1.75;margin-bottom:30px;">
+          I build compact projects with clear mechanics, strong feel, and no filler.
+        </p>
+        <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+          <a href="https://store.steampowered.com/app/1804980/Polyfury/" target="_blank" class="pill pill-poly">Play Polyfury</a>
+          <a href="#work" class="pill pill-out">See My Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="polyfury" class="section">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:46px;">
+        <span style="display:inline-block;font-family:'Fredoka',sans-serif;font-size:13px;font-weight:600;color:var(--poly);letter-spacing:3px;text-transform:uppercase;background:rgba(90,214,255,.12);padding:6px 18px;border-radius:999px;border:1.5px solid rgba(90,214,255,.34);margin-bottom:16px;">Featured Project</span>
+        <h2 style="font-family:'Fredoka',sans-serif;font-size:clamp(50px,7vw,94px);line-height:.9;">POLYFURY</h2>
+      </div>
+      <div class="reveal poly-grid">
+        <div class="video-wrap">
+          <video autoplay muted loop playsinline><source src="/Polyfury/Trailer_v1.3.mp4" type="video/mp4"></video>
+        </div>
+        <div>
+          <p style="font-size:clamp(15px,1.7vw,18px);line-height:1.85;color:rgba(250,252,255,.78);margin-bottom:22px;">
+            You thought geometry was difficult? Now it's got a gun! Face the fury of the Seven Deadly Shapes and blast your way through a barrage of bullets and lasers in this highly accessible bullet hell.
+          </p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;">
+            <a href="https://store.steampowered.com/app/1804980/Polyfury/" target="_blank" class="pill pill-poly">Steam -></a>
+            <a href="https://www.xbox.com/en-gb/games/store/polyfury/9n71mvph8c67" target="_blank" class="pill pill-out" style="border-color:rgba(90,214,255,.45);color:var(--poly);">Xbox -></a>
+            <a href="/100-days-blog/" class="pill pill-out" style="border-color:rgba(90,214,255,.45);color:var(--poly);">100 days blog -></a>
+            <a href="/blog/" class="pill pill-out" style="border-color:rgba(255,138,102,.45);color:var(--lime);">Blog -></a>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="tag" style="background:rgba(90,214,255,.13);color:var(--poly);border:1px solid rgba(90,214,255,.3);">Bullet Hell</span>
+            <span class="tag" style="background:rgba(182,147,255,.12);color:var(--lav);border:1px solid rgba(182,147,255,.28);">Challenging</span>
+            <span class="tag" style="background:rgba(255,138,102,.1);color:var(--lime);border:1px solid rgba(255,138,102,.25);">Accessibility-first</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="section" style="background:rgba(0,0,0,.2);">
+    <div class="container">
+      <div class="reveal" style="text-align:center;margin-bottom:48px;">
+        <span style="display:inline-block;font-family:'Fredoka',sans-serif;font-size:13px;font-weight:600;color:var(--lime);letter-spacing:3px;text-transform:uppercase;background:rgba(255,138,102,.08);padding:6px 18px;border-radius:999px;border:1.5px solid rgba(255,138,102,.25);margin-bottom:16px;">The Collection</span>
+        <h2 style="font-family:'Fredoka',sans-serif;font-size:clamp(44px,6vw,80px);font-weight:700;">My Work</h2>
+      </div>
+      <div class="work-grid">
+        <article class="card poly reveal">
+          <video autoplay muted loop playsinline style="width:100%;aspect-ratio:16/9;background:#000;"><source src="/Polyfury/Trailer_v1.3.mp4" type="video/mp4"></video>
+          <div style="padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+              <div><h3 style="font-family:'Fredoka',sans-serif;font-size:24px;">Polyfury</h3><div style="font-size:12px;font-weight:700;color:var(--poly);">Bullet hell game</div></div>
+              <span class="tag" style="background:rgba(90,214,255,.15);color:var(--poly);border:1px solid rgba(90,214,255,.3);">Out Now</span>
+            </div>
+            <p style="font-size:13px;line-height:1.7;color:rgba(250,252,255,.62);">A focused bullet hell with fast restarts, expressive enemies, and readable intensity.</p>
+          </div>
+        </article>
+        <article class="card open reveal">
+          <video autoplay muted loop playsinline style="width:100%;aspect-ratio:16/9;background:#000;"><source src="/Bulletfury/bullets-loop.mp4" type="video/mp4"></video>
+          <div style="padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+              <div><h3 style="font-family:'Fredoka',sans-serif;font-size:24px;">BulletFury</h3><div style="font-size:12px;font-weight:700;color:var(--open);">Unity Plugin</div></div>
+              <span class="tag" style="background:rgba(255,138,102,.15);color:var(--open);border:1px solid rgba(255,138,102,.35);">Open Source</span>
+            </div>
+            <p style="font-size:13px;line-height:1.7;color:rgba(250,252,255,.62);">A performance-focused bullet spawning toolkit with a visual workflow built for iteration.</p>
+          </div>
+        </article>
+        <article class="card wip reveal">
+          <video autoplay muted loop playsinline style="width:100%;aspect-ratio:16/9;background:#000;"><source src="/Glassphalt/gameplay.mp4" type="video/mp4"></video>
+          <div style="padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;">
+              <div><h3 style="font-family:'Fredoka',sans-serif;font-size:24px;">Glassphalt</h3><div style="font-size:12px;font-weight:700;color:var(--wip);">Racing Game</div></div>
+              <span class="tag" style="background:rgba(182,147,255,.15);color:var(--wip);border:1px solid rgba(182,147,255,.35);">In Development</span>
+            </div>
+            <p style="font-size:13px;line-height:1.7;color:rgba(250,252,255,.62);">Burnout-inspired racing with a stylized high-contrast aesthetic and cinematic impact.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer style="border-top:2px solid rgba(255,138,102,.15);padding:28px 14px;background:rgba(0,0,0,.2);position:relative;z-index:1;">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="/logo.png" alt="Wayfarer Games" style="height:24px;width:auto;opacity:.6;">
+        <span style="font-family:'Fredoka',sans-serif;font-size:13px;color:rgba(250,252,255,.3);">© 2025 Wayfarer Games · Dom Harris</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <a href="https://github.com/wayfarergames" target="_blank" class="pill pill-out" style="font-size:12px;padding:7px 14px;">GitHub</a>
+        <a href="https://store.steampowered.com/app/1804980/Polyfury/" target="_blank" class="pill pill-lime" style="font-size:12px;padding:7px 14px;">Steam</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cur = document.getElementById("cursor");
+    document.addEventListener("mousemove", (e) => { cur.style.left = e.clientX + "px"; cur.style.top = e.clientY + "px"; });
+    function centerPupil(pupilEl) {
+      pupilEl.style.transform = "translate(-50%,-50%)";
+    }
+    function setPupilOffset(pupilEl, x, y) {
+      pupilEl.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    }
+    function moveEyeBounded(eyeEl, pupilEl, mouseX, mouseY) {
+      const eyeRect = eyeEl.getBoundingClientRect();
+      const pupilRect = pupilEl.getBoundingClientRect();
+      const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+      const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+      const dx = mouseX - eyeCenterX;
+      const dy = mouseY - eyeCenterY;
+      const distance = Math.hypot(dx, dy) || 1;
+      const maxOffset = Math.max(0, (eyeRect.width - pupilRect.width) / 2 - 3);
+      const scale = Math.min(1, maxOffset / distance);
+      const offsetX = dx * scale;
+      const offsetY = dy * scale;
+      setPupilOffset(pupilEl, offsetX, offsetY);
+    }
+    const eye = document.getElementById("eye");
+    const pupil = document.getElementById("pupil");
+    if (eye && pupil) {
+      centerPupil(pupil);
+      let mouseCaptured = false;
+      let lastMouseMoveAt = 0;
+      const idleDelayMs = 1000;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseCaptured = true;
+        lastMouseMoveAt = performance.now();
+        moveEyeBounded(eye, pupil, e.clientX, e.clientY);
+      });
+      document.addEventListener("mouseleave", () => { mouseCaptured = false; });
+      window.addEventListener("blur", () => { mouseCaptured = false; });
+
+      const wander = () => {
+        const idle = !mouseCaptured || (performance.now() - lastMouseMoveAt > idleDelayMs);
+        if (idle) {
+          const eyeRect = eye.getBoundingClientRect();
+          const pupilRect = pupil.getBoundingClientRect();
+          const maxOffset = Math.max(0, (eyeRect.width - pupilRect.width) / 2 - 3);
+          const t = performance.now() * 0.001;
+          const offsetX = (Math.sin(t * 1.25) + Math.sin(t * 2.15) * 0.5) * maxOffset * 0.52;
+          const offsetY = (Math.cos(t * 1.45) + Math.sin(t * 1.95) * 0.5) * maxOffset * 0.52;
+          setPupilOffset(pupil, offsetX, offsetY);
+        }
+        requestAnimationFrame(wander);
+      };
+      requestAnimationFrame(wander);
+    }
+    const obs = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("on"); }); }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    const bgEl = document.getElementById("bgShapes");
+    const cols = ["#5AD6FF", "#FF8A66", "#B693FF"];
+    const types = ["circle", "square", "triangle"];
+    for (let i = 0; i < 16; i++) {
+      const d = document.createElement("div");
+      const size = Math.random() * 34 + 15;
+      const col = cols[Math.floor(Math.random() * cols.length)];
+      const t = types[Math.floor(Math.random() * types.length)];
+      d.style.cssText = `position:absolute;left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;background:${col};opacity:${Math.random()*0.1+0.03};${t==="circle"?"border-radius:50%;":""}${t==="square"?"border-radius:6px;":""}${t==="triangle"?"clip-path:polygon(50% 0%,0% 100%,100% 100%);":""}animation:float${(i%3)+1} ${Math.random()*6+5}s ease-in-out ${Math.random()*-8}s infinite;`;
+      bgEl.appendChild(d);
+    }
+  </script>
+</body>
 </html>

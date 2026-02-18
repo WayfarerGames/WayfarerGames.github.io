@@ -1,234 +1,811 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>100 Days Blog</title>
-    <style>
-      :root {
-        color-scheme: light dark;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>100 Days Blog — Wayfarer Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #141226;
+      --poly: #5AD6FF;
+      --lime: #FF8A66;
+      --lav: #B693FF;
+      --white: #FAFCFF;
+      --nav-h: 62px;
+    }
 
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        background: #0f1115;
-        color: #f5f7fa;
-      }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
 
-      a {
-        color: inherit;
-      }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: "Nunito", sans-serif;
+      overflow: hidden;
+      cursor: none;
+      display: flex;
+      flex-direction: column;
+    }
 
-      .page {
-        display: grid;
-        grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
-        min-height: 100vh;
-      }
+    /* Custom cursor */
+    #cursor {
+      position: fixed;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--lime);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+
+    /* Background shapes */
+    .bg-shapes {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    @keyframes float1 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(22px,-34px) rotate(180deg)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-22px,-30px) rotate(-150deg)} }
+    @keyframes float3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(22px,-28px) scale(1.12)} }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes idleFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes progressFill { from { width: 0%; } to { width: var(--target-w, 0%); } }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 44px;
+      height: var(--nav-h);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: rgba(20, 18, 38, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(255, 138, 102, 0.15);
+      flex-shrink: 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .blog-badge {
+      font-family: "Fredoka", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--poly);
+      background: rgba(90, 214, 255, 0.1);
+      padding: 4px 13px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(90, 214, 255, 0.28);
+      white-space: nowrap;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nlink {
+      font-family: "Fredoka", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(250, 252, 255, 0.65);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+    .nlink:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      font-family: "Fredoka", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(250, 252, 255, 0.75);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 6px 13px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .mobile-menu-btn:hover {
+      background: rgba(90, 214, 255, 0.1);
+      border-color: rgba(90, 214, 255, 0.3);
+      color: var(--poly);
+    }
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      width: 16px;
+    }
+    .menu-icon span {
+      display: block;
+      height: 2px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: 0.2s;
+    }
+
+    /* Layout */
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: var(--nav-h);
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 88;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s;
+    }
+    .mobile-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      border-right: 2px solid rgba(255, 138, 102, 0.12);
+      background: rgba(10, 9, 22, 0.65);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .sidebar-header {
+      padding: 22px 20px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-family: "Fredoka", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(250, 252, 255, 0.35);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+
+    /* Search */
+    .sidebar-search {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 255, 255, 0.09);
+      border-radius: 10px;
+      padding: 8px 14px;
+      color: var(--white);
+      font-family: "Nunito", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s;
+      cursor: none;
+    }
+    .search-input::placeholder { color: rgba(250, 252, 255, 0.3); }
+    .search-input:focus { border-color: rgba(90, 214, 255, 0.45); }
+
+    /* Post list */
+    .post-list {
+      list-style: none;
+      overflow-y: auto;
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .post-list::-webkit-scrollbar { width: 4px; }
+    .post-list::-webkit-scrollbar-track { background: transparent; }
+    .post-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .post-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+
+    .post-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--white);
+      cursor: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+    .post-btn:hover {
+      border-color: rgba(90, 214, 255, 0.28);
+      background: rgba(90, 214, 255, 0.06);
+      transform: translateX(3px);
+    }
+    .post-btn[aria-pressed="true"] {
+      border-color: rgba(90, 214, 255, 0.48);
+      background: rgba(90, 214, 255, 0.1);
+      box-shadow: 0 4px 18px rgba(90, 214, 255, 0.12);
+    }
+
+    .day-badge {
+      font-family: "Fredoka", sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      min-width: 38px;
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .day-badge.range-a { color: var(--poly); }
+    .day-badge.range-b { color: var(--lime); }
+    .day-badge.range-c { color: var(--lav); }
+
+    .post-meta { flex: 1; min-width: 0; }
+    .post-btn-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+    .post-btn-date {
+      font-size: 11px;
+      color: rgba(250, 252, 255, 0.38);
+      font-weight: 600;
+    }
+
+    /* Content area */
+    .content-wrap {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .content-wrap::-webkit-scrollbar { width: 5px; }
+    .content-wrap::-webkit-scrollbar-track { background: transparent; }
+    .content-wrap::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.09); border-radius: 3px; }
+
+    .content-inner {
+      padding: 52px clamp(24px, 5vw, 80px) 80px;
+      max-width: 820px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Empty state */
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+      gap: 20px;
+    }
+    .empty-tri {
+      width: 72px;
+      height: 0;
+      border-left: 36px solid transparent;
+      border-right: 36px solid transparent;
+      border-bottom: 62px solid var(--poly);
+      opacity: 0.45;
+      filter: drop-shadow(0 8px 18px rgba(90, 214, 255, 0.3));
+      animation: idleFloat 3.5s ease-in-out infinite;
+    }
+    .empty-heading {
+      font-family: "Fredoka", sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(250, 252, 255, 0.3);
+    }
+    .empty-sub {
+      font-size: 14px;
+      color: rgba(250, 252, 255, 0.2);
+      font-weight: 600;
+    }
+
+    /* Post view */
+    #postView { display: none; }
+
+    .post-day-label {
+      font-family: "Fredoka", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: none;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .post-heading {
+      font-family: "Fredoka", sans-serif;
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .post-meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeUp 0.4s ease 0.05s both;
+      flex-wrap: wrap;
+    }
+    .post-meta-date {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(250, 252, 255, 0.38);
+    }
+    .post-nav-btns {
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+    }
+    .post-nav-btn {
+      font-family: "Fredoka", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(250, 252, 255, 0.55);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 5px 12px;
+      cursor: none;
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .post-nav-btn:hover {
+      color: var(--white);
+      background: rgba(90, 214, 255, 0.1);
+      border-color: rgba(90, 214, 255, 0.3);
+    }
+    .post-nav-btn:disabled, .post-nav-btn.disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* Post body typography */
+    .post-body {
+      line-height: 1.88;
+      font-size: 16px;
+      color: rgba(250, 252, 255, 0.8);
+      animation: fadeUp 0.5s ease 0.1s both;
+    }
+    .post-body h1,
+    .post-body h2,
+    .post-body h3,
+    .post-body h4 {
+      font-family: "Fredoka", sans-serif;
+      color: var(--white);
+      margin: 1.8em 0 0.55em;
+      line-height: 1.2;
+    }
+    .post-body h2 { font-size: 1.65em; }
+    .post-body h3 { font-size: 1.35em; color: var(--poly); }
+    .post-body h4 { font-size: 1.1em; color: var(--lime); }
+    .post-body p { margin-bottom: 1.15em; }
+    .post-body a {
+      color: var(--poly);
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(90, 214, 255, 0.4);
+    }
+    .post-body a:hover { text-decoration-color: var(--poly); }
+    .post-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 14px;
+      margin: 1.5em 0;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      display: block;
+    }
+    .post-body ul,
+    .post-body ol {
+      padding-left: 1.6em;
+      margin-bottom: 1.15em;
+    }
+    .post-body li { margin-bottom: 0.35em; }
+    .post-body strong { color: var(--white); font-weight: 800; }
+    .post-body em { color: rgba(250, 252, 255, 0.75); }
+    .post-body blockquote {
+      border-left: 3px solid var(--poly);
+      padding: 6px 0 6px 20px;
+      margin: 1.5em 0;
+      color: rgba(250, 252, 255, 0.6);
+      font-style: italic;
+      background: rgba(90, 214, 255, 0.04);
+      border-radius: 0 8px 8px 0;
+    }
+    .post-body code {
+      background: rgba(90, 214, 255, 0.1);
+      color: var(--poly);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 0.87em;
+      font-family: ui-monospace, monospace;
+    }
+    .post-body pre {
+      background: rgba(0, 0, 0, 0.38);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px 22px;
+      overflow-x: auto;
+      margin: 1.5em 0;
+    }
+    .post-body pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      color: rgba(250, 252, 255, 0.85);
+    }
+    .post-body hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 2em 0;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      body { overflow: hidden; cursor: auto; }
+      #cursor { display: none; }
+
+      nav { padding: 0 16px; }
+      .blog-badge { font-size: 12px; padding: 3px 10px; }
+
+      .mobile-menu-btn { display: flex; }
+      .mobile-overlay { display: block; }
 
       .sidebar {
-        border-right: 1px solid #242833;
-        padding: 24px;
-        background: #141823;
-        overflow-y: auto;
+        position: fixed;
+        left: 0;
+        top: var(--nav-h);
+        bottom: 0;
+        width: min(300px, 85vw);
+        z-index: 90;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+        border-right: none;
+        box-shadow: none;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 6px 0 40px rgba(0, 0, 0, 0.6);
       }
 
-      .sidebar h1 {
-        font-size: 1.25rem;
-        margin: 0 0 16px;
-      }
+      .search-input { cursor: auto; }
+      .post-btn { cursor: pointer; }
+      .post-nav-btn { cursor: pointer; }
 
-      .post-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        gap: 8px;
-      }
+      .content-inner { padding: 28px 18px 60px; }
+      .post-meta-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .post-nav-btns { margin-left: 0; }
+    }
 
-      .post-item button {
-        width: 100%;
-        text-align: left;
-        padding: 12px 14px;
-        border: 1px solid #2a2f3a;
-        border-radius: 10px;
-        background: #191e2b;
-        color: inherit;
-        cursor: pointer;
-        transition: border-color 0.2s ease, background 0.2s ease;
-      }
+    @media (max-width: 480px) {
+      .sidebar-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <div class="bg-shapes" id="bgShapes"></div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
 
-      .post-item button:hover {
-        border-color: #3a4252;
-        background: #1f2535;
-      }
-
-      .post-item button[aria-pressed="true"] {
-        border-color: #7c92ff;
-        background: #20284a;
-      }
-
-      .post-title {
-        font-weight: 600;
-        display: block;
-        margin-bottom: 6px;
-      }
-
-      .post-date {
-        font-size: 0.85rem;
-        color: #b8c0d4;
-      }
-
-      .content {
-        padding: 32px clamp(24px, 4vw, 64px);
-        overflow-y: auto;
-      }
-
-      .content h2 {
-        margin-top: 0;
-      }
-
-      .content .placeholder {
-        color: #b8c0d4;
-        font-style: italic;
-      }
-
-      .content img {
-        max-width: 100%;
-        height: auto;
-      }
-
-      @media (max-width: 900px) {
-        .page {
-          grid-template-columns: 1fr;
-        }
-
-        .sidebar {
-          border-right: none;
-          border-bottom: 1px solid #242833;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <aside class="sidebar">
-        <h1>100 Days Blog</h1>
-        <ul id="post-list" class="post-list"></ul>
-      </aside>
-      <main class="content">
-        <h2 id="post-heading">Select a post</h2>
-        <div id="post-content" class="placeholder">
-          Choose a post from the list to view it here.
-        </div>
-      </main>
+  <nav>
+    <div class="nav-left">
+      <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
+      </a>
+      <div class="nav-divider"></div>
+      <a href="/#polyfury" class="nlink">← Back</a>
     </div>
+    <div class="nav-right">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Browse posts">
+        <div class="menu-icon"><span></span><span></span><span></span></div>
+        Posts
+      </button>
+      <span class="blog-badge">100 Days Blog</span>
+    </div>
+  </nav>
 
-    <script>
-      const listEl = document.getElementById("post-list");
-      const headingEl = document.getElementById("post-heading");
-      const contentEl = document.getElementById("post-content");
+  <div class="page-wrap">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">100 Days of Dev</div>
+        <div class="sidebar-sub">Polyfury devlog</div>
+      </div>
+      <div class="sidebar-search">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search posts…" autocomplete="off">
+      </div>
+      <ul id="postList" class="post-list" role="listbox" aria-label="Blog posts"></ul>
+    </aside>
 
-      const formatDate = (value) => {
-        const date = new Date(value);
-        if (Number.isNaN(date.getTime())) return value ?? "";
-        return date.toLocaleDateString(undefined, {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
+    <main class="content-wrap" id="contentWrap">
+      <div class="content-inner">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-tri"></div>
+          <div class="empty-heading">Pick a day to read</div>
+          <div class="empty-sub">Choose any entry from the sidebar to get started</div>
+        </div>
+
+        <div id="postView">
+          <div class="post-day-label" id="postDayLabel"></div>
+          <h1 class="post-heading" id="postHeading"></h1>
+          <div class="post-meta-bar">
+            <span class="post-meta-date" id="postMetaDate"></span>
+            <div class="post-nav-btns">
+              <button class="post-nav-btn disabled" id="prevBtn" aria-label="Previous post">← Prev</button>
+              <button class="post-nav-btn disabled" id="nextBtn" aria-label="Next post">Next →</button>
+            </div>
+          </div>
+          <div class="post-body" id="postBody"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /* ── Custom cursor ── */
+    const cur = document.getElementById("cursor");
+    document.addEventListener("mousemove", e => {
+      cur.style.left = e.clientX + "px";
+      cur.style.top = e.clientY + "px";
+    });
+
+    /* ── Background shapes ── */
+    const bgEl = document.getElementById("bgShapes");
+    const shapeCols = ["#5AD6FF", "#FF8A66", "#B693FF"];
+    const shapeTypes = ["circle", "square", "triangle"];
+    for (let i = 0; i < 16; i++) {
+      const d = document.createElement("div");
+      const size = Math.random() * 34 + 15;
+      const col = shapeCols[Math.floor(Math.random() * shapeCols.length)];
+      const t = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+      d.style.cssText =
+        `position:absolute;left:${Math.random()*100}%;top:${Math.random()*100}%;` +
+        `width:${size}px;height:${size}px;background:${col};` +
+        `opacity:${Math.random()*0.07+0.02};` +
+        (t === "circle" ? "border-radius:50%;" : "") +
+        (t === "square" ? "border-radius:6px;" : "") +
+        (t === "triangle" ? "clip-path:polygon(50% 0%,0% 100%,100% 100%);" : "") +
+        `animation:float${(i%3)+1} ${Math.random()*6+5}s ease-in-out ${Math.random()*-8}s infinite;`;
+      bgEl.appendChild(d);
+    }
+
+    /* ── Mobile sidebar toggle ── */
+    const sidebar   = document.getElementById("sidebar");
+    const overlay   = document.getElementById("mobileOverlay");
+    const menuBtn   = document.getElementById("mobileMenuBtn");
+
+    const openSidebar  = () => { sidebar.classList.add("open"); overlay.classList.add("active"); };
+    const closeSidebar = () => { sidebar.classList.remove("open"); overlay.classList.remove("active"); };
+
+    menuBtn.addEventListener("click", () => sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
+    overlay.addEventListener("click", closeSidebar);
+
+    /* ── Blog logic ── */
+    const listEl        = document.getElementById("postList");
+    const emptyState    = document.getElementById("emptyState");
+    const postView      = document.getElementById("postView");
+    const postDayLabel  = document.getElementById("postDayLabel");
+    const postHeading   = document.getElementById("postHeading");
+    const postMetaDate  = document.getElementById("postMetaDate");
+    const postBody      = document.getElementById("postBody");
+    const prevBtn       = document.getElementById("prevBtn");
+    const nextBtn       = document.getElementById("nextBtn");
+    const contentWrap   = document.getElementById("contentWrap");
+    const searchInput   = document.getElementById("searchInput");
+
+    const formatDate = v => {
+      const d = new Date(v);
+      return isNaN(d.getTime()) ? (v ?? "") : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    };
+
+    const slugify = v => (v || "untitled").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+    const buildId = (post, i) => {
+      const dp = post.pubDate ? new Date(post.pubDate).toISOString().slice(0, 10) : "";
+      return `${slugify(post.title)}-${i}-${dp}`;
+    };
+
+    const extractDay = title => {
+      const m = (title || "").match(/day\s*(\d+)/i);
+      return m ? parseInt(m[1], 10) : null;
+    };
+
+    const dayBadgeRange = n => {
+      if (n === null) return "range-a";
+      if (n <= 33) return "range-a";
+      if (n <= 66) return "range-b";
+      return "range-c";
+    };
+
+    const dayColor = n => {
+      if (n === null) return "var(--poly)";
+      if (n <= 33) return "var(--poly)";
+      if (n <= 66) return "var(--lime)";
+      return "var(--lav)";
+    };
+
+    let sortedPosts = [];
+    let postMap = new Map();
+    let currentIndex = -1;
+
+    const setNavBtns = () => {
+      prevBtn.classList.toggle("disabled", currentIndex <= 0);
+      nextBtn.classList.toggle("disabled", currentIndex >= sortedPosts.length - 1);
+    };
+
+    const triggerAnimation = el => {
+      el.style.animation = "none";
+      requestAnimationFrame(() => { el.style.animation = ""; });
+    };
+
+    const renderPost = (post, index) => {
+      currentIndex = index;
+      const day = extractDay(post.title);
+
+      postDayLabel.textContent = day ? `Day ${day}` : "";
+      postDayLabel.style.display = day ? "block" : "none";
+      postDayLabel.style.color = dayColor(day);
+
+      const cleanTitle = (post.title || "Untitled").replace(/^day\s*\d+\s*[:\-–—]\s*/i, "");
+      postHeading.textContent = cleanTitle || post.title || "Untitled";
+      postMetaDate.textContent = formatDate(post.pubDate);
+      postBody.innerHTML = post.content || "<p>No content available.</p>";
+
+      emptyState.style.display = "none";
+      postView.style.display = "block";
+
+      triggerAnimation(postDayLabel);
+      triggerAnimation(postHeading);
+      triggerAnimation(postBody);
+
+      setNavBtns();
+
+      listEl.querySelectorAll(".post-btn").forEach((btn, i) => {
+        btn.setAttribute("aria-pressed", i === index ? "true" : "false");
+      });
+
+      const url = new URL(window.location.href);
+      url.hash = `post-${buildId(post, index)}`;
+      window.history.replaceState(null, "", url);
+
+      contentWrap.scrollTo({ top: 0, behavior: "smooth" });
+      closeSidebar();
+    };
+
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) renderPost(sortedPosts[currentIndex - 1], currentIndex - 1);
+    });
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < sortedPosts.length - 1) renderPost(sortedPosts[currentIndex + 1], currentIndex + 1);
+    });
+
+    searchInput.addEventListener("input", () => {
+      const q = searchInput.value.toLowerCase().trim();
+      listEl.querySelectorAll("li").forEach(li => {
+        const t = li.querySelector(".post-btn-title")?.textContent?.toLowerCase() ?? "";
+        li.style.display = !q || t.includes(q) ? "" : "none";
+      });
+    });
+
+    fetch("/road-to-release.json")
+      .then(res => { if (!res.ok) throw new Error("Failed to load posts."); return res.json(); })
+      .then(posts => {
+        sortedPosts = [...posts].sort((a, b) => new Date(a.pubDate) - new Date(b.pubDate));
+
+        sortedPosts.forEach((post, index) => {
+          const day = extractDay(post.title);
+          const postId = buildId(post, index);
+          postMap.set(postId, { post, index });
+
+          const item   = document.createElement("li");
+          const button = document.createElement("button");
+          button.className = "post-btn";
+          button.type = "button";
+          button.setAttribute("aria-pressed", "false");
+          button.setAttribute("role", "option");
+          button.dataset.postId = postId;
+
+          const badge = document.createElement("div");
+          badge.className = `day-badge ${dayBadgeRange(day)}`;
+          badge.textContent = day !== null ? day : (index + 1);
+
+          const meta = document.createElement("div");
+          meta.className = "post-meta";
+
+          const titleEl = document.createElement("span");
+          titleEl.className = "post-btn-title";
+          const clean = (post.title || "Untitled").replace(/^day\s*\d+\s*[:\-–—]\s*/i, "");
+          titleEl.textContent = clean || post.title || "Untitled";
+
+          const dateEl = document.createElement("span");
+          dateEl.className = "post-btn-date";
+          dateEl.textContent = formatDate(post.pubDate);
+
+          meta.append(titleEl, dateEl);
+          button.append(badge, meta);
+          button.addEventListener("click", () => renderPost(post, index));
+
+          item.appendChild(button);
+          listEl.appendChild(item);
         });
-      };
 
-      const setActiveButton = (activeButton) => {
-        listEl.querySelectorAll("button").forEach((button) => {
-          button.setAttribute(
-            "aria-pressed",
-            button === activeButton ? "true" : "false",
-          );
-        });
-      };
-
-      const renderPost = (post, button) => {
-        headingEl.textContent = post.title || "Untitled";
-        contentEl.classList.remove("placeholder");
-        contentEl.innerHTML = post.content || "";
-        if (button) setActiveButton(button);
-      };
-
-      const slugify = (value) => {
-        return (value || "untitled")
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)+/g, "");
-      };
-
-      const buildPostId = (post, index) => {
-        const datePart = post.pubDate ? new Date(post.pubDate).toISOString() : "";
-        return `${slugify(post.title)}-${index}-${datePart.slice(0, 10)}`;
-      };
-
-      fetch("/road-to-release.json")
-        .then((response) => {
-          if (!response.ok) throw new Error("Failed to load posts.");
-          return response.json();
-        })
-        .then((posts) => {
-          const sortedPosts = [...posts].sort((a, b) => {
-            return new Date(a.pubDate) - new Date(b.pubDate);
-          });
-
-          const postMap = new Map();
-
-          sortedPosts.forEach((post, index) => {
-            const postId = buildPostId(post, index);
-            postMap.set(postId, post);
-
-            const item = document.createElement("li");
-            item.className = "post-item";
-
-            const button = document.createElement("button");
-            button.type = "button";
-            button.setAttribute("aria-pressed", "false");
-            button.dataset.postId = postId;
-
-            const title = document.createElement("span");
-            title.className = "post-title";
-            title.textContent = post.title || "Untitled";
-
-            const date = document.createElement("span");
-            date.className = "post-date";
-            date.textContent = formatDate(post.pubDate);
-
-            button.append(title, date);
-            button.addEventListener("click", () => {
-              const url = new URL(window.location.href);
-              url.hash = `post-${postId}`;
-              window.history.replaceState(null, "", url);
-              renderPost(post, button);
-            });
-
-            item.appendChild(button);
-            listEl.appendChild(item);
-          });
-
-          const hash = window.location.hash.replace(/^#/, "");
-          if (hash.startsWith("post-")) {
-            const postId = hash.slice("post-".length);
-            const post = postMap.get(postId);
-            const button = listEl.querySelector(
-              `button[data-post-id="${postId}"]`,
-            );
-            if (post && button) {
-              renderPost(post, button);
-            }
-          }
-        })
-        .catch((error) => {
-          headingEl.textContent = "Unable to load posts";
-          contentEl.classList.remove("placeholder");
-          contentEl.textContent = error?.message ?? "Unexpected error.";
-        });
-    </script>
-  </body>
+        const hash = window.location.hash.replace(/^#/, "");
+        if (hash.startsWith("post-")) {
+          const postId = hash.slice("post-".length);
+          const entry = postMap.get(postId);
+          if (entry) renderPost(entry.post, entry.index);
+        }
+      })
+      .catch(err => {
+        emptyState.querySelector(".empty-heading").textContent = "Couldn't load posts";
+        emptyState.querySelector(".empty-sub").textContent = err?.message ?? "Unexpected error.";
+      });
+  </script>
+</body>
 </html>

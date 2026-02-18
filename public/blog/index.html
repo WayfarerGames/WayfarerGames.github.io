@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Wayfarer Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root { --bg:#141226; --poly:#5AD6FF; --lime:#FF8A66; --lav:#B693FF; --white:#FAFCFF; --nav-h:62px; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html, body { height:100%; }
+    body { background:var(--bg); color:var(--white); font-family:"Nunito",sans-serif; overflow:hidden; cursor:none; display:flex; flex-direction:column; }
+    #cursor { position:fixed; width:26px; height:26px; border-radius:50%; background:var(--lime); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+    .bg-shapes { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    @keyframes float1 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(22px,-34px) rotate(180deg)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-22px,-30px) rotate(-150deg)} }
+    @keyframes float3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(22px,-28px) scale(1.12)} }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+    nav { position:sticky; top:0; z-index:100; padding:0 34px; height:var(--nav-h); display:flex; justify-content:space-between; align-items:center; gap:12px; background:rgba(20,18,38,.92); backdrop-filter:blur(16px); border-bottom:2px solid rgba(255,138,102,.15); flex-shrink:0; }
+    .nav-left { display:flex; align-items:center; gap:12px; }
+    .nav-divider { width:1px; height:20px; background:rgba(255,255,255,.12); }
+    .blog-badge { font-family:"Fredoka",sans-serif; font-size:14px; font-weight:600; color:var(--poly); background:rgba(90,214,255,.11); border:1.5px solid rgba(90,214,255,.28); padding:4px 13px; border-radius:999px; white-space:nowrap; }
+    .nav-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .nlink { font-family:"Fredoka",sans-serif; font-size:15px; font-weight:600; color:rgba(250,252,255,.65); text-decoration:none; padding:5px 10px; border-radius:8px; transition:.2s; }
+    .nlink:hover { color:var(--white); background:rgba(255,255,255,.06); }
+    .mobile-menu-btn { display:none; align-items:center; gap:6px; font-family:"Fredoka",sans-serif; font-size:14px; font-weight:600; color:rgba(250,252,255,.75); background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); border-radius:8px; padding:6px 13px; cursor:pointer; transition:.2s; }
+    .mobile-menu-btn:hover { background:rgba(90,214,255,.1); border-color:rgba(90,214,255,.3); color:var(--poly); }
+    .menu-icon { display:flex; flex-direction:column; gap:3.5px; width:16px; }
+    .menu-icon span { display:block; height:2px; background:currentColor; border-radius:1px; }
+    .pill { display:inline-flex; align-items:center; font-family:"Fredoka",sans-serif; font-weight:600; font-size:13px; line-height:1; text-decoration:none; padding:9px 16px; border-radius:999px; transition:.2s; border:0; }
+    .pill:hover { transform:translateY(-1px) scale(1.02); }
+    .pill-lime { background:var(--lime); color:var(--bg); }
+    .pill-out { background:transparent; color:var(--white); border:2px solid rgba(255,255,255,.25); }
+    .pill-out:hover { border-color:var(--poly); color:var(--poly); }
+
+    .page-wrap { flex:1; display:flex; overflow:hidden; position:relative; z-index:1; }
+    .mobile-overlay { display:none; position:fixed; inset:0; top:var(--nav-h); background:rgba(0,0,0,.55); z-index:88; opacity:0; pointer-events:none; transition:opacity .28s; }
+    .mobile-overlay.active { opacity:1; pointer-events:all; }
+    .sidebar { width:340px; flex-shrink:0; border-right:2px solid rgba(255,138,102,.12); background:rgba(10,9,22,.65); display:flex; flex-direction:column; overflow:hidden; backdrop-filter:blur(8px); }
+    .sidebar-head { padding:20px 18px 16px; border-bottom:1px solid rgba(255,255,255,.06); }
+    .sidebar-title { font-family:"Fredoka",sans-serif; font-size:24px; font-weight:700; margin-bottom:4px; line-height:1; }
+    .sidebar-sub { font-size:11px; font-weight:700; color:rgba(250,252,255,.35); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
+
+    .sidebar-tools { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.05); display:flex; flex-direction:column; gap:8px; }
+    .search-input { width:100%; background:rgba(255,255,255,.05); border:1.5px solid rgba(255,255,255,.09); border-radius:10px; padding:8px 14px; color:var(--white); font-family:"Nunito",sans-serif; font-size:13px; font-weight:600; outline:none; transition:border-color .2s; cursor:none; }
+    .search-input::placeholder { color:rgba(250,252,255,.3); }
+    .search-input:focus { border-color:rgba(90,214,255,.45); }
+    .post-count { font-family:"Fredoka",sans-serif; font-size:12px; color:var(--poly); letter-spacing:.5px; }
+
+    .post-list { list-style:none; overflow-y:auto; flex:1; padding:10px; display:flex; flex-direction:column; gap:6px; }
+    .post-list::-webkit-scrollbar { width:4px; }
+    .post-list::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:2px; }
+    .post-btn { width:100%; text-align:left; padding:10px 12px; border:1.5px solid rgba(255,255,255,.07); border-radius:12px; background:rgba(255,255,255,.025); color:var(--white); cursor:none; transition:all .2s; display:flex; align-items:center; gap:10px; }
+    .post-btn:hover { border-color:rgba(90,214,255,.28); background:rgba(90,214,255,.06); transform:translateX(3px); }
+    .post-btn[aria-pressed="true"] { border-color:rgba(90,214,255,.48); background:rgba(90,214,255,.1); box-shadow:0 4px 18px rgba(90,214,255,.12); }
+    .dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; background:var(--poly); box-shadow:0 0 0 4px rgba(90,214,255,.12); }
+    .post-meta { min-width:0; flex:1; }
+    .post-title { display:block; font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
+    .post-info { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:11px; color:rgba(250,252,255,.42); font-weight:600; }
+
+    .content-wrap { flex:1; overflow-y:auto; display:flex; flex-direction:column; }
+    .content-wrap::-webkit-scrollbar { width:5px; }
+    .content-wrap::-webkit-scrollbar-thumb { background:rgba(255,255,255,.09); border-radius:3px; }
+    .content-inner { padding:46px clamp(24px,5vw,84px) 80px; max-width:860px; width:100%; margin:0 auto; flex:1; display:flex; flex-direction:column; }
+
+    .empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:20px; padding:30px; }
+    .empty-tri { width:72px; height:0; border-left:36px solid transparent; border-right:36px solid transparent; border-bottom:62px solid var(--poly); opacity:.46; filter:drop-shadow(0 8px 18px rgba(90,214,255,.3)); }
+    .empty-title { font-family:"Fredoka",sans-serif; font-size:30px; font-weight:700; color:rgba(250,252,255,.38); }
+    .empty-sub { font-size:15px; color:rgba(250,252,255,.24); font-weight:700; max-width:520px; line-height:1.6; }
+
+    #postView { display:none; }
+    .post-kicker { font-family:"Fredoka",sans-serif; font-size:13px; font-weight:600; letter-spacing:2.2px; text-transform:uppercase; margin-bottom:10px; color:var(--poly); animation:fadeUp .4s ease both; }
+    .post-heading { font-family:"Fredoka",sans-serif; font-size:clamp(30px,5vw,52px); line-height:1.1; margin-bottom:12px; animation:fadeUp .4s ease both; }
+    .post-meta-bar { display:flex; align-items:center; gap:12px; margin-bottom:30px; padding-bottom:24px; border-bottom:1px solid rgba(255,255,255,.08); animation:fadeUp .4s ease .05s both; flex-wrap:wrap; }
+    .post-date { font-size:13px; font-weight:700; color:rgba(250,252,255,.45); }
+    .post-source { font-size:12px; font-weight:700; color:rgba(250,252,255,.3); }
+    .post-nav { margin-left:auto; display:flex; gap:6px; }
+    .nav-btn { font-family:"Fredoka",sans-serif; font-size:13px; font-weight:600; color:rgba(250,252,255,.55); background:rgba(255,255,255,.05); border:1.5px solid rgba(255,255,255,.1); border-radius:8px; padding:5px 12px; cursor:none; transition:.2s; }
+    .nav-btn:hover { color:var(--white); background:rgba(90,214,255,.1); border-color:rgba(90,214,255,.3); }
+    .nav-btn:disabled { opacity:.25; pointer-events:none; }
+
+    .post-body { line-height:1.88; font-size:16px; color:rgba(250,252,255,.8); animation:fadeUp .5s ease .1s both; }
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 { font-family:"Fredoka",sans-serif; color:var(--white); margin:1.8em 0 .55em; line-height:1.2; }
+    .post-body h2 { font-size:1.65em; }
+    .post-body h3 { font-size:1.35em; color:var(--poly); }
+    .post-body h4 { font-size:1.1em; color:var(--lime); }
+    .post-body p { margin-bottom:1.15em; }
+    .post-body a { color:var(--poly); text-underline-offset:3px; text-decoration-color:rgba(90,214,255,.4); }
+    .post-body a:hover { text-decoration-color:var(--poly); }
+    .post-body ul, .post-body ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .post-body li { margin-bottom:.35em; }
+    .post-body blockquote { border-left:3px solid var(--poly); padding:6px 0 6px 20px; margin:1.5em 0; color:rgba(250,252,255,.6); font-style:italic; background:rgba(90,214,255,.04); border-radius:0 8px 8px 0; }
+    .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
+    .post-body pre code { background:none; padding:0; border-radius:0; color:rgba(250,252,255,.85); }
+    .post-body hr { border:none; border-top:1px solid rgba(255,255,255,.08); margin:2em 0; }
+
+    @media (max-width: 920px) {
+      body { cursor:auto; }
+      #cursor { display:none; }
+      nav { padding:0 14px; }
+      .sidebar { width:min(300px, 46vw); }
+      .search-input, .post-btn, .nav-btn { cursor:pointer; }
+      .post-meta-bar { flex-direction:column; align-items:flex-start; gap:8px; }
+      .post-nav { margin-left:0; }
+    }
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display:flex; }
+      .mobile-overlay { display:block; }
+      .sidebar {
+        position:fixed;
+        left:0;
+        top:var(--nav-h);
+        bottom:0;
+        width:min(320px, 85vw);
+        z-index:90;
+        transform:translateX(-100%);
+        transition:transform .3s cubic-bezier(.4,0,.2,1);
+        border-right:none;
+        box-shadow:none;
+      }
+      .sidebar.open { transform:translateX(0); box-shadow:6px 0 40px rgba(0,0,0,.6); }
+      .search-input, .post-btn, .nav-btn, .mobile-menu-btn { cursor:pointer; }
+      .content-inner { padding:28px 18px 60px; }
+      .blog-badge { font-size:12px; padding:3px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <div class="bg-shapes" id="bgShapes"></div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <nav>
+    <div class="nav-left">
+      <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
+      </a>
+      <div class="nav-divider"></div>
+      <span class="blog-badge">Blog</span>
+    </div>
+    <div class="nav-right">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Browse posts">
+        <div class="menu-icon"><span></span><span></span><span></span></div>
+        Posts
+      </button>
+      <a href="/100-days-blog/" class="nlink">100 Days</a>
+      <a href="/#polyfury" class="nlink">Back Home</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-title">Blog Posts</div>
+        <div class="sidebar-sub">Latest updates</div>
+      </div>
+      <div class="sidebar-tools">
+        <input type="search" class="search-input" id="searchInput" placeholder="Search posts..." autocomplete="off">
+        <div class="post-count" id="postCount">0 posts loaded</div>
+      </div>
+      <ul class="post-list" id="postList" role="listbox" aria-label="Markdown posts"></ul>
+    </aside>
+
+    <main class="content-wrap" id="contentWrap">
+      <div class="content-inner">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-tri"></div>
+          <div class="empty-title">No posts yet</div>
+          <div class="empty-sub">New entries will show up here soon.</div>
+        </div>
+
+        <article id="postView">
+          <div class="post-kicker">Preview</div>
+          <h1 class="post-heading" id="postHeading"></h1>
+          <div class="post-meta-bar">
+            <span class="post-date" id="postDate"></span>
+            <div class="post-nav">
+              <button class="nav-btn" id="prevBtn" type="button">← Prev</button>
+              <button class="nav-btn" id="nextBtn" type="button">Next →</button>
+            </div>
+          </div>
+          <div class="post-body" id="postBody"></div>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const cur = document.getElementById("cursor");
+    document.addEventListener("mousemove", (e) => {
+      cur.style.left = e.clientX + "px";
+      cur.style.top = e.clientY + "px";
+    });
+
+    const bgEl = document.getElementById("bgShapes");
+    const shapeCols = ["#5AD6FF", "#FF8A66", "#B693FF"];
+    const shapeTypes = ["circle", "square", "triangle"];
+    for (let i = 0; i < 16; i++) {
+      const d = document.createElement("div");
+      const size = Math.random() * 34 + 15;
+      const col = shapeCols[Math.floor(Math.random() * shapeCols.length)];
+      const t = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+      d.style.cssText =
+        `position:absolute;left:${Math.random() * 100}%;top:${Math.random() * 100}%;` +
+        `width:${size}px;height:${size}px;background:${col};opacity:${Math.random() * 0.07 + 0.02};` +
+        (t === "circle" ? "border-radius:50%;" : "") +
+        (t === "square" ? "border-radius:6px;" : "") +
+        (t === "triangle" ? "clip-path:polygon(50% 0%,0% 100%,100% 100%);" : "") +
+        `animation:float${(i % 3) + 1} ${Math.random() * 6 + 5}s ease-in-out ${Math.random() * -8}s infinite;`;
+      bgEl.appendChild(d);
+    }
+
+    const searchInput = document.getElementById("searchInput");
+    const postCount = document.getElementById("postCount");
+    const postList = document.getElementById("postList");
+    const emptyState = document.getElementById("emptyState");
+    const postView = document.getElementById("postView");
+    const postHeading = document.getElementById("postHeading");
+    const postDate = document.getElementById("postDate");
+    const postBody = document.getElementById("postBody");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const contentWrap = document.getElementById("contentWrap");
+    const sidebar = document.getElementById("sidebar");
+    const mobileOverlay = document.getElementById("mobileOverlay");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const openSidebar = () => {
+      sidebar.classList.add("open");
+      mobileOverlay.classList.add("active");
+    };
+
+    const closeSidebar = () => {
+      sidebar.classList.remove("open");
+      mobileOverlay.classList.remove("active");
+    };
+
+    mobileMenuBtn.addEventListener("click", () => {
+      if (sidebar.classList.contains("open")) closeSidebar();
+      else openSidebar();
+    });
+    mobileOverlay.addEventListener("click", closeSidebar);
+
+
+    marked.setOptions({ gfm: true, breaks: false });
+
+    const parseFrontMatter = (content) => {
+      const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+      if (!match) return { meta: {}, body: content };
+      const raw = match[1];
+      const meta = {};
+      raw.split("\n").forEach((line) => {
+        const idx = line.indexOf(":");
+        if (idx > 0) {
+          const key = line.slice(0, idx).trim().toLowerCase();
+          const value = line.slice(idx + 1).trim();
+          if (key) meta[key] = value;
+        }
+      });
+      return { meta, body: content.slice(match[0].length) };
+    };
+
+    const humanDate = (value) => {
+      if (!value) return "";
+      const d = new Date(value);
+      return Number.isNaN(d.getTime())
+        ? value
+        : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    };
+
+    const titleFromBody = (body, fallback) => {
+      const h1 = body.match(/^#\s+(.+)$/m);
+      return (h1 && h1[1] ? h1[1].trim() : fallback).replace(/\.(md|markdown|txt)$/i, "");
+    };
+
+    const dotToneByIndex = (index) => {
+      if (index % 3 === 0) return { color: "var(--poly)", glow: "rgba(90,214,255,.2)" };
+      if (index % 3 === 1) return { color: "var(--lime)", glow: "rgba(255,138,102,.2)" };
+      return { color: "var(--lav)", glow: "rgba(182,147,255,.2)" };
+    };
+
+    let allPosts = [];
+    let filteredPosts = [];
+    let currentIndex = -1;
+
+    const updateNavButtons = () => {
+      prevBtn.disabled = currentIndex <= 0;
+      nextBtn.disabled = currentIndex === -1 || currentIndex >= filteredPosts.length - 1;
+    };
+
+    const renderPost = (index) => {
+      const post = filteredPosts[index];
+      if (!post) return;
+      currentIndex = index;
+      postHeading.textContent = post.title || "Untitled";
+      postDate.textContent = post.date ? humanDate(post.date) : "No date";
+      postBody.innerHTML = post.html || "<p>No content available.</p>";
+      emptyState.style.display = "none";
+      postView.style.display = "block";
+      updateNavButtons();
+      postList.querySelectorAll(".post-btn").forEach((btn, i) => {
+        btn.setAttribute("aria-pressed", i === index ? "true" : "false");
+      });
+      contentWrap.scrollTo({ top: 0, behavior: "smooth" });
+      closeSidebar();
+    };
+
+    const renderList = () => {
+      postList.innerHTML = "";
+      filteredPosts.forEach((post, index) => {
+        const li = document.createElement("li");
+        const button = document.createElement("button");
+        const dot = document.createElement("span");
+        const meta = document.createElement("span");
+        const title = document.createElement("span");
+        const info = document.createElement("span");
+        const date = document.createElement("span");
+
+        button.type = "button";
+        button.className = "post-btn";
+        button.setAttribute("aria-pressed", "false");
+
+        dot.className = "dot";
+        const tone = dotToneByIndex(index);
+        dot.style.background = tone.color;
+        dot.style.boxShadow = `0 0 0 4px ${tone.glow}`;
+
+        meta.className = "post-meta";
+        title.className = "post-title";
+        title.textContent = post.title || "Untitled";
+        info.className = "post-info";
+        date.textContent = humanDate(post.date) || "No date";
+
+        info.append(date);
+        meta.append(title, info);
+        button.append(dot, meta);
+        button.addEventListener("click", () => renderPost(index));
+        li.appendChild(button);
+        postList.appendChild(li);
+      });
+
+      postCount.textContent = `${filteredPosts.length} ${filteredPosts.length === 1 ? "post" : "posts"} loaded`;
+
+      if (!filteredPosts.length) {
+        postView.style.display = "none";
+        emptyState.style.display = "flex";
+        currentIndex = -1;
+        updateNavButtons();
+      } else if (currentIndex === -1 || currentIndex >= filteredPosts.length) {
+        renderPost(0);
+      } else {
+        renderPost(currentIndex);
+      }
+    };
+
+    const filterPosts = () => {
+      const query = searchInput.value.trim().toLowerCase();
+      filteredPosts = !query
+        ? [...allPosts]
+        : allPosts.filter((post) =>
+            post.title.toLowerCase().includes(query) ||
+            post.fileName.toLowerCase().includes(query) ||
+            post.raw.toLowerCase().includes(query)
+          );
+      currentIndex = -1;
+      renderList();
+    };
+
+    const parseMarkdownText = (raw, fileName) => {
+      const { meta, body } = parseFrontMatter(raw);
+      const title = meta.title || titleFromBody(body, fileName);
+      return {
+        id: `${fileName}-${Math.random().toString(36).slice(2, 9)}`,
+        fileName,
+        title,
+        date: meta.date || "",
+        summary: meta.summary || "",
+        raw,
+        html: marked.parse(body)
+      };
+    };
+
+    const sortPosts = (a, b) => {
+      const ad = a.date ? new Date(a.date).getTime() : 0;
+      const bd = b.date ? new Date(b.date).getTime() : 0;
+      if (ad !== bd) return bd - ad;
+      return a.title.localeCompare(b.title);
+    };
+
+    const normalizeManifest = (payload) => {
+      if (!Array.isArray(payload)) return [];
+      return payload
+        .map((entry) => {
+          if (typeof entry === "string") return { file: entry };
+          if (entry && typeof entry.file === "string") return entry;
+          return null;
+        })
+        .filter(Boolean);
+    };
+
+    const loadPosts = async () => {
+      try {
+        const manifestRes = await fetch("/blog/posts/posts.json", { cache: "no-store" });
+        if (!manifestRes.ok) throw new Error("Could not load posts manifest.");
+        const manifestData = await manifestRes.json();
+        const manifest = normalizeManifest(manifestData);
+        if (!manifest.length) throw new Error("No markdown files listed in posts.json.");
+
+        const postRequests = manifest.map(async (entry) => {
+          const filePath = `/blog/posts/${entry.file}`;
+          const postRes = await fetch(filePath, { cache: "no-store" });
+          if (!postRes.ok) throw new Error(`Could not load ${entry.file}.`);
+          const raw = await postRes.text();
+          const parsed = parseMarkdownText(raw, entry.file);
+          return {
+            ...parsed,
+            title: entry.title || parsed.title,
+            date: entry.date || parsed.date,
+            summary: entry.summary || parsed.summary
+          };
+        });
+
+        allPosts = (await Promise.all(postRequests)).sort(sortPosts);
+        filteredPosts = [...allPosts];
+        currentIndex = -1;
+        renderList();
+      } catch (error) {
+        postView.style.display = "none";
+        emptyState.style.display = "flex";
+        const msg = error instanceof Error ? error.message : "Unexpected loading error.";
+        emptyState.querySelector(".empty-title").textContent = "Blog not ready";
+        emptyState.querySelector(".empty-sub").textContent = msg;
+        postCount.textContent = "0 posts loaded";
+      }
+    };
+
+    searchInput.addEventListener("input", filterPosts);
+    prevBtn.addEventListener("click", () => { if (currentIndex > 0) renderPost(currentIndex - 1); });
+    nextBtn.addEventListener("click", () => { if (currentIndex < filteredPosts.length - 1) renderPost(currentIndex + 1); });
+    updateNavButtons();
+    loadPosts();
+  </script>
+</body>
+</html>
