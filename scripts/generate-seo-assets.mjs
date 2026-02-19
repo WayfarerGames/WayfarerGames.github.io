@@ -15,6 +15,8 @@ const manifestPath = path.join(postsDir, "posts.json");
 const rssOutputPath = path.join(blogDir, "rss.xml");
 const robotsOutputPath = path.join(publicDir, "robots.txt");
 const sitemapOutputPath = path.join(publicDir, "sitemap.xml");
+const BLOG_DESCRIPTION =
+  "You'll learn about what I'm working on, how I work, and probably some cool stuff to do with maths in game dev.";
 
 const xmlEscape = (text = "") =>
   String(text)
@@ -151,7 +153,7 @@ const buildRssXml = (posts) => {
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
     "  <channel>",
     "    <title>Wayfarer Games Blog</title>",
-    "    <description>Devlogs and technical breakdowns from Wayfarer Games.</description>",
+    `    <description>${xmlEscape(BLOG_DESCRIPTION)}</description>`,
     `    <link>${xmlEscape(`${SITE_URL}/blog/`)}</link>`,
     `    <atom:link href="${xmlEscape(`${SITE_URL}/blog/rss.xml`)}" rel="self" type="application/rss+xml" />`,
     "    <language>en-gb</language>",
@@ -193,7 +195,7 @@ const buildSitemapXml = (posts) => {
 
 const buildPostPageHtml = (post) => {
   const pageTitle = `${post.title} | Wayfarer Games Blog`;
-  const description = post.summary || "Devlogs and technical breakdowns from Wayfarer Games.";
+  const description = post.summary || BLOG_DESCRIPTION;
   const articleDate = post.date ? humanDate(post.date) : "";
   const publishedISO = post.date ? new Date(post.date).toISOString() : "";
 
