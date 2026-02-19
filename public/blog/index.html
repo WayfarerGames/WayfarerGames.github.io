@@ -441,16 +441,18 @@
 
     const getRequestedPostSlug = () => {
       const params = new URLSearchParams(window.location.search);
-      return (params.get("post") || "").trim().toLowerCase();
+      const fromQuery = (params.get("post") || "").trim().toLowerCase();
+      if (fromQuery) return fromQuery;
+      const match = window.location.pathname.match(/^\/blog\/([^/]+)\/?$/);
+      return match?.[1] ? decodeURIComponent(match[1]).trim().toLowerCase() : "";
     };
 
     const syncPostUrl = (post, { replace = false } = {}) => {
       if (!post?.slug) return;
-      const url = new URL(window.location.href);
-      if (url.searchParams.get("post") === post.slug) return;
-      url.searchParams.set("post", post.slug);
+      const targetPath = `/blog/${encodeURIComponent(post.slug)}/`;
+      if (window.location.pathname === targetPath && !window.location.search) return;
       const method = replace ? "replaceState" : "pushState";
-      window.history[method]({ postSlug: post.slug }, "", `${url.pathname}${url.search}`);
+      window.history[method]({ postSlug: post.slug }, "", targetPath);
     };
 
     const updateNavButtons = () => {
@@ -606,7 +608,7 @@
           const parsed = parseMarkdownText(raw, entry.file);
           return {
             ...parsed,
-            url: `${blogUrl}?post=${encodeURIComponent(parsed.slug)}`,
+            url: `${blogUrl}${encodeURIComponent(parsed.slug)}/`,
             title: entry.title || parsed.title,
             date: entry.date || parsed.date,
             summary: entry.summary || parsed.summary

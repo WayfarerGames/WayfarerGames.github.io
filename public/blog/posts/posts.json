@@ -1,14 +1,14 @@
 [
   {
     "file": "bullet-hell-math.md",
-    "title": "The Mathematics of Bullet Hell Patterns",
+    "title": "Bullet Pattern Generation - Circles, Arcs, and Spirals",
     "date": "2026-02-18",
-    "summary": "How great danmaku patterns aren't hand-placed — they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages."
+    "summary": "How great danmaku patterns aren't hand-placed; they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages."
   },
   {
     "file": "welcome-to-the-devlog.md",
-    "title": "Welcome to the Wayfarer Devlog",
+    "title": "Welcome to the Wayfarer Games Blog",
     "date": "2026-02-18",
-    "summary": "First post for the markdown-powered blog route."
+    "summary": "You'll learn about what I'm working on, how I work, and probably some cool stuff to do with maths in game dev."
   }
 ]

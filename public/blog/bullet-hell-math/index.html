@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bullet Pattern Generation - Circles, Arcs, and Spirals | Wayfarer Games Blog</title>
+  <meta name="description" content="How great danmaku patterns aren&#39;t hand-placed; they&#39;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/blog/bullet-hell-math/">
+  <link rel="alternate" type="application/rss+xml" title="Wayfarer Games Blog RSS" href="https://wayfarer-games.com/blog/rss.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Bullet Pattern Generation - Circles, Arcs, and Spirals | Wayfarer Games Blog">
+  <meta property="og:description" content="How great danmaku patterns aren&#39;t hand-placed; they&#39;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.">
+  <meta property="og:url" content="https://wayfarer-games.com/blog/bullet-hell-math/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bullet Pattern Generation - Circles, Arcs, and Spirals | Wayfarer Games Blog">
+  <meta name="twitter:description" content="How great danmaku patterns aren&#39;t hand-placed; they&#39;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Bullet Pattern Generation - Circles, Arcs, and Spirals","description":"How great danmaku patterns aren't hand-placed; they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.","datePublished":"2026-02-18T00:00:00.000Z","dateModified":"2026-02-18T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/bullet-hell-math/","url":"https://wayfarer-games.com/blog/bullet-hell-math/","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"}}
+  </script>
+  <style>
+    :root { --bg:#141226; --poly:#5AD6FF; --lime:#FF8A66; --lav:#B693FF; --white:#FAFCFF; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--white); font-family:"Nunito",sans-serif; }
+    .wrap { max-width:900px; margin:0 auto; padding:30px 20px 80px; }
+    .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:10px; flex-wrap:wrap; }
+    .brand { color:var(--white); text-decoration:none; font-family:"Fredoka",sans-serif; font-weight:700; letter-spacing:.3px; }
+    .pill { display:inline-flex; align-items:center; font-family:"Fredoka",sans-serif; font-weight:600; font-size:13px; line-height:1; text-decoration:none; padding:9px 16px; border-radius:999px; transition:.2s; }
+    .pill-lime { background:var(--lime); color:var(--bg); }
+    .pill-out { background:transparent; color:var(--white); border:2px solid rgba(255,255,255,.25); }
+    .kicker { font-family:"Fredoka",sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); margin-bottom:10px; }
+    h1 { font-family:"Fredoka",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.1; margin-bottom:10px; }
+    .meta { font-size:13px; color:rgba(250,252,255,.6); margin-bottom:26px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:20px; }
+    .post-body { line-height:1.85; font-size:17px; color:rgba(250,252,255,.84); }
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 { font-family:"Fredoka",sans-serif; color:var(--white); margin:1.8em 0 .55em; line-height:1.2; }
+    .post-body h2 { font-size:1.7em; }
+    .post-body h3 { color:var(--poly); }
+    .post-body p { margin-bottom:1.15em; }
+    .post-body a { color:var(--poly); text-underline-offset:3px; text-decoration-color:rgba(90,214,255,.4); }
+    .post-body ul, .post-body ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
+    .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .post-body pre code { background:none; padding:0; color:rgba(250,252,255,.88); }
+    .post-body blockquote { border-left:3px solid var(--poly); padding:6px 0 6px 20px; margin:1.5em 0; color:rgba(250,252,255,.6); font-style:italic; background:rgba(90,214,255,.04); border-radius:0 8px 8px 0; }
+    .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top-nav">
+      <a href="/" class="brand">Wayfarer Games</a>
+      <div style="display:flex; gap:8px;">
+        <a href="/blog/" class="pill pill-out">All posts</a>
+        <a href="/blog/rss.xml" class="pill pill-lime">RSS</a>
+      </div>
+    </nav>
+    <article>
+      <div class="kicker">Wayfarer Devlog</div>
+      <h1>Bullet Pattern Generation - Circles, Arcs, and Spirals</h1>
+      <div class="meta">18 Feb 2026</div>
+      <div class="post-body"><h1>The Mathematics of Bullet Hell Patterns</h1>
+<p>Hey! As I put the finishing touches on the open source version of Bulletfury, I thought it would be fun to talk bullet spawning and maths (everyone&#39;s favourite).</p>
+<blockquote>
+<p>This post focuses on implementation math. For design theory I&#39;ll point you to <a href="https://sparen.github.io/ph3tutorials/danmakudesign.html">Sparen&#39;s Danmaku Design Guides</a>, which are excellent.</p>
+</blockquote>
+<p>I&#39;ll let you in on a secret: it&#39;s all circles! Most of the best patterns are just different types of circles under the hood. We&#39;ll start off simple and evolve the process until it&#39;s clear how the craziest bullet hell games make their pretty patterns.</p>
+<h2>Circles!</h2>
+<p>So let&#39;s start at the beginning: spawning bullets in a circle. When dealing with circles, we like polar coordinates - that&#39;s an angle and a radius. We&#39;ll use the number of bullets to work out the angle, and then we&#39;ll convert the polar coordinates to an x and y position so our game engine knows where to put them:</p>
+<pre><code class="language-cs">for (int i=0; i&lt;numBullets; ++i)
+{
+    float angleDeg = (float)i / numBullets * 360f;
+    float angleRad = angleDeg * Mathf.Deg2Rad;
+    var position = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * radius;
+}
+</code></pre>
+<p>Here&#39;s what that looks like as we increase the number of bullets:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-points.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-points.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video></p>
+<p>Notice anything? We get useful shapes out of this, not just circles! Bullets = 3 gives us a triangle, 4 gives a square, 5 a pentagon, etc.</p>
+<h2>Polygons!</h2>
+<p>Now let&#39;s fill in the edges. To do that, we need to create bullets between two points - so we&#39;ll take this point and the next point, and interpolate between them. Linearly. We&#39;re gonna use lerp.</p>
+<pre><code class="language-cs">// We already know the angles for our corners from the Circle step
+var p1 = PolarToCartesian(angle, radius);
+var p2 = PolarToCartesian(nextAngle, radius);
+
+// Now we fill the gap between them!
+for (int j = 0; j &lt; numPerSide; ++j)
+{
+    // Calculate how far along the line we are (from 0 to 1)
+    float t = (float)j / numPerSide;
+    
+    // A little offset to center the bullets nicely on the line
+    t += (1f / numPerSide) / 2f; 
+
+    // Find the exact point on the edge
+    var position = Vector2.Lerp(p1, p2, t);
+    
+    SpawnBullet(position);
+}
+</code></pre>
+<p>Here&#39;s what that looks like as we increase the number of bullets per side:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edges.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-edges.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video></p>
+<h2>Arcs!</h2>
+<p>An extra way to add some visual interest is to limit the <em>arc</em> of the circle. Instead of doing the hard-coded 360°, we&#39;ll swap that out for an arc that we can define from 0-360:</p>
+<pre><code class="language-cs">var angle = i * (arc / (numPoints - 1f));
+</code></pre>
+<p>One extra bit of polish here is adding an offset, so the shape is centered:</p>
+<pre><code class="language-cs">var angle = i * (arc / (numPoints - 1f)) - (arc * 0.5f);
+</code></pre>
+<p>Now here&#39;s what that looks like as we increase the number of points:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-arc.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-arc.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video></p>
+<h2>Movement!</h2>
+<p>Bullets should, obviously, move. We&#39;re going to keep it simple here and just set an initial direction and make the bullets move in that direction for their whole lifetime. </p>
+<p>We have a few options here! We can make the bullets move:</p>
+<p>All together in the same direction - I use the <code>up</code> direction of the spawner GameObject, so you can rotate the object to aim:</p>
+<pre><code class="language-cs">Vector2 direction = spawnerTransform.up;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-direction.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-direction.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<p>Out from the center of the shape (radial), which forms a circle over time. If your spawner isn&#39;t at the world origin, normalize the vector from the spawner to the spawn point:</p>
+<pre><code class="language-cs">Vector2 direction = (spawnPosition - (Vector2)spawnerTransform.position).normalized;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-sphereized.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-sphereized.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<p>Perpendicular to the edges of the polygon, which keeps the shape. We get the direction at the midpoint of the edge for this:</p>
+<pre><code class="language-cs">Vector2 edgeMidpoint = Vector2.Lerp(vertexA, vertexB, 0.5f);
+Vector2 direction = edgeMidpoint.normalized;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edge.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-edge.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<p>Along the points of the shape, which shoots bullets diagonally. To do this, we just grab the direction of the closest corner:</p>
+<pre><code class="language-cs">Vector2 direction = (t &lt; 0.5f ? vertexA : vertexB).normalized;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-point.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-point.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<h2>Spirals!</h2>
+<p>This is where the fun begins. Most of the patterns you see in bullet hell games will use spirals a <em>lot</em> - but there is no complexity here! All we do is rotate the spawned position by an angle, and change that angle over time:</p>
+<pre><code class="language-cs">// In your Update loop
+currentRotation += angularSpeed * Time.deltaTime;
+
+// Apply this rotation to the final spawn position
+var finalPos = Quaternion.Euler(0, 0, currentRotation) * position;
+</code></pre>
+<p>And that&#39;s it!
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-spiral.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-spiral.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video></p>
+<h2>Randomness!</h2>
+<p>A quick note on randomness - pure random feels bad in bullet hell games. It is unpredictable and can often hurt the player experience. However, there is a fix if you want a bit of variation: bounded randomness. Instead of a radius of 3, we can pick a random number between 2 and 4. Instead of a speed of 5, we&#39;ll put the speed between 5 and 7. That will give you variation in how the bullets look and behave, which gives it a more &quot;natural&quot; feeling without being unfair:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-random.webm" type="video/webm">
+  <source src="/blog/posts/bullet-hell-random.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video></p>
+<p>It&#39;s up to you whether you prefer the look of this or not, and it will depend entirely on the game!</p>
+<h2>Taking it further!</h2>
+<p>This is only the beginning. In Bulletfury there are even more options, but they all start from the circular base. We&#39;ve got bullet groups - which is a separate circle spawned from every point on the original circle. There are modules for making bullets rotate their direction over time, apply an extra force, change speed over time, track objects, spawn two bullets with different speeds in the same position, the list goes on, but it all starts with this.</p>
+</div>
+    </article>
+  </main>
+</body>
+</html>
