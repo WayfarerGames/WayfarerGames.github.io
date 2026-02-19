@@ -24,6 +24,7 @@ for (int i=0;i<numBullets;++i)
 
 Here's what that looks like as we increase the number of bullets:
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-points.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-points.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -56,6 +57,7 @@ for (int j = 0; j < numPerSide; j++)
 
 Here's what that looks like as we increase the number of bullets per side:
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edges.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-edges.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -70,52 +72,60 @@ One extra bit of polish here is adding an offset, so the shape is centered:
 var offset = arc / 2f - (0.5f * arc);
 var angle = (i * arc / numPoints) + offset;
 ```
-Now here's what that looks like:
-Here's what that looks like as we increase the number of bullets per side:
+Now here's what that looks like as we increase the number of bullets per side:
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-arc.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-arc.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-## Movement!
+## Movement!
 Bullets should, obviously, move. We're going to keep it simple here and just set an initial direction and make the bullets move in that direction for their whole lifetime. 
 
 We have a few options here! We can make the bullets move:
-- all together in the same direction - I use the `up` direction of the spawner GameObject, so you can rotate the object to aim:
+
+All together in the same direction - I use the `up` direction of the spawner GameObject, so you can rotate the object to aim:
 ```cs
 Vector2 direction = spawnerTransform.up;
 ```
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-direction.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-direction.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-- out from the center of the shape (radial), which forms a circle over time. We can just normalize the spawn position of the bullet:
+
+Out from the center of the shape (radial), which forms a circle over time. We can just normalize the spawn position of the bullet:
 ```cs
 Vector2 direction = spawnPosition.normalized;
 ```
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-sphereized.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-sphereized.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-- perpendicular to the edges of the polygon, which keeps the shape. We get the direction at the midpoint of the edge for this:
+
+Perpendicular to the edges of the polygon, which keeps the shape. We get the direction at the midpoint of the edge for this:
 ```cs
 Vector2 edgeMidpoint = Vector2.Lerp(vertexA, vertexB, 0.5f);
 Vector2 direction = edgeMidpoint.normalized;
 ```
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edge.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-edge.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
-- along the points of the shape, which shoots bullets diagonally. To do this, we just grab the direciton of the closest corner:
+
+Along the points of the shape, which shoots bullets diagonally. To do this, we just grab the direction of the closest corner:
 ```cs
 Vector2 direction = t < 0.5f ? vertexA : vertexB;
 ```
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-point.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-point.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-## Spirals!
+## Spirals!
 This is where the fun begins. Most of the patterns you see in bullet hell games will use spirals a _lot_ - but there is no complexity here! All we do is rotate the spawned position by an angle, and change that angle over time:
 ```cs
 // In your Update loop
@@ -126,13 +136,15 @@ var finalPos = Quaternion.Euler(0, 0, currentRotation) * position;
 ```
 And that's it!
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-spiral.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-spiral.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-## Randomness!
+## Randomness!
 A quick note on randomness - pure random feels bad in bullet hell games. It is unpredictable and can often hurt the player experience. However, there is a fix if you want a bit of variation: bounded randomness. Instead of a radius of 3, we can pick a random number between 2 and 4. Instead of a speed of 5, we'll put the speed between 5 and 7. That will give you variation in how the bullets look and behave, which gives it a more "natural" feeling without being unfair:
 <video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-random.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-random.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
