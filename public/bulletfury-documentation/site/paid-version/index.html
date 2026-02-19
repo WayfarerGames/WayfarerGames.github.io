@@ -38,45 +38,17 @@
                             <li class="nav-item">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Getting Started</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../getting-started/setup-and-first-spawn/" class="dropdown-item">Setup and First Spawn</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Modules</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../modules/free-modules/" class="dropdown-item">Free Modules</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../modules/free-modules/" class="nav-link">Free Modules</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Patterns</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../patterns/basic-patterns/" class="dropdown-item">Basic Patterns</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../patterns/basic-patterns/" class="nav-link">Basic Patterns</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Extending</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../extending/write-your-own-modules/" class="dropdown-item">Write Your Own Modules</a>
-</li>
-                                    
-<li>
-    <a href="../extending/free-vs-pro/" class="dropdown-item">Free vs Pro Comparison</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../extending/write-your-own-modules/" class="nav-link">Write Your Own Modules</a>
                             </li>
                             <li class="nav-item">
                                 <a href="./" class="nav-link active" aria-current="page">Paid Version</a>
@@ -90,7 +62,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../extending/free-vs-pro/" class="nav-link">
+                                <a rel="prev" href="../extending/write-your-own-modules/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -117,9 +89,13 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#paid-version" class="nav-link">Paid Version</a>
+            <li class="nav-item" data-bs-level="1"><a href="#support-the-project" class="nav-link">Support the Project</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#free-and-pro-relationship" class="nav-link">Free and Pro relationship</a>
+            <li class="nav-item" data-bs-level="2"><a href="#why-upgrade" class="nav-link">Why upgrade?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#free-vs-pro-whats-the-difference" class="nav-link">Free vs Pro: What's the difference?</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -130,8 +106,8 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="paid-version">Paid Version<a class="headerlink" href="#paid-version" title="Permanent link">&para;</a></h1>
-<p>Use the Unity Asset Store widget below to view the paid version:</p>
+<h1 id="support-the-project">Support the Project<a class="headerlink" href="#support-the-project" title="Permanent link">&para;</a></h1>
+<p>If you're enjoying Bulletfury and want to unlock the full suite of advanced modules, check out the Pro version on the Asset Store.</p>
 <p><iframe
   src="https://assetstore.unity.com/linkmaker/embed/package/199208/widget-wide?aid=1101lwk2s"
   style="width: 100%; height: 190px; border: 0;"
@@ -139,13 +115,77 @@
   title="Unity Asset Store - Bulletfury Paid Version">
 </iframe>
 </p>
-<h2 id="free-and-pro-relationship">Free and Pro relationship<a class="headerlink" href="#free-and-pro-relationship" title="Permanent link">&para;</a></h2>
-<p>Pro provides prebuilt advanced modules and workflows.<br />
-Free still exposes the same module APIs, so these behaviors can be implemented yourself in custom modules.</p>
-<p>If you want a detailed breakdown, see <code>Extending -&gt; Free vs Pro Comparison</code>.</p>
-<p>If the embed does not load on your site, use the direct link:</p>
+<h2 id="why-upgrade">Why upgrade?<a class="headerlink" href="#why-upgrade" title="Permanent link">&para;</a></h2>
+<p>The Pro version is designed to save you time. It includes pre-built modules for:
+- <strong>Homing Missiles</strong>
+- <strong>Bouncing / Ricochet</strong>
+- <strong>Force Fields</strong>
+- <strong>Sub-Spawners</strong> (bullets that spawn other bullets)
+- <strong>Rewind / Replay</strong></p>
+<p>It's the same engine, just with more toys in the box.</p>
+<p>If the widget above doesn't load, you can find it here:
+<a href="https://prf.hn/click/camref:1101lwk2s/destination:https://assetstore.unity.com/"><strong>Bulletfury on the Unity Asset Store</strong></a></p>
+<h2 id="free-vs-pro-whats-the-difference">Free vs Pro: What's the difference?<a class="headerlink" href="#free-vs-pro-whats-the-difference" title="Permanent link">&para;</a></h2>
+<p>First off, the <strong>core engine is exactly the same</strong>. Both versions use the same high-performance <code>BulletSpawner</code> and module system. We didn't cripple the free version, it is fully capable of handling thousands of bullets.</p>
+<h3 id="the-main-difference-convenience">The main difference: convenience<a class="headerlink" href="#the-main-difference-convenience" title="Permanent link">&para;</a></h3>
+<p>The Pro version is basically a "batteries included" pack. It comes with advanced modules pre-built and tested, so you do not have to write them yourself.</p>
+<p><strong>But here's the secret:</strong> You can build almost everything in the Pro version yourself using the Free version's module API. If you are comfortable with C#, the sky is the limit.</p>
+<h3 id="feature-breakdown">Feature breakdown<a class="headerlink" href="#feature-breakdown" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Free Version</th>
+<th>Pro Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Engine</strong></td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td><strong>Basic Modules</strong> (Speed, Size, Color, etc.)</td>
+<td>Included</td>
+<td>Included</td>
+</tr>
+<tr>
+<td><strong>Homing / Tracking Bullets</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Force Fields / Magnetism</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Bouncing / Ricochet</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Sub-Spawners</strong> (Spawn on hit/death)</td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Rewind / Replay System</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Deterministic Randomness</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+</tbody>
+</table>
+<h3 id="which-one-is-right-for-you">Which one is right for you?<a class="headerlink" href="#which-one-is-right-for-you" title="Permanent link">&para;</a></h3>
 <ul>
-<li>https://prf.hn/click/camref:1101lwk2s/destination:https://assetstore.unity.com/</li>
+<li><strong>Stick with Free if:</strong> You are a hobbyist, a student, or a programmer who loves writing custom behavior. You want full control and do not mind building features yourself.</li>
+<li><strong>Go Pro if:</strong> You are shipping on a timeline and want complex behaviors like homing missiles and ricochet patterns ready immediately.</li>
 </ul></div>
             </div>
         </div>

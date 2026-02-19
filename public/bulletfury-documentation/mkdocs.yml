@@ -15,13 +15,8 @@ markdown_extensions:
       permalink: true
 nav:
   - Home: index.md
-  - Getting Started:
-      - Setup and First Spawn: getting-started/setup-and-first-spawn.md
-  - Modules:
-      - Free Modules: modules/free-modules.md
-  - Patterns:
-      - Basic Patterns: patterns/basic-patterns.md
-  - Extending:
-      - Write Your Own Modules: extending/write-your-own-modules.md
-      - Free vs Pro Comparison: extending/free-vs-pro.md
+  - Setup and First Spawn: getting-started/setup-and-first-spawn.md
+  - Free Modules: modules/free-modules.md
+  - Basic Patterns: patterns/basic-patterns.md
+  - Write Your Own Modules: extending/write-your-own-modules.md
   - Paid Version: paid-version.md

@@ -38,45 +38,17 @@
                             <li class="nav-item">
                                 <a href="../.." class="nav-link">Home</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Getting Started</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../getting-started/setup-and-first-spawn/" class="dropdown-item">Setup and First Spawn</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Modules</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../modules/free-modules/" class="dropdown-item">Free Modules</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../../modules/free-modules/" class="nav-link">Free Modules</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Patterns</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../patterns/basic-patterns/" class="dropdown-item">Basic Patterns</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../../patterns/basic-patterns/" class="nav-link">Basic Patterns</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Extending</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="./" class="dropdown-item active" aria-current="page">Write Your Own Modules</a>
-</li>
-                                    
-<li>
-    <a href="../free-vs-pro/" class="dropdown-item">Free vs Pro Comparison</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Write Your Own Modules</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../paid-version/" class="nav-link">Paid Version</a>
@@ -95,7 +67,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../free-vs-pro/" class="nav-link">
+                                <a rel="next" href="../../paid-version/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -119,39 +91,35 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#write-your-own-modules" class="nav-link">Write Your Own Modules</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#can-free-recreate-pro-style-features" class="nav-link">Can Free recreate Pro-style features?</a>
+            <li class="nav-item" data-bs-level="2"><a href="#how-it-works" class="nav-link">How it works</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#how-modules-are-discovered" class="nav-link">How modules are discovered</a>
+            <li class="nav-item" data-bs-level="2"><a href="#choose-your-weapon-interface" class="nav-link">Choose your weapon (Interface)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#choose-the-right-interface" class="nav-link">Choose the right interface</a>
+            <li class="nav-item" data-bs-level="2"><a href="#example-1-making-bullets-drift-sideways" class="nav-link">Example 1: Making bullets drift sideways</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#example-1-simple-per-frame-bullet-drift" class="nav-link">Example 1: simple per-frame bullet drift</a>
+            <li class="nav-item" data-bs-level="2"><a href="#example-2-custom-spawn-offset" class="nav-link">Example 2: Custom spawn offset</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#example-2-custom-spawn-offset" class="nav-link">Example 2: custom spawn offset</a>
+            <li class="nav-item" data-bs-level="2"><a href="#example-3-ignoring-certain-colliders" class="nav-link">Example 3: Ignoring certain colliders</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#example-3-override-death-on-collision" class="nav-link">Example 3: override death-on-collision</a>
+            <li class="nav-item" data-bs-level="2"><a href="#make-it-pretty-in-the-inspector" class="nav-link">Make it pretty in the Inspector</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#recommended-metadata-attributes" class="nav-link">Recommended metadata attributes</a>
+            <li class="nav-item" data-bs-level="2"><a href="#a-note-on-performance-parallel-vs-main-thread" class="nav-link">A note on performance (Parallel vs Main Thread)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#thread-safety-rules-for-iparallelbulletmodule" class="nav-link">Thread safety rules for IParallelBulletModule</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#accessing-modules-from-gameplay-code" class="nav-link">Accessing modules from gameplay code</a>
+            <li class="nav-item" data-bs-level="2"><a href="#controlling-modules-from-code" class="nav-link">Controlling modules from code</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -163,33 +131,23 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="write-your-own-modules">Write Your Own Modules<a class="headerlink" href="#write-your-own-modules" title="Permanent link">&para;</a></h1>
-<p>Custom modules are plain serializable C# classes that implement Bulletfury module interfaces.</p>
-<h2 id="can-free-recreate-pro-style-features">Can Free recreate Pro-style features?<a class="headerlink" href="#can-free-recreate-pro-style-features" title="Permanent link">&para;</a></h2>
-<p>Yes. The same public module interfaces let you implement advanced behavior yourself.<br />
-Pro packages common advanced features as ready-made modules, but the module API is open in Free.</p>
-<p>See <code>Extending -&gt; Free vs Pro Comparison</code> for a capability-by-capability view.</p>
-<h2 id="how-modules-are-discovered">How modules are discovered<a class="headerlink" href="#how-modules-are-discovered" title="Permanent link">&para;</a></h2>
-<p>The editor add-module picker finds all non-abstract classes derived from <code>IBaseBulletModule</code> that:</p>
+<p>So you want to go beyond the basics? Awesome! Bulletfury is designed to be extended, and writing your own modules is surprisingly easy.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>Custom modules are just C# classes. You don't need to inherit from <code>MonoBehaviour</code>—just implement one of the module interfaces, and Bulletfury will pick it up automatically.</p>
+<h3 id="the-rules">The Rules<a class="headerlink" href="#the-rules" title="Permanent link">&para;</a></h3>
+<p>For your module to show up in the Inspector, it must be:
+1. <code>[Serializable]</code>
+2. A normal <code>class</code> (not abstract)
+3. Have a default constructor (which C# gives you for free usually)</p>
+<h2 id="choose-your-weapon-interface">Choose your weapon (Interface)<a class="headerlink" href="#choose-your-weapon-interface" title="Permanent link">&para;</a></h2>
 <ul>
-<li>are not <code>UnityEngine.Object</code> types</li>
-<li>are constructible with a parameterless constructor</li>
+<li><strong><code>IBulletSpawnModule</code></strong>: Run this <em>before</em> a bullet is born. Good for changing where it spawns.</li>
+<li><strong><code>IBulletInitModule</code></strong>: Run this <em>once</em> when a bullet is born. Good for setting initial stats.</li>
+<li><strong><code>IBulletModule</code></strong>: Run this <em>every frame</em>. This is where the magic happens (movement, color, etc.).</li>
+<li><strong><code>IBulletDieModule</code></strong>: Run this when a bullet hits something. Want bouncing bullets? This is the place.</li>
 </ul>
-<p>That means your custom module should be:</p>
-<ul>
-<li><code>[Serializable]</code></li>
-<li>a class (not abstract)</li>
-<li>default-constructible</li>
-</ul>
-<h2 id="choose-the-right-interface">Choose the right interface<a class="headerlink" href="#choose-the-right-interface" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>IBulletSpawnModule</code>: alter spawn position/rotation before bullet exists.</li>
-<li><code>IBulletInitModule</code>: initialize bullet fields once at spawn.</li>
-<li><code>IBulletModule</code>: run each simulation step.</li>
-<li><code>IParallelBulletModule</code>: add to your <code>IBulletModule</code> when thread-safe.</li>
-<li><code>IBulletDieModule</code>: customize collision/end-of-life behavior.</li>
-<li><code>ISpawnerRuntimeModuleProvider</code>: override sampling/runtime behavior.</li>
-</ul>
-<h2 id="example-1-simple-per-frame-bullet-drift">Example 1: simple per-frame bullet drift<a class="headerlink" href="#example-1-simple-per-frame-bullet-drift" title="Permanent link">&para;</a></h2>
+<h2 id="example-1-making-bullets-drift-sideways">Example 1: Making bullets drift sideways<a class="headerlink" href="#example-1-making-bullets-drift-sideways" title="Permanent link">&para;</a></h2>
+<p>Let's make a module that pushes bullets to the right over time.</p>
 <pre><code class="language-csharp">using System;
 using BulletFury;
 using BulletFury.Data;
@@ -198,19 +156,21 @@ using UnityEngine;
 namespace MyGame.BulletModules
 {
     [Serializable]
+    // We implement IParallelBulletModule to say &quot;this is safe to run on multiple threads!&quot;
     public class SideDriftModule : IBulletModule, IParallelBulletModule
     {
         [SerializeField] private float driftSpeed = 1f;
 
         public void Execute(ref BulletContainer container, float deltaTime)
         {
-            // Move along local right vector over time.
+            // Move along the bullet's local right vector
             container.Position += container.Right * driftSpeed * deltaTime;
         }
     }
 }
 </code></pre>
-<h2 id="example-2-custom-spawn-offset">Example 2: custom spawn offset<a class="headerlink" href="#example-2-custom-spawn-offset" title="Permanent link">&para;</a></h2>
+<h2 id="example-2-custom-spawn-offset">Example 2: Custom spawn offset<a class="headerlink" href="#example-2-custom-spawn-offset" title="Permanent link">&para;</a></h2>
+<p>Want to shift the spawn point a bit?</p>
 <pre><code class="language-csharp">using System;
 using BulletFury;
 using UnityEngine;
@@ -229,7 +189,8 @@ namespace MyGame.BulletModules
     }
 }
 </code></pre>
-<h2 id="example-3-override-death-on-collision">Example 3: override death-on-collision<a class="headerlink" href="#example-3-override-death-on-collision" title="Permanent link">&para;</a></h2>
+<h2 id="example-3-ignoring-certain-colliders">Example 3: Ignoring certain colliders<a class="headerlink" href="#example-3-ignoring-certain-colliders" title="Permanent link">&para;</a></h2>
+<p>By default, bullets die when they hit anything. Let's change that!</p>
 <pre><code class="language-csharp">using System;
 using BulletFury;
 using BulletFury.Data;
@@ -245,49 +206,35 @@ namespace MyGame.BulletModules
             bool isCollision,
             GameObject collidingObject)
         {
-            if (!isCollision || collidingObject == null)
-                return IBulletDieModule.CollisionBehaviour.Dies;
+            // If we hit a &quot;TriggerOnly&quot; object, stay alive!
+            if (isCollision &amp;&amp; collidingObject != null &amp;&amp; collidingObject.CompareTag(&quot;TriggerOnly&quot;))
+            {
+                return IBulletDieModule.CollisionBehaviour.StaysAlive;
+            }
 
-            return collidingObject.CompareTag(&quot;TriggerOnly&quot;)
-                ? IBulletDieModule.CollisionBehaviour.StaysAlive
-                : IBulletDieModule.CollisionBehaviour.Dies;
+            // Otherwise, die as usual
+            return IBulletDieModule.CollisionBehaviour.Dies;
         }
     }
 }
 </code></pre>
-<h2 id="recommended-metadata-attributes">Recommended metadata attributes<a class="headerlink" href="#recommended-metadata-attributes" title="Permanent link">&para;</a></h2>
-<p>These improve discoverability in the inspector:</p>
-<ul>
-<li><code>ModuleDescriptionAttribute("...")</code></li>
-<li><code>ModulePerformanceImpactAttribute(ModulePerformanceImpactRating.Low | Medium | High | VeryHigh, "...")</code></li>
-</ul>
-<p>Example:</p>
-<pre><code class="language-csharp">[ModuleDescription(&quot;Apply sideways drift over time.&quot;)]
+<h2 id="make-it-pretty-in-the-inspector">Make it pretty in the Inspector<a class="headerlink" href="#make-it-pretty-in-the-inspector" title="Permanent link">&para;</a></h2>
+<p>You can add descriptions and performance warnings to help your team:</p>
+<pre><code class="language-csharp">[ModuleDescription(&quot;Makes bullets drift sideways.&quot;)]
 [ModulePerformanceImpact(ModulePerformanceImpactRating.Low)]
-public class SideDriftModule : IBulletModule, IParallelBulletModule
-{
-    // ...
-}
+public class SideDriftModule : ...
 </code></pre>
-<h2 id="thread-safety-rules-for-iparallelbulletmodule">Thread safety rules for <code>IParallelBulletModule</code><a class="headerlink" href="#thread-safety-rules-for-iparallelbulletmodule" title="Permanent link">&para;</a></h2>
-<p>When implementing <code>IParallelBulletModule</code>:</p>
-<ul>
-<li>Do not call Unity scene APIs (<code>FindObjectOfType</code>, <code>Physics2D</code>, <code>Transform</code>, etc.).</li>
-<li>Do not mutate shared static/global state.</li>
-<li>Only read/write the passed <code>BulletContainer</code> and immutable module fields.</li>
-<li>Keep logic deterministic and stateless where possible.</li>
-</ul>
-<p>If your module needs Unity API calls, implement <code>IBulletModule</code> only (main-thread execution path).</p>
-<h2 id="accessing-modules-from-gameplay-code">Accessing modules from gameplay code<a class="headerlink" href="#accessing-modules-from-gameplay-code" title="Permanent link">&para;</a></h2>
-<p>Use <code>BulletSpawner</code> helpers:</p>
-<ul>
-<li><code>TryGetModule&lt;T&gt;(out T module)</code></li>
-<li><code>GetModule&lt;T&gt;()</code></li>
-<li><code>GetModulesOfType&lt;T&gt;()</code></li>
-</ul>
+<h2 id="a-note-on-performance-parallel-vs-main-thread">A note on performance (Parallel vs Main Thread)<a class="headerlink" href="#a-note-on-performance-parallel-vs-main-thread" title="Permanent link">&para;</a></h2>
+<p>If you implement <code>IParallelBulletModule</code>, your code will run on worker threads. This is <strong>much faster</strong>, but it has rules:
+- <strong>Don't</strong> touch Unity APIs (like <code>transform</code>, <code>GameObject.Find</code>, <code>Physics</code>).
+- <strong>Don't</strong> change global variables.
+- <strong>Do</strong> stick to math and the <code>BulletContainer</code> data.</p>
+<p>If you <em>need</em> to touch Unity stuff, just implement <code>IBulletModule</code> (without <code>IParallel...</code>) and it will run safely on the main thread.</p>
+<h2 id="controlling-modules-from-code">Controlling modules from code<a class="headerlink" href="#controlling-modules-from-code" title="Permanent link">&para;</a></h2>
+<p>You can grab your modules at runtime to tweak them:</p>
 <pre><code class="language-csharp">if (spawner.TryGetModule&lt;SideDriftModule&gt;(out var drift))
 {
-    // Use module reference to tweak settings at runtime if desired.
+    drift.driftSpeed = 5f; // Turbo drift!
 }
 </code></pre></div>
             </div>

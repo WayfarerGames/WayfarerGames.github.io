@@ -38,45 +38,17 @@
                             <li class="nav-item">
                                 <a href="../.." class="nav-link">Home</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Getting Started</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="./" class="dropdown-item active" aria-current="page">Setup and First Spawn</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">Setup and First Spawn</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Modules</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../modules/free-modules/" class="dropdown-item">Free Modules</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../../modules/free-modules/" class="nav-link">Free Modules</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Patterns</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../patterns/basic-patterns/" class="dropdown-item">Basic Patterns</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../../patterns/basic-patterns/" class="nav-link">Basic Patterns</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Extending</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../extending/write-your-own-modules/" class="dropdown-item">Write Your Own Modules</a>
-</li>
-                                    
-<li>
-    <a href="../../extending/free-vs-pro/" class="dropdown-item">Free vs Pro Comparison</a>
-</li>
-                                </ul>
+                            <li class="nav-item">
+                                <a href="../../extending/write-your-own-modules/" class="nav-link">Write Your Own Modules</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../../paid-version/" class="nav-link">Paid Version</a>
@@ -127,23 +99,23 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#3-configure-minimum-render-settings" class="nav-link">3) Configure minimum render settings</a>
+            <li class="nav-item" data-bs-level="2"><a href="#3-make-it-visible" class="nav-link">3) Make it visible</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#4-configure-minimum-spawn-settings" class="nav-link">4) Configure minimum spawn settings</a>
+            <li class="nav-item" data-bs-level="2"><a href="#4-configure-the-basics" class="nav-link">4) Configure the basics</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#5-enter-play-mode" class="nav-link">5) Enter Play Mode</a>
+            <li class="nav-item" data-bs-level="2"><a href="#5-fire" class="nav-link">5) Fire!</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#manual-spawn-from-script" class="nav-link">Manual spawn from script</a>
+            <li class="nav-item" data-bs-level="2"><a href="#manual-spawning" class="nav-link">Manual spawning</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#runtime-control-helpers" class="nav-link">Runtime control helpers</a>
+            <li class="nav-item" data-bs-level="2"><a href="#controlling-the-simulation" class="nav-link">Controlling the simulation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -159,61 +131,49 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="setup-and-first-spawn">Setup and First Spawn<a class="headerlink" href="#setup-and-first-spawn" title="Permanent link">&para;</a></h1>
-<p>This guide gets you from package install to seeing your first bullets.</p>
+<p>Let's get you up and running! This guide will take you from zero to seeing your first bullets flying across the screen.</p>
 <h2 id="1-install-the-package">1) Install the package<a class="headerlink" href="#1-install-the-package" title="Permanent link">&para;</a></h2>
-<p>Add Bulletfury to your Unity project's <code>Packages/manifest.json</code>:</p>
+<p>First things first, add Bulletfury to your Unity project's <code>Packages/manifest.json</code>:</p>
 <pre><code class="language-json">&quot;com.wayfarergames.bulletfury&quot;: &quot;https://github.com/&lt;your-org&gt;/&lt;your-repo&gt;.git?path=/PackageSource/com.wayfarergames.bulletfury&quot;
 </code></pre>
-<p>Bulletfury targets <strong>Unity 6 and above</strong> and is <strong>URP only</strong>.</p>
-<p>Dependencies include:</p>
-<ul>
-<li><code>com.unity.burst</code></li>
-<li><code>com.unity.collections</code></li>
-<li><code>com.unity.mathematics</code></li>
-</ul>
+<p>Just a reminder: Bulletfury needs <strong>Unity 6+</strong> and <strong>URP</strong>. It also relies on a few Unity packages like Burst and Mathematics, but those should install automatically.</p>
 <h2 id="2-create-a-spawner-object">2) Create a spawner object<a class="headerlink" href="#2-create-a-spawner-object" title="Permanent link">&para;</a></h2>
+<p>Now for the fun part!</p>
 <ol>
-<li>In your scene, create an empty <code>GameObject</code>.</li>
-<li>Add the <code>BulletSpawner</code> component.</li>
-<li>Configure these sections in the component:</li>
-<li><strong>Render Data</strong> (<code>SharedRenderData</code>)</li>
-<li><strong>Main</strong> (<code>BulletMainData</code>)</li>
-<li><strong>Spawn Shape Data</strong> (<code>SpawnShapeData</code>)</li>
-<li><strong>Burst Data</strong> (<code>BurstData</code>)</li>
+<li>Create an empty <code>GameObject</code> in your scene.</li>
+<li>Add the <code>BulletSpawner</code> component to it.</li>
+<li>You'll see a few sections in the inspector:</li>
+<li><strong>Render Data</strong>: How your bullets look.</li>
+<li><strong>Main</strong>: Basic bullet properties like speed and lifetime.</li>
+<li><strong>Spawn Shape Data</strong>: Where bullets come from (circle, line, point, etc.).</li>
+<li><strong>Burst Data</strong>: How many bullets fire at once.</li>
 </ol>
-<h2 id="3-configure-minimum-render-settings">3) Configure minimum render settings<a class="headerlink" href="#3-configure-minimum-render-settings" title="Permanent link">&para;</a></h2>
-<p>In <strong>Render Data</strong>:</p>
-<ul>
-<li>Assign a <code>Camera</code>.</li>
-<li>Assign a bullet <code>Texture2D</code>.</li>
-<li>Set sorting <code>Layer</code> and <code>Priority</code> if needed.</li>
-</ul>
-<p>Without a valid texture, runtime updates will early-out and you will not see bullets.</p>
-<h2 id="4-configure-minimum-spawn-settings">4) Configure minimum spawn settings<a class="headerlink" href="#4-configure-minimum-spawn-settings" title="Permanent link">&para;</a></h2>
-<p>In <strong>Main</strong>:</p>
-<ul>
-<li><code>FireMode</code>: <code>Automatic</code> for immediate testing.</li>
-<li><code>PlayOnEnable</code>: enabled.</li>
-<li><code>FireRate</code>: <code>0.1</code> (10 shots/sec).</li>
-<li><code>Lifetime</code>: <code>1.5</code>.</li>
-<li><code>Speed</code>: <code>5</code>.</li>
-</ul>
-<p>In <strong>Spawn Shape Data</strong>:</p>
-<ul>
-<li><code>numPoints</code>: <code>1</code></li>
-<li><code>numPerSide</code>: <code>1</code></li>
-<li><code>radius</code>: <code>0</code></li>
-<li><code>spawnDir</code>: <code>Direction</code></li>
-</ul>
-<p>In <strong>Burst Data</strong>:</p>
-<ul>
-<li><code>burstCount</code>: <code>1</code></li>
-<li><code>delay</code>: <code>0</code></li>
-</ul>
-<h2 id="5-enter-play-mode">5) Enter Play Mode<a class="headerlink" href="#5-enter-play-mode" title="Permanent link">&para;</a></h2>
-<p>If <code>FireMode</code> is <code>Automatic</code> and <code>PlayOnEnable</code> is true, bullets should spawn immediately.</p>
-<h2 id="manual-spawn-from-script">Manual spawn from script<a class="headerlink" href="#manual-spawn-from-script" title="Permanent link">&para;</a></h2>
-<p>If you set <code>FireMode</code> to <code>Manual</code>, call one of the spawner APIs yourself:</p>
+<h2 id="3-make-it-visible">3) Make it visible<a class="headerlink" href="#3-make-it-visible" title="Permanent link">&para;</a></h2>
+<p>Before we can see anything, we need to tell Bulletfury how to draw the bullets.</p>
+<p>In <strong>Render Data</strong>:
+- Assign your <strong>Main Camera</strong>.
+- Assign a <strong>Texture2D</strong> for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)
+- Set the sorting <strong>Layer</strong> and <strong>Priority</strong> if you need them to appear on top of other things.</p>
+<h2 id="4-configure-the-basics">4) Configure the basics<a class="headerlink" href="#4-configure-the-basics" title="Permanent link">&para;</a></h2>
+<p>Let's set up a simple stream of bullets.</p>
+<p>In <strong>Main</strong>:
+- Set <code>FireMode</code> to <code>Automatic</code> so it starts firing right away.
+- Check <code>PlayOnEnable</code>.
+- Set <code>FireRate</code> to <code>0.1</code> (that's 10 shots per second).
+- Set <code>Lifetime</code> to <code>1.5</code> seconds.
+- Set <code>Speed</code> to <code>5</code>.</p>
+<p>In <strong>Spawn Shape Data</strong> (let's keep it simple for now):
+- <code>numPoints</code>: <code>1</code>
+- <code>numPerSide</code>: <code>1</code>
+- <code>radius</code>: <code>0</code>
+- <code>spawnDir</code>: <code>Direction</code></p>
+<p>In <strong>Burst Data</strong>:
+- <code>burstCount</code>: <code>1</code>
+- <code>delay</code>: <code>0</code></p>
+<h2 id="5-fire">5) Fire!<a class="headerlink" href="#5-fire" title="Permanent link">&para;</a></h2>
+<p>Hit <strong>Play Mode</strong>. If everything is set up right, you should see a stream of bullets shooting out!</p>
+<h2 id="manual-spawning">Manual spawning<a class="headerlink" href="#manual-spawning" title="Permanent link">&para;</a></h2>
+<p>Want to control when bullets fire? Set <code>FireMode</code> to <code>Manual</code> and use a script like this:</p>
 <pre><code class="language-csharp">using BulletFury;
 using UnityEngine;
 
@@ -225,38 +185,43 @@ public class ManualFireExample : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Uses a position + up vector.
+            // Fire!
             spawner.Spawn(transform.position, transform.up, Time.deltaTime);
         }
     }
 }
 </code></pre>
-<p>Useful spawn APIs:</p>
-<ul>
-<li><code>Spawn(Transform obj, float deltaTime)</code></li>
-<li><code>Spawn(Vector3 position, Vector3 up, float deltaTime)</code></li>
-<li><code>SpawnImmediate(Vector3 position, Vector3 up, float deltaTime)</code> (bypasses fire-rate gating)</li>
-</ul>
-<h2 id="runtime-control-helpers">Runtime control helpers<a class="headerlink" href="#runtime-control-helpers" title="Permanent link">&para;</a></h2>
-<p><code>BulletSpawner</code> also exposes:</p>
-<ul>
-<li><code>Play()</code> / <code>Stop()</code></li>
-<li><code>SetSimulationPaused(bool paused)</code></li>
-<li><code>ClearBullets()</code></li>
-<li><code>ActivateWaitingBullets()</code> (used with wait-style patterns)</li>
-</ul>
+<p>Here are the main methods you'll use:
+- <code>Spawn(Transform obj, float deltaTime)</code>: Uses the transform's position and rotation.
+- <code>Spawn(Vector3 position, Vector3 up, float deltaTime)</code>: Uses a specific position and direction.
+- <code>SpawnImmediate(...)</code>: Fires instantly, ignoring the fire rate.</p>
+<h2 id="controlling-the-simulation">Controlling the simulation<a class="headerlink" href="#controlling-the-simulation" title="Permanent link">&para;</a></h2>
+<p>You can also control the spawner at runtime:
+- <code>Play()</code> / <code>Stop()</code>: Start or stop the automatic firing.
+- <code>SetSimulationPaused(bool paused)</code>: Pause all bullets in mid-air.
+- <code>ClearBullets()</code>: Remove all active bullets.
+- <code>ActivateWaitingBullets()</code>: Release bullets that are waiting (great for complex patterns).</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>If things aren't working, check these common issues:</p>
 <ul>
-<li>No bullets visible:</li>
-<li>Check <code>Render Data -&gt; Texture</code> is assigned.</li>
-<li>Check <code>Render Data -&gt; Camera</code> is assigned.</li>
-<li>Check the spawner object is active and enabled.</li>
-<li>Bullets do not fire in manual mode:</li>
-<li>Ensure you call one of the <code>Spawn(...)</code> methods.</li>
-<li>Ensure fire-rate or delay settings are not blocking your expected cadence.</li>
-<li>Bullets vanish immediately:</li>
-<li>Increase <code>Main -&gt; Lifetime</code>.</li>
-<li>Check collision layers and collider settings.</li>
+<li><strong>No bullets visible?</strong></li>
+<li>Did you assign a texture in <code>Render Data</code>?</li>
+<li>Is the camera assigned?</li>
+<li>
+<p>Is the spawner object active?</p>
+</li>
+<li>
+<p><strong>Bullets not firing in manual mode?</strong></p>
+</li>
+<li>Are you calling <code>Spawn()</code>?</li>
+<li>
+<p>Check if <code>FireRate</code> or <code>Delay</code> is preventing shots.</p>
+</li>
+<li>
+<p><strong>Bullets vanish immediately?</strong></p>
+</li>
+<li>Check <code>Lifetime</code> in <code>Main</code> settings.</li>
+<li>Check if they're hitting something immediately (collision settings).</li>
 </ul></div>
             </div>
         </div>
