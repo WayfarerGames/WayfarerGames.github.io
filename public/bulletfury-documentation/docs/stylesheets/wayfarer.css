@@ -236,6 +236,16 @@ body > .container {
   text-decoration: none;
 }
 
+/* Ensure top-level direct links (e.g. Intro) match section headers */
+.bs-sidebar .docs-global-nav .docs-global-item > .nav-link {
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: rgba(250, 252, 255, 0.86) !important;
+  padding: 6px 10px !important;
+  border-radius: 10px;
+}
+
 .docs-nav-summary::-webkit-details-marker {
   display: none;
 }
