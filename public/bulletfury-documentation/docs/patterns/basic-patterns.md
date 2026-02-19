@@ -3,7 +3,8 @@
 Ready to make some cool patterns? Here are a few recipes using just the free modules. Feel free to tweak the numbers and make them your own!
 
 ## 1. Straight Stream
-*The classic "pew pew"*
+
+Tagline: *The classic "pew pew"*
 
 Great for basic enemies or player weapons.
 
@@ -24,7 +25,8 @@ Great for basic enemies or player weapons.
 ---
 
 ## 2. Radial Burst
-*The "shockwave"*
+
+Tagline: *The "shockwave"*
 
 Spawns a ring of bullets expanding outward.
 
@@ -48,7 +50,8 @@ Spawns a ring of bullets expanding outward.
 ---
 
 ## 3. Rotating Spiral
-*The "bullet hell staple"*
+
+Tagline: *The "bullet hell staple"*
 
 A single stream that spins around, creating a beautiful spiral.
 
@@ -66,7 +69,8 @@ A single stream that spins around, creating a beautiful spiral.
 ---
 
 ## 4. Wave Stream
-*The "wobbly laser"*
+
+Tagline: *The "wobbly laser"*
 
 A stream of bullets that speeds up and slows down, creating a wave effect.
 
@@ -81,7 +85,8 @@ A stream of bullets that speeds up and slows down, creating a wave effect.
 ---
 
 ## 5. Hold & Release
-*The "wait for it..."*
+
+Tagline: *The "wait for it..."*
 
 Spawn bullets, freeze them in place, then launch them all at once.
 
@@ -91,7 +96,9 @@ Spawn bullets, freeze them in place, then launch them all at once.
 - Set `timeToPlayBeforeWaiting` to a small number (like `0.5`) so they fly out a bit and then stop.
 
 **Trigger:**
+
 Call this in your code when you're ready to fire:
+
 ```csharp
 spawner.ActivateWaitingBullets();
 ```
@@ -101,7 +108,8 @@ spawner.ActivateWaitingBullets();
 ---
 
 ## 6. Shotgun Blast
-*The "boomstick"*
+
+Tagline: *The "boomstick"*
 
 A random spread of bullets in a cone.
 
@@ -117,6 +125,7 @@ A random spread of bullets in a cone.
 - `randomise`: `true`
 
 **Trigger:**
+
 ```csharp
 if (Input.GetMouseButtonDown(0))
     spawner.Spawn(transform, Time.deltaTime);

@@ -370,6 +370,7 @@ Apply at runtime with `BulletSpawner.SetPreset(...)`.
 ### `BulletRenderData`
 
 Public fields:
+
 - `Camera Camera`
 - `Texture2D Texture`
 - `bool Animated`
@@ -380,6 +381,7 @@ Public fields:
 - `int Priority`
 
 Public members:
+
 - `Material Material { get; }`
 - `static void ResetMaterials()`
 - `Material GetMaterial()`
@@ -647,6 +649,7 @@ These are public in the package and often useful in custom runtime/module code.
 Public fields include bullet arrays, render output arrays, transform deltas, collision sizing, and feature toggles (`UseRotationForDirection`, `MoveWithTransform`, `RotateWithTransform`).
 
 Public method:
+
 - `void Execute(int index)`
 
 Unless you are building a custom simulation runner, use `BulletSpawner.UpdateAllBullets(...)` rather than scheduling `BulletJob` yourself.

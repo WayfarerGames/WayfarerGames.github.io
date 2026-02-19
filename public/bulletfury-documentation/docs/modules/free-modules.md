@@ -124,7 +124,7 @@ The Pro version includes even more modules like **Homing/Tracking**, **Bouncing*
 ### ReplayModule + RewindModule
 *Time tricks*
 
-- **What it does**: Records simulation snapshots, then rewinds through them in real time.
+- **What it does**: Records simulation snapshots, then rewinds through them in real time. Requires the `DeterministicRuntimeModule`
 - **Perfect for**: Timeline attacks, deterministic pattern replays, and stylized time-control mechanics.
 - **Why it's useful**: Makes advanced "scripted chaos" patterns much easier to produce.
 

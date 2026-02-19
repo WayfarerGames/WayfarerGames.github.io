@@ -45,7 +45,10 @@ In **RenderData**:
 - Assign a **Texture2D** for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)
 - Set the sorting **Layer** and **Priority** if you need them to appear on top of other things.
 
-*(Note: In the Inspector's RenderData section, you'll see a green circle in the bullet preview. This green circle shows the size of the bullet's collision area relative to the bullet sprite itself. Bulletfury collisions work natively with Unity's 2D colliders!)*
+> **Note:** In the Inspector's RenderData section, you'll see a green
+> circle in the bullet preview. This green circle shows the size of the
+> bullet's collision area relative to the bullet sprite itself.
+> Bulletfury collisions work natively with Unity's 2D colliders.
 
 ## 5) Configure the basics
 
@@ -68,6 +71,7 @@ In **Spawn Shape Data** (let's keep it simple for now):
 
 > **What does `spawnDir` do?**
 > This setting controls the initial direction your bullets will travel:
+>
 > - **`Direction`**: Bullets fly straight up (relative to the spawner's rotation).
 > - **`Spherised`**: Bullets fly directly outward from the center point.
 > - **`Shape`**: Bullets fly perpendicular to the edge of the shape they spawned on.
@@ -79,7 +83,7 @@ In **Burst Data**:
 - `burstCount`: `1`
 - `delay`: `0`
 
-## 6) Fire!
+## 6) Fire
 
 Hit **Play Mode**. If everything is set up right, you should see a stream of bullets shooting out!
 
@@ -87,7 +91,10 @@ Hit **Play Mode**. If everything is set up right, you should see a stream of bul
 
 ## Exploring Modules
 
-You might be wondering where settings like "acceleration", "homing", or "color changes" are. In Bulletfury, a lot of behavior is intentionally "hidden" behind **Modules**. Instead of one massive inspector with a hundred settings you aren't using, you snap on only the behaviors you need. 
+You might be wondering where settings like "acceleration", "homing", or
+"color changes" are. In Bulletfury, a lot of behavior is intentionally
+"hidden" behind **Modules**. Instead of one massive inspector with a
+hundred settings you aren't using, you snap on only the behaviors you need.
 
 We highly encourage you to check out the [**Free Modules**](../modules/free-modules.md) page and experiment with adding them to your spawner to see what they do!
 

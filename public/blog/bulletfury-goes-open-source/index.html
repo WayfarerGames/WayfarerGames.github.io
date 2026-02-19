@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulletfury Goes Open Source | Wayfarer Games Blog</title>
+  <meta name="description" content="Bulletfury V2 is now fully open source, with Unity collision support, scene previews, performance improvements, and a deep module system for custom bullet behaviors.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/blog/bulletfury-goes-open-source/">
+  <link rel="alternate" type="application/rss+xml" title="Wayfarer Games Blog RSS" href="https://wayfarer-games.com/blog/rss.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Bulletfury Goes Open Source | Wayfarer Games Blog">
+  <meta property="og:description" content="Bulletfury V2 is now fully open source, with Unity collision support, scene previews, performance improvements, and a deep module system for custom bullet behaviors.">
+  <meta property="og:url" content="https://wayfarer-games.com/blog/bulletfury-goes-open-source/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bulletfury Goes Open Source | Wayfarer Games Blog">
+  <meta name="twitter:description" content="Bulletfury V2 is now fully open source, with Unity collision support, scene previews, performance improvements, and a deep module system for custom bullet behaviors.">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Bulletfury Goes Open Source","description":"Bulletfury V2 is now fully open source, with Unity collision support, scene previews, performance improvements, and a deep module system for custom bullet behaviors.","datePublished":"2026-02-19T00:00:00.000Z","dateModified":"2026-02-19T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/bulletfury-goes-open-source/","url":"https://wayfarer-games.com/blog/bulletfury-goes-open-source/","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"}}
+  </script>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:30px 20px 80px; }
+    .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:10px; flex-wrap:wrap; }
+    .brand { color:var(--white); text-decoration:none; font-family:"Fredoka",sans-serif; font-weight:700; letter-spacing:.3px; }
+    .pill { font-size:13px; padding:9px 16px; }
+    .kicker { font-family:"Fredoka",sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); margin-bottom:10px; }
+    h1 { font-family:"Fredoka",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.1; margin-bottom:10px; }
+    .meta { font-size:13px; color:rgba(250,252,255,.6); margin-bottom:26px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:20px; }
+    .post-body { line-height:1.85; font-size:17px; color:rgba(250,252,255,.84); }
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 { font-family:"Fredoka",sans-serif; color:var(--white); margin:1.8em 0 .55em; line-height:1.2; }
+    .post-body h2 { font-size:1.7em; }
+    .post-body h3 { color:var(--poly); }
+    .post-body p { margin-bottom:1.15em; }
+    .post-body a { color:var(--poly); text-underline-offset:3px; text-decoration-color:rgba(90,214,255,.4); }
+    .post-body ul, .post-body ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
+    .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .post-body pre code { background:none; padding:0; color:rgba(250,252,255,.88); }
+    .post-body blockquote { border-left:3px solid var(--poly); padding:6px 0 6px 20px; margin:1.5em 0; color:rgba(250,252,255,.6); font-style:italic; background:rgba(90,214,255,.04); border-radius:0 8px 8px 0; }
+    .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
+  </style>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top-nav">
+      <a href="/" class="brand">Wayfarer Games</a>
+      <div style="display:flex; gap:8px;">
+        <a href="/blog/" class="pill pill-out">All posts</a>
+        <a href="/blog/rss.xml" class="pill pill-lime">RSS</a>
+      </div>
+    </nav>
+    <article>
+      <div class="kicker">Wayfarer Devlog</div>
+      <h1>Bulletfury Goes Open Source</h1>
+      <div class="meta">19 Feb 2026</div>
+      <div class="post-body"><h1>Bulletfury Goes Open Source</h1>
+<p>Hello again! Post #2 hot off the heels of the first - Bulletfury is now open source!</p>
+<p>Version 2 is fully working, and it is currently being used in Polyfury: Definitive Edition to great effect (thanks Hermit Cat!).</p>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/polyfury-demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<p>There are lots of really cool changes from V1, too. Here&#39;s a brief summary:</p>
+<ul>
+<li>Works with Unity&#39;s collisions. That means no more custom collider components.</li>
+<li>Scene view preview, like particle systems.</li>
+<li>Improved performance (read: no more memory leak lol).</li>
+<li>In depth module system for deep customization. This is my favorite thing really; it&#39;s so easy to add new spawner and bullet behaviors.</li>
+<li>Massive overhaul of the editor interface. It looks pretty cool.</li>
+<li>Performance hints: if you are using modules that impact performance (for example, the &quot;track object&quot; module calculates the direction to an object for every bullet every frame), you&#39;ll get a little indicator and explanation.</li>
+</ul>
+<p>V2 is a significant step up. I&#39;ve learned a lot by releasing a full game using my own tool, and the core engine is now completely free and open source.</p>
+<p>There is an asterisk there, though: I&#39;ve put a lot of time and effort into this, so I&#39;ve separated some more interesting modules into the paid asset store version. Here&#39;s what that version has:</p>
+<ul>
+<li>Object tracking for homing missiles.</li>
+<li>Bouncing bullets (a commonly requested feature!).</li>
+<li>Same-device deterministic mode with replays and rewinding!<ul>
+<li>N.B. this isn&#39;t guaranteed cross-device deterministic, so you can&#39;t use it for shared replays or online multiplayer unfortunately. I would love that, but it is so much work.</li>
+</ul>
+</li>
+<li>Aimed bullets with aim prediction.</li>
+<li>Sub spawners for bomb bullets.</li>
+<li>Sin waves so you can wobble your bullets.</li>
+<li>Force over time so you can apply extra forces.</li>
+<li>Spawn from transform so you can change where your bullets initially spawn from.</li>
+</ul>
+<p>More will be added over time to the premium version, and this is a free upgrade for anyone who has bought V1.</p>
+<p>If you can&#39;t afford the £15 price tag, though, I&#39;ve made all of this solely through the module system - so you can probably write it yourself!</p>
+</div>
+    </article>
+  </main>
+</body>
+</html>

@@ -41,7 +41,7 @@ The Pro version is basically a "batteries included" pack. It comes with advanced
 ### Feature breakdown
 
 | Feature | Free Version | Pro Version |
-|---|---|---|
+| --- | --- | --- |
 | **Core Engine** | Included | Included |
 | **Basic Modules** (Speed, Size, Color, etc.) | Included | Included |
 | **Aimed Shot Module** | Build it yourself | Ready to use |

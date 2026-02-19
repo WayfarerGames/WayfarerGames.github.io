@@ -1,4 +1,4 @@
-# <span class="title-lead">Welcome to</span> Bulletfury!
+# <span class="title-lead">Welcome to</span> Bulletfury
 
 Hi! Bulletfury is a high-performance 2D bullet spawning and rendering framework for Unity. Whether you're making a chaotic bullet hell or just need a few projectiles for your platformer, this tool is designed to make it easy, fast, and fun.
 
@@ -37,6 +37,5 @@ If you're building a shooter, a bullet hell game, or anything that needs a lot o
 
 ## Quick links
 
-- **Package Path**: `PackageSource/com.wayfarergames.bulletfury` (if you're looking in the repo)
 - **UPM Package Name**: `com.wayfarergames.bulletfury`
 - **Paid Version**: Check out the `Paid Version` page if you're interested in the advanced features.

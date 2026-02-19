@@ -7,6 +7,7 @@ So you want to go beyond the basics? Awesome! Bulletfury is designed to be exten
 Custom modules are just C# classes. You don't need to inherit from `MonoBehaviour`—just implement one of the module interfaces, and Bulletfury will pick it up automatically.
 
 ### The Rules
+
 For your module to show up in the Inspector, it must be:
 
 1. `[Serializable]`

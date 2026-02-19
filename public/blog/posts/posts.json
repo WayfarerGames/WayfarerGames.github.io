@@ -1,5 +1,11 @@
 [
   {
+    "file": "bulletfury-goes-open-source.md",
+    "title": "Bulletfury Goes Open Source",
+    "date": "2026-02-19",
+    "summary": "Bulletfury V2 is now fully open source, with Unity collision support, scene previews, performance improvements, and a deep module system for custom bullet behaviors."
+  },
+  {
     "file": "bullet-hell-math.md",
     "title": "Bullet Pattern Generation - Circles, Arcs, and Spirals",
     "date": "2026-02-18",
