@@ -218,7 +218,8 @@ body > .container {
   box-shadow: none !important;
 }
 
-.docs-nav-summary {
+.docs-nav-summary,
+.docs-global-item > .nav-link {
   display: block;
   list-style: none;
   cursor: pointer;
@@ -231,6 +232,8 @@ body > .container {
   user-select: none;
   background: transparent !important;
   border: 0 !important;
+  margin-bottom: 0 !important;
+  text-decoration: none;
 }
 
 .docs-nav-summary::-webkit-details-marker {
@@ -267,12 +270,10 @@ body > .container {
   margin-bottom: 0 !important;
 }
 
-/* Make non-collapsible top-level items (e.g. Intro) match group headers */
-.docs-global-item > .nav-link {
-  display: block;
-  font-size: 16px;
-  font-weight: 600 !important;
-  padding: 6px 10px !important;
+/* Match base MkDocs details/admonition spacing to tighter sidebar */
+.admonition,
+details {
+  padding: 5px !important;
   margin-bottom: 0 !important;
 }
 
