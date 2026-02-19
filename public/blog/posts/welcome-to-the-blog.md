@@ -1,10 +1,10 @@
 ---
-title: Welcome to the Wayfarer Devlog
+title: Welcome to the Wayfarer Games Blog
 date: 2026-02-18
 summary: First post for the markdown-powered blog route.
 ---
 
-# Welcome to the Wayfarer Devlog
+# Welcome to the Wayfarer Games Blog
 
 This blog route now loads posts directly from a folder in the repo, so only committed files are shown.
 
