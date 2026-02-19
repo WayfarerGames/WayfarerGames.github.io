@@ -9,6 +9,7 @@
   --muted: rgba(250, 252, 255, 0.72);
   --card: rgba(255, 255, 255, 0.04);
   --line: rgba(255, 255, 255, 0.14);
+  --nav-bg: rgba(20, 18, 38, 0.88);
 }
 
 html,
@@ -25,40 +26,59 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(circle at 12% 16%, rgba(90, 214, 255, 0.18), transparent 30%),
-    radial-gradient(circle at 88% 10%, rgba(255, 138, 102, 0.16), transparent 34%),
-    radial-gradient(circle at 50% 84%, rgba(182, 147, 255, 0.16), transparent 32%);
+    radial-gradient(circle at 10% 12%, rgba(90, 214, 255, 0.16), transparent 28%),
+    radial-gradient(circle at 90% 16%, rgba(255, 138, 102, 0.14), transparent 34%),
+    radial-gradient(circle at 18% 82%, rgba(182, 147, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 72% 74%, rgba(90, 214, 255, 0.1), transparent 36%);
 }
 
-.container,
-.navbar,
-.col-md-9,
-.col-md-3 {
+.container {
   position: relative;
   z-index: 1;
 }
 
-.navbar.navbar-default {
-  background: rgba(20, 18, 38, 0.9);
-  border: 0;
-  border-bottom: 2px solid rgba(255, 138, 102, 0.2);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+.navbar,
+.navbar.navbar-default,
+.navbar.navbar-inverse {
+  position: relative;
+  z-index: 1030;
+  background: var(--nav-bg) !important;
+  border: 0 !important;
+  border-bottom: 2px solid rgba(255, 138, 102, 0.2) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-.navbar-default .navbar-brand {
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(90, 214, 255, 0.35), rgba(255, 138, 102, 0.35), rgba(182, 147, 255, 0.35));
+}
+
+.navbar-default .navbar-brand,
+.navbar-inverse .navbar-brand {
   color: var(--poly);
   font-family: "Fredoka", sans-serif;
   font-weight: 700;
   letter-spacing: 0.4px;
+  text-shadow: 0 0 22px rgba(90, 214, 255, 0.25);
 }
 
 .navbar-default .navbar-brand:hover,
+.navbar-inverse .navbar-brand:hover,
 .navbar-default .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: var(--white);
 }
 
-.navbar-default .navbar-nav > li > a {
+.navbar-default .navbar-nav > li > a,
+.navbar-inverse .navbar-nav > li > a {
   color: var(--muted);
   font-family: "Fredoka", sans-serif;
   font-weight: 600;
@@ -72,10 +92,47 @@ body::before {
   border-radius: 999px;
 }
 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background: rgba(90, 214, 255, 0.14) !important;
+  color: var(--poly) !important;
+  border-radius: 999px;
+}
+
+.navbar-toggle {
+  border-color: rgba(90, 214, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.navbar-toggle .icon-bar {
+  background: var(--poly) !important;
+}
+
+.navbar-form .form-control,
+.navbar input[type="text"] {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(90, 214, 255, 0.32) !important;
+  color: var(--white) !important;
+  border-radius: 999px;
+}
+
+.navbar-form .form-control::placeholder,
+.navbar input[type="text"]::placeholder {
+  color: rgba(250, 252, 255, 0.55);
+}
+
 .bs-sidebar .nav > li > a {
-  color: var(--muted);
+  color: rgba(250, 252, 255, 0.9) !important;
   border-radius: 10px;
   margin-bottom: 4px;
+  font-weight: 700;
   transition: all 0.16s ease;
 }
 
@@ -87,19 +144,26 @@ body::before {
 
 .bs-sidebar .nav .nav > li > a {
   padding-left: 22px;
-  color: rgba(250, 252, 255, 0.62);
+  color: rgba(250, 252, 255, 0.78) !important;
 }
 
-.bs-sidebar.affix {
+.bs-sidebar,
+.bs-sidebar.well,
+.bs-sidebar.affix,
+.bs-sidebar.affix.well {
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: var(--card);
+  background: rgba(20, 18, 38, 0.9) !important;
   padding: 12px 10px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.26);
   backdrop-filter: blur(6px);
 }
 
 .col-md-9[role="main"] {
-  background: var(--card);
+  background:
+    linear-gradient(140deg, rgba(90, 214, 255, 0.05), transparent 45%),
+    linear-gradient(320deg, rgba(255, 138, 102, 0.06), transparent 48%),
+    var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 26px 28px;
@@ -223,6 +287,13 @@ hr {
 .dropdown-menu {
   background: #1b1830;
   border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1100;
+}
+
+.navbar .dropdown-menu {
+  margin-top: 8px;
 }
 
 .dropdown-menu > li > a {
@@ -232,4 +303,27 @@ hr {
 .dropdown-menu > li > a:hover {
   color: var(--white);
   background: rgba(90, 214, 255, 0.12);
+}
+
+.navbar-default .navbar-text,
+.navbar-default .navbar-link,
+.navbar-inverse .navbar-text,
+.navbar-inverse .navbar-link,
+.navbar-default .navbar-nav > li > a .fa,
+.navbar-inverse .navbar-nav > li > a .fa {
+  color: var(--muted) !important;
+}
+
+@media (max-width: 991px) {
+  .col-md-9[role="main"] {
+    padding: 20px 18px;
+    border-radius: 12px;
+  }
+
+  .bs-sidebar,
+  .bs-sidebar.well,
+  .bs-sidebar.affix,
+  .bs-sidebar.affix.well {
+    margin-bottom: 14px;
+  }
 }
