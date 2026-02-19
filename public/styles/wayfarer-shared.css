@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap");
+
+:root {
+  --bg: #141226;
+  --poly: #5ad6ff;
+  --lime: #ff8a66;
+  --lav: #b693ff;
+  --sky: var(--poly);
+  --white: #fafcff;
+  --open: var(--lime);
+  --wip: var(--lav);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: "Nunito", sans-serif;
+}
+
+#cursor {
+  position: fixed;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--lime);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.bg-shapes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+@keyframes float1 {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  50% {
+    transform: translate(22px, -34px) rotate(180deg);
+  }
+}
+
+@keyframes float2 {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  50% {
+    transform: translate(-22px, -30px) rotate(-150deg);
+  }
+}
+
+@keyframes float3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(22px, -28px) scale(1.12);
+  }
+}
+
+.nlink {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  color: rgba(250, 252, 255, 0.68);
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nlink:hover {
+  color: var(--white);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: 0.2s;
+}
+
+.pill:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.pill-lime {
+  background: var(--lime);
+  color: var(--bg);
+}
+
+.pill-poly {
+  background: var(--poly);
+  color: var(--bg);
+}
+
+.pill-out {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.pill-out:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  line-height: 1;
+  font-family: "Fredoka", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+
+  #cursor {
+    display: none;
+  }
+}
