@@ -25,6 +25,8 @@ There are lots of really cool changes from V1, too. Here's a brief summary:
 
 V2 is a significant step up. I've learned a lot by releasing a full game using my own tool, and the core engine is now completely free and open source.
 
+You can grab the open source repo here: [github.com/WayfarerGames/bulletfury](https://github.com/WayfarerGames/bulletfury).
+
 There is an asterisk there, though: I've put a lot of time and effort into this, so I've separated some more interesting modules into the paid asset store version. Here's what that version has:
 
 - Object tracking for homing missiles.
