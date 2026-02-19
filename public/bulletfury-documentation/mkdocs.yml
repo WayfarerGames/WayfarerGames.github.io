@@ -7,6 +7,8 @@ theme:
   name: mkdocs
 extra_css:
   - stylesheets/wayfarer.css
+extra_javascript:
+  - javascripts/wayfarer-bg.js
 markdown_extensions:
   - admonition
   - toc:

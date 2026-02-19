@@ -20,16 +20,45 @@ body {
 }
 
 body::before {
-  content: "";
+  content: none;
+}
+
+.bg-shapes {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background:
-    radial-gradient(circle at 10% 12%, rgba(90, 214, 255, 0.16), transparent 28%),
-    radial-gradient(circle at 90% 16%, rgba(255, 138, 102, 0.14), transparent 34%),
-    radial-gradient(circle at 18% 82%, rgba(182, 147, 255, 0.12), transparent 30%),
-    radial-gradient(circle at 72% 74%, rgba(90, 214, 255, 0.1), transparent 36%);
+  overflow: hidden;
+}
+
+@keyframes float1 {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  50% {
+    transform: translate(22px, -34px) rotate(180deg);
+  }
+}
+
+@keyframes float2 {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  50% {
+    transform: translate(-22px, -30px) rotate(-150deg);
+  }
+}
+
+@keyframes float3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(22px, -28px) scale(1.12);
+  }
 }
 
 .container {
@@ -160,10 +189,7 @@ body::before {
 }
 
 .col-md-9[role="main"] {
-  background:
-    linear-gradient(140deg, rgba(90, 214, 255, 0.05), transparent 45%),
-    linear-gradient(320deg, rgba(255, 138, 102, 0.06), transparent 48%),
-    var(--card);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 26px 28px;
@@ -432,10 +458,7 @@ body {
 }
 
 .col-md-9[role="main"] {
-  background:
-    linear-gradient(140deg, rgba(90, 214, 255, 0.05), transparent 45%),
-    linear-gradient(320deg, rgba(255, 138, 102, 0.06), transparent 48%),
-    rgba(255, 255, 255, 0.04) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }
 
 .table,
