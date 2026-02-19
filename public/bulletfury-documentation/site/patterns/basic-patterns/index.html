@@ -42,6 +42,9 @@
                                 <a href="../../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
                             </li>
                             <li class="nav-item">
+                                <a href="../../api-reference/" class="nav-link">API Reference</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../modules/free-modules/" class="nav-link">Free Modules</a>
                             </li>
                             <li class="nav-item">
@@ -131,14 +134,14 @@
 <h2 id="1-straight-stream">1. Straight Stream<a class="headerlink" href="#1-straight-stream" title="Permanent link">&para;</a></h2>
 <p><em>The classic "pew pew"</em></p>
 <p>Great for basic enemies or player weapons.</p>
-<p><strong>Main Settings:</strong></p>
+<p><strong>Bullet Settings:</strong></p>
 <ul>
 <li><code>FireMode</code>: <code>Automatic</code></li>
 <li><code>FireRate</code>: <code>0.1</code> (fast)</li>
 <li><code>Speed</code>: <code>6</code></li>
 <li><code>Lifetime</code>: <code>2</code></li>
 </ul>
-<p><strong>Spawn Shape:</strong></p>
+<p><strong>Spawn Shape Data:</strong></p>
 <ul>
 <li><code>numPoints</code>: <code>1</code></li>
 <li><code>spawnDir</code>: <code>Direction</code></li>
@@ -148,12 +151,12 @@
 <h2 id="2-radial-burst">2. Radial Burst<a class="headerlink" href="#2-radial-burst" title="Permanent link">&para;</a></h2>
 <p><em>The "shockwave"</em></p>
 <p>Spawns a ring of bullets expanding outward.</p>
-<p><strong>Main Settings:</strong></p>
+<p><strong>Bullet Settings:</strong></p>
 <ul>
 <li><code>FireMode</code>: <code>Automatic</code> (or <code>Manual</code> for explosions)</li>
 <li><code>FireRate</code>: <code>1.0</code> (slow)</li>
 </ul>
-<p><strong>Spawn Shape:</strong></p>
+<p><strong>Spawn Shape Data:</strong></p>
 <ul>
 <li><code>numPoints</code>: <code>24</code> (more points = smoother circle)</li>
 <li><code>radius</code>: <code>0</code></li>
@@ -208,11 +211,11 @@ Call this in your code when you're ready to fire:</p>
 <h2 id="6-shotgun-blast">6. Shotgun Blast<a class="headerlink" href="#6-shotgun-blast" title="Permanent link">&para;</a></h2>
 <p><em>The "boomstick"</em></p>
 <p>A random spread of bullets in a cone.</p>
-<p><strong>Main Settings:</strong></p>
+<p><strong>Bullet Settings:</strong></p>
 <ul>
 <li><code>FireMode</code>: <code>Manual</code></li>
 </ul>
-<p><strong>Spawn Shape:</strong></p>
+<p><strong>Spawn Shape Data:</strong></p>
 <ul>
 <li><code>numPoints</code>: <code>10</code></li>
 <li><code>spawnDir</code>: <code>Randomised</code></li>
@@ -244,6 +247,7 @@ Call this in your code when you're ready to fire:</p>
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/wayfarer-bg.js"></script>
+        <script src="../../javascripts/docs-nav.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

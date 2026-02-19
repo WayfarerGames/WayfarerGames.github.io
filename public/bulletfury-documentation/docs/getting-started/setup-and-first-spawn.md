@@ -8,40 +8,50 @@ First things first, let's get Bulletfury into your project. You can add the Git 
 
 1. Open the Package Manager (**Window > Package Manager**).
 2. Click the `+` button in the top left and select **Add package from git URL...**
-3. Enter the URL for the Bulletfury repository: `https://github.com/<your-org>/<your-repo>.git?path=/PackageSource/com.wayfarergames.bulletfury`
+3. Enter the URL for the Bulletfury repository: `https://github.com/WayfarerGames/bulletfury.git`
 4. Click **Add**.
 
 Just a reminder: Bulletfury needs **Unity 6+** and **URP**. It also relies on a few Unity packages like Burst and Mathematics, but those should install automatically.
 
-## 2) Create a spawner object
+## 2) Import the Sample Scene
+
+Before building your own spawner, the best way to understand Bulletfury is to look at the included examples!
+
+1. Open the Package Manager (**Window > Package Manager**).
+2. Find **Bulletfury** in the list of installed packages (make sure you're looking at "Packages: In Project").
+3. Go to the **Samples** tab.
+4. Click **Import** next to the `Demo Scene`.
+5. Open the newly imported scene (usually under `Assets/Samples/Bulletfury/`) and press Play to see it in action!
+
+## 3) Create a spawner object
 
 Now for the fun part!
 
 1. Create an empty `GameObject` in your scene.
 2. Add the `BulletSpawner` component to it.
 3. You'll see a few sections in the inspector:
-   - **Render Data**: How your bullets look.
-   - **Main**: Basic bullet properties like speed and lifetime.
+   - **RenderData**: How your bullets look.
+   - **Bullet Settings**: Basic bullet properties like speed and lifetime.
    - **Spawn Shape Data**: Where bullets come from (circle, line, point, etc.).
    - **Burst Data**: How many bullets fire at once.
 
-## 3) Make it visible
+## 4) Make it visible
 
 Before we can see anything, we need to tell Bulletfury how to draw the bullets.
 
-In **Render Data**:
+In **RenderData**:
 
 - Assign your **Main Camera**.
 - Assign a **Texture2D** for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)
 - Set the sorting **Layer** and **Priority** if you need them to appear on top of other things.
 
-*(Note: In the Scene view, you'll see a green circle in the bullet preview above the spawner. This green circle shows the size of the bullet's collision area relative to the bullet sprite itself. Bulletfury collisions work natively with Unity's 2D colliders!)*
+*(Note: In the Inspector's RenderData section, you'll see a green circle in the bullet preview. This green circle shows the size of the bullet's collision area relative to the bullet sprite itself. Bulletfury collisions work natively with Unity's 2D colliders!)*
 
-## 4) Configure the basics
+## 5) Configure the basics
 
 Let's set up a simple stream of bullets.
 
-In **Main**:
+In **Bullet Settings**:
 
 - Set `FireMode` to `Automatic` so it starts firing right away.
 - Check `PlayOnEnable`.
@@ -69,7 +79,7 @@ In **Burst Data**:
 - `burstCount`: `1`
 - `delay`: `0`
 
-## 5) Fire!
+## 6) Fire!
 
 Hit **Play Mode**. If everything is set up right, you should see a stream of bullets shooting out!
 
@@ -133,8 +143,7 @@ You can also control the spawner at runtime:
 If things aren't working, check these common issues:
 
 - **No bullets visible?**
-  - Did you assign a texture in `Render Data`?
-  - Is the camera assigned?
+  - Did you assign a texture in `RenderData`?
   - Is the spawner object active?
 
 - **Bullets not firing in manual mode?**
@@ -142,5 +151,5 @@ If things aren't working, check these common issues:
   - Check if `FireRate` or `Delay` is preventing shots.
 
 - **Bullets vanish immediately?**
-  - Check `Lifetime` in `Main` settings.
+  - Check `Lifetime` in `Bullet Settings`.
   - Check if they're hitting something immediately (collision settings).

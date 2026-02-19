@@ -17,6 +17,7 @@ We've set things up to get you moving quickly:
 2. **Modules**: Learn about the building blocks of Bulletfury and how to snap them together.
 3. **Patterns**: We've got some recipes for common bullet patterns to help you get started.
 4. **Custom Modules**: Want to do something unique? We'll show you how to write your own modules.
+5. **API Reference**: Full type/member reference with usage notes and best practices.
 
 ## Is this for you?
 
@@ -29,6 +30,7 @@ If you're building a shooter, a bullet hell game, or anything that needs a lot o
 ## Where to go next
 
 - [**Setup and First Spawn**](getting-started/setup-and-first-spawn.md): The best place to start. Get the package installed and fire your first shot.
+- [**API Reference**](api-reference.md): Detailed code-level docs for all public types and extension points.
 - [**Free Modules**](modules/free-modules.md): See what tools are in your toolbox right now.
 - [**Basic Patterns**](patterns/basic-patterns.md): Learn by example with some classic bullet patterns.
 - [**Write Your Own Modules**](extending/write-your-own-modules.md): Dive into the code and make Bulletfury do exactly what you need.

@@ -42,6 +42,9 @@
                                 <a href="../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
                             </li>
                             <li class="nav-item">
+                                <a href="../api-reference/" class="nav-link">API Reference</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="../modules/free-modules/" class="nav-link">Free Modules</a>
                             </li>
                             <li class="nav-item">
@@ -119,11 +122,14 @@
 <h2 id="why-upgrade">Why upgrade?<a class="headerlink" href="#why-upgrade" title="Permanent link">&para;</a></h2>
 <p>The Pro version is designed to save you time. It includes pre-built modules for:</p>
 <ul>
-<li><strong>Homing Missiles</strong></li>
+<li><strong>Aimed Shots / Target Tracking</strong></li>
 <li><strong>Bouncing / Ricochet</strong></li>
-<li><strong>Force Fields</strong></li>
+<li><strong>Force Over Time</strong> motion shaping</li>
+<li><strong>Sin Wave Offset</strong> motion shaping</li>
+<li><strong>Spawn From Transform</strong> origin control</li>
 <li><strong>Sub-Spawners</strong> (bullets that spawn other bullets)</li>
 <li><strong>Rewind / Replay</strong></li>
+<li><strong>Deterministic Runtime</strong> (stable seed/tick simulation)</li>
 </ul>
 <p>It's the same engine, just with more toys in the box.</p>
 <p>If the widget above does not load, open it here:
@@ -154,17 +160,32 @@
 <td>Included</td>
 </tr>
 <tr>
-<td><strong>Homing / Tracking Bullets</strong></td>
+<td><strong>Aimed Shot Module</strong></td>
 <td>Build it yourself</td>
 <td>Ready to use</td>
 </tr>
 <tr>
-<td><strong>Force Fields / Magnetism</strong></td>
+<td><strong>Track Object (Homing) Module</strong></td>
 <td>Build it yourself</td>
 <td>Ready to use</td>
 </tr>
 <tr>
 <td><strong>Bouncing / Ricochet</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Force Over Time Module</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Sin Wave Offset Module</strong></td>
+<td>Build it yourself</td>
+<td>Ready to use</td>
+</tr>
+<tr>
+<td><strong>Spawn From Transform Module</strong></td>
 <td>Build it yourself</td>
 <td>Ready to use</td>
 </tr>
@@ -179,7 +200,7 @@
 <td>Ready to use</td>
 </tr>
 <tr>
-<td><strong>Deterministic Randomness</strong></td>
+<td><strong>Deterministic Runtime Module</strong></td>
 <td>Build it yourself</td>
 <td>Ready to use</td>
 </tr>
@@ -204,6 +225,7 @@
         </script>
         <script src="../js/base.js"></script>
         <script src="../javascripts/wayfarer-bg.js"></script>
+        <script src="../javascripts/docs-nav.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

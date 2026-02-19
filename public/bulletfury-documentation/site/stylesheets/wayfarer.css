@@ -23,7 +23,7 @@ body {
   margin: 0 !important;
 }
 
-/* Top nav: close to the homepage treatment */
+/* Top nav: keep site title + search only */
 .navbar.fixed-top {
   position: fixed !important;
   top: 0 !important;
@@ -101,27 +101,6 @@ body {
   background: rgba(90, 214, 255, 0.14) !important;
 }
 
-.dropdown-menu {
-  margin-top: 8px !important;
-  background: #1b1830 !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 12px !important;
-  padding: 6px;
-}
-
-.dropdown-item {
-  color: rgba(250, 252, 255, 0.8) !important;
-  font-family: "Fredoka", sans-serif !important;
-  border-radius: 8px;
-}
-
-.dropdown-item:hover,
-.dropdown-item:focus,
-.dropdown-item.active {
-  color: var(--white) !important;
-  background: rgba(90, 214, 255, 0.14) !important;
-}
-
 .navbar-toggler {
   border-color: rgba(90, 214, 255, 0.45) !important;
   background: rgba(255, 255, 255, 0.04) !important;
@@ -136,7 +115,12 @@ body {
   display: block;
 }
 
-/* Keep top bar clean across all sizes: show search, hide prev/next */
+/* Hide top-level doc links, keep search controls */
+#navbar-collapse > .navbar-nav:first-child {
+  display: none !important;
+}
+
+/* Hide prev/next links and keep search only in right group */
 #navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(2),
 #navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(3) {
   display: none !important;
@@ -150,19 +134,10 @@ body {
     min-width: 0;
   }
 
-  #navbar-collapse > .navbar-nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    min-width: 0;
-    gap: 2px;
-  }
-
   #navbar-collapse > .navbar-nav.ms-md-auto {
     margin-left: auto !important;
     padding-left: 8px;
   }
-
 }
 
 /* Layout */
@@ -226,6 +201,92 @@ body > .container {
   border-right: 0 !important;
 }
 
+/* Global docs nav with expandable section groups */
+.docs-global-nav {
+  gap: 2px;
+}
+
+.docs-global-item {
+  margin-bottom: 0;
+}
+
+.docs-nav-group {
+  border-radius: 10px;
+  overflow: hidden;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.docs-nav-summary,
+.docs-global-item > .nav-link {
+  display: block;
+  list-style: none;
+  cursor: pointer;
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 16px;
+  font-weight: 600 !important;
+  color: rgba(250, 252, 255, 0.86) !important;
+  border-radius: 10px;
+  padding: 6px 10px !important;
+  user-select: none;
+  background: transparent !important;
+  border: 0 !important;
+  margin-bottom: 0 !important;
+  text-decoration: none;
+}
+
+/* Ensure top-level direct links (e.g. Intro) match section headers */
+.bs-sidebar .docs-global-nav .docs-global-item > .nav-link {
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: rgba(250, 252, 255, 0.86) !important;
+  padding: 6px 10px !important;
+  border-radius: 10px;
+}
+
+.docs-nav-summary::-webkit-details-marker {
+  display: none;
+}
+
+.docs-nav-group > summary::after {
+  content: "▸";
+  float: right;
+  color: rgba(250, 252, 255, 0.6);
+  transition: transform 120ms ease;
+}
+
+.docs-nav-group[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+.docs-nav-group > summary:hover {
+  color: var(--lime) !important;
+  background: rgba(255, 138, 102, 0.12) !important;
+}
+
+.docs-sub-nav {
+  padding: 0 0 2px 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+.docs-sub-item .nav-link {
+  font-size: 14px;
+  color: rgba(250, 252, 255, 0.65) !important;
+  padding: 5px 10px 5px 14px !important;
+  background: transparent !important;
+  margin-bottom: 0 !important;
+}
+
+/* Match base MkDocs details/admonition spacing to tighter sidebar */
+.admonition,
+details {
+  padding: 5px !important;
+  margin-bottom: 0 !important;
+}
+
 /* Main content: remove the heavy "glassy card" wrapper */
 .col-md-9[role="main"] {
   background: transparent !important;
@@ -252,6 +313,10 @@ h1 {
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--poly) !important;
+}
+
+h1 .title-lead {
+  color: var(--white) !important;
 }
 
 h2 {
@@ -337,10 +402,89 @@ footer p {
   text-align: center;
 }
 
+/* Search modal styling */
+#mkdocs_search_modal .modal-content {
+  background: rgba(14, 12, 30, 0.98) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+#mkdocs_search_modal .modal-header,
+#mkdocs_search_modal .modal-footer {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+#mkdocs_search_modal .modal-title {
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 1.2rem;
+  color: var(--white) !important;
+}
+
+#mkdocs_search_modal .modal-body p {
+  color: rgba(250, 252, 255, 0.68) !important;
+}
+
+#mkdocs-search-query.form-control {
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(90, 214, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: var(--white) !important;
+  box-shadow: none !important;
+}
+
+#mkdocs-search-query.form-control::placeholder {
+  color: rgba(250, 252, 255, 0.4);
+}
+
+#mkdocs-search-query.form-control:focus {
+  border-color: rgba(90, 214, 255, 0.8) !important;
+  box-shadow: 0 0 0 3px rgba(90, 214, 255, 0.2) !important;
+}
+
+#mkdocs-search-results {
+  margin-top: 14px;
+}
+
+#mkdocs-search-results article {
+  padding: 12px 2px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#mkdocs-search-results article:last-child {
+  border-bottom: 0;
+}
+
+#mkdocs-search-results h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+#mkdocs-search-results h3 a {
+  font-family: "Fredoka", sans-serif !important;
+  color: var(--poly) !important;
+  text-decoration: none;
+}
+
+#mkdocs-search-results h3 a:hover,
+#mkdocs-search-results h3 a:focus {
+  color: var(--lime) !important;
+  text-decoration: underline;
+}
+
+#mkdocs-search-results article p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(250, 252, 255, 0.74) !important;
+}
+
 /* Unity Asset Store embed: constrain to widget dimensions */
 .unity-asset-embed {
   width: 100%;
-  max-width: 660px;
+  max-width: 600px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
   overflow: hidden;
@@ -350,7 +494,8 @@ footer p {
 .unity-asset-embed iframe {
   display: block;
   width: 100%;
-  height: 158px;
+  max-height: 130px;
+  height: 130px;
   border: 0;
   background: #0f1020;
 }
@@ -395,16 +540,6 @@ footer p {
     width: 100%;
     display: block;
     margin: 0;
-  }
-
-  #navbar-collapse > .navbar-nav .nav-item {
-    width: 100%;
-  }
-
-  #navbar-collapse > .navbar-nav .nav-link {
-    display: block;
-    width: 100%;
-    padding: 8px 10px !important;
   }
 
   #navbar-collapse > .navbar-nav.ms-md-auto {

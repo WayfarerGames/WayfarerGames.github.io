@@ -42,6 +42,9 @@
                                 <a href="./" class="nav-link active" aria-current="page">Setup and First Spawn</a>
                             </li>
                             <li class="nav-item">
+                                <a href="../../api-reference/" class="nav-link">API Reference</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="../../modules/free-modules/" class="nav-link">Free Modules</a>
                             </li>
                             <li class="nav-item">
@@ -67,7 +70,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../modules/free-modules/" class="nav-link">
+                                <a rel="next" href="../../api-reference/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -95,19 +98,31 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#2-create-a-spawner-object" class="nav-link">2) Create a spawner object</a>
+            <li class="nav-item" data-bs-level="2"><a href="#2-import-the-sample-scene" class="nav-link">2) Import the Sample Scene</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#3-make-it-visible" class="nav-link">3) Make it visible</a>
+            <li class="nav-item" data-bs-level="2"><a href="#3-create-a-spawner-object" class="nav-link">3) Create a spawner object</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#4-configure-the-basics" class="nav-link">4) Configure the basics</a>
+            <li class="nav-item" data-bs-level="2"><a href="#4-make-it-visible" class="nav-link">4) Make it visible</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#5-fire" class="nav-link">5) Fire!</a>
+            <li class="nav-item" data-bs-level="2"><a href="#5-configure-the-basics" class="nav-link">5) Configure the basics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#6-fire" class="nav-link">6) Fire!</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#exploring-modules" class="nav-link">Exploring Modules</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#advanced-spawn-settings" class="nav-link">Advanced Spawn Settings</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -133,32 +148,46 @@
 <h1 id="setup-and-first-spawn">Setup and First Spawn<a class="headerlink" href="#setup-and-first-spawn" title="Permanent link">&para;</a></h1>
 <p>Let's get you up and running! This guide will take you from zero to seeing your first bullets flying across the screen.</p>
 <h2 id="1-install-the-package">1) Install the package<a class="headerlink" href="#1-install-the-package" title="Permanent link">&para;</a></h2>
-<p>First things first, add Bulletfury to your Unity project's <code>Packages/manifest.json</code>:</p>
-<pre><code class="language-json">&quot;com.wayfarergames.bulletfury&quot;: &quot;https://github.com/&lt;your-org&gt;/&lt;your-repo&gt;.git?path=/PackageSource/com.wayfarergames.bulletfury&quot;
-</code></pre>
+<p>First things first, let's get Bulletfury into your project. You can add the Git URL directly through the Unity Package Manager:</p>
+<ol>
+<li>Open the Package Manager (<strong>Window &gt; Package Manager</strong>).</li>
+<li>Click the <code>+</code> button in the top left and select <strong>Add package from git URL...</strong></li>
+<li>Enter the URL for the Bulletfury repository: <code>https://github.com/WayfarerGames/bulletfury.git</code></li>
+<li>Click <strong>Add</strong>.</li>
+</ol>
 <p>Just a reminder: Bulletfury needs <strong>Unity 6+</strong> and <strong>URP</strong>. It also relies on a few Unity packages like Burst and Mathematics, but those should install automatically.</p>
-<h2 id="2-create-a-spawner-object">2) Create a spawner object<a class="headerlink" href="#2-create-a-spawner-object" title="Permanent link">&para;</a></h2>
+<h2 id="2-import-the-sample-scene">2) Import the Sample Scene<a class="headerlink" href="#2-import-the-sample-scene" title="Permanent link">&para;</a></h2>
+<p>Before building your own spawner, the best way to understand Bulletfury is to look at the included examples!</p>
+<ol>
+<li>Open the Package Manager (<strong>Window &gt; Package Manager</strong>).</li>
+<li>Find <strong>Bulletfury</strong> in the list of installed packages (make sure you're looking at "Packages: In Project").</li>
+<li>Go to the <strong>Samples</strong> tab.</li>
+<li>Click <strong>Import</strong> next to the <code>Demo Scene</code>.</li>
+<li>Open the newly imported scene (usually under <code>Assets/Samples/Bulletfury/</code>) and press Play to see it in action!</li>
+</ol>
+<h2 id="3-create-a-spawner-object">3) Create a spawner object<a class="headerlink" href="#3-create-a-spawner-object" title="Permanent link">&para;</a></h2>
 <p>Now for the fun part!</p>
 <ol>
 <li>Create an empty <code>GameObject</code> in your scene.</li>
 <li>Add the <code>BulletSpawner</code> component to it.</li>
 <li>You'll see a few sections in the inspector:</li>
-<li><strong>Render Data</strong>: How your bullets look.</li>
-<li><strong>Main</strong>: Basic bullet properties like speed and lifetime.</li>
+<li><strong>RenderData</strong>: How your bullets look.</li>
+<li><strong>Bullet Settings</strong>: Basic bullet properties like speed and lifetime.</li>
 <li><strong>Spawn Shape Data</strong>: Where bullets come from (circle, line, point, etc.).</li>
 <li><strong>Burst Data</strong>: How many bullets fire at once.</li>
 </ol>
-<h2 id="3-make-it-visible">3) Make it visible<a class="headerlink" href="#3-make-it-visible" title="Permanent link">&para;</a></h2>
+<h2 id="4-make-it-visible">4) Make it visible<a class="headerlink" href="#4-make-it-visible" title="Permanent link">&para;</a></h2>
 <p>Before we can see anything, we need to tell Bulletfury how to draw the bullets.</p>
-<p>In <strong>Render Data</strong>:</p>
+<p>In <strong>RenderData</strong>:</p>
 <ul>
 <li>Assign your <strong>Main Camera</strong>.</li>
 <li>Assign a <strong>Texture2D</strong> for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)</li>
 <li>Set the sorting <strong>Layer</strong> and <strong>Priority</strong> if you need them to appear on top of other things.</li>
 </ul>
-<h2 id="4-configure-the-basics">4) Configure the basics<a class="headerlink" href="#4-configure-the-basics" title="Permanent link">&para;</a></h2>
+<p><em>(Note: In the Inspector's RenderData section, you'll see a green circle in the bullet preview. This green circle shows the size of the bullet's collision area relative to the bullet sprite itself. Bulletfury collisions work natively with Unity's 2D colliders!)</em></p>
+<h2 id="5-configure-the-basics">5) Configure the basics<a class="headerlink" href="#5-configure-the-basics" title="Permanent link">&para;</a></h2>
 <p>Let's set up a simple stream of bullets.</p>
-<p>In <strong>Main</strong>:</p>
+<p>In <strong>Bullet Settings</strong>:</p>
 <ul>
 <li>Set <code>FireMode</code> to <code>Automatic</code> so it starts firing right away.</li>
 <li>Check <code>PlayOnEnable</code>.</li>
@@ -173,13 +202,34 @@
 <li><code>radius</code>: <code>0</code></li>
 <li><code>spawnDir</code>: <code>Direction</code></li>
 </ul>
+<blockquote>
+<p><strong>What does <code>spawnDir</code> do?</strong>
+This setting controls the initial direction your bullets will travel:
+- <strong><code>Direction</code></strong>: Bullets fly straight up (relative to the spawner's rotation).
+- <strong><code>Spherised</code></strong>: Bullets fly directly outward from the center point.
+- <strong><code>Shape</code></strong>: Bullets fly perpendicular to the edge of the shape they spawned on.
+- <strong><code>Point</code></strong>: Bullets fly outward towards the closest corner/point of the shape.
+- <strong><code>Randomised</code></strong>: Bullets fly in a random direction within the defined <code>directionArc</code>.</p>
+</blockquote>
 <p>In <strong>Burst Data</strong>:</p>
 <ul>
 <li><code>burstCount</code>: <code>1</code></li>
 <li><code>delay</code>: <code>0</code></li>
 </ul>
-<h2 id="5-fire">5) Fire!<a class="headerlink" href="#5-fire" title="Permanent link">&para;</a></h2>
+<h2 id="6-fire">6) Fire!<a class="headerlink" href="#6-fire" title="Permanent link">&para;</a></h2>
 <p>Hit <strong>Play Mode</strong>. If everything is set up right, you should see a stream of bullets shooting out!</p>
+<p><strong>Scene View Tool:</strong> For rapid iteration without entering Play Mode, check the bottom left of your Scene window when the spawner is selected. You'll find a little widget to <strong>play, pause, and stop</strong> the selected spawner. This widget also displays the <strong>current and maximum bullet count</strong>, which is incredibly useful for testing performance and tuning density.</p>
+<h2 id="exploring-modules">Exploring Modules<a class="headerlink" href="#exploring-modules" title="Permanent link">&para;</a></h2>
+<p>You might be wondering where settings like "acceleration", "homing", or "color changes" are. In Bulletfury, a lot of behavior is intentionally "hidden" behind <strong>Modules</strong>. Instead of one massive inspector with a hundred settings you aren't using, you snap on only the behaviors you need. </p>
+<p>We highly encourage you to check out the <a href="../../modules/free-modules/"><strong>Free Modules</strong></a> page and experiment with adding them to your spawner to see what they do!</p>
+<h2 id="advanced-spawn-settings">Advanced Spawn Settings<a class="headerlink" href="#advanced-spawn-settings" title="Permanent link">&para;</a></h2>
+<p>While the basics will get you started, the <strong>Spawn Shape Data</strong> has a lot of hidden power for making complex patterns without any extra modules:</p>
+<ul>
+<li><strong><code>arc</code></strong>: Only spawn bullets along a specific angle (e.g. 180 for a half-circle).</li>
+<li><strong><code>randomise</code> / <code>onEdge</code></strong>: Places bullets randomly within the shape or strictly on its outline.</li>
+<li><strong>Grouping (<code>numPerGroup</code>, <code>groupRadius</code>, <code>groupDirection</code>)</strong>: Instead of single bullets, spawn them in clusters! Great for making thick walls of bullets.</li>
+<li><strong><code>removeFromEdgePercent</code></strong>: Creates gaps at the corners of your shapes.</li>
+</ul>
 <h2 id="manual-spawning">Manual spawning<a class="headerlink" href="#manual-spawning" title="Permanent link">&para;</a></h2>
 <p>Want to control when bullets fire? Set <code>FireMode</code> to <code>Manual</code> and use a script like this:</p>
 <pre><code class="language-csharp">using BulletFury;
@@ -217,8 +267,7 @@ public class ManualFireExample : MonoBehaviour
 <p>If things aren't working, check these common issues:</p>
 <ul>
 <li><strong>No bullets visible?</strong></li>
-<li>Did you assign a texture in <code>Render Data</code>?</li>
-<li>Is the camera assigned?</li>
+<li>Did you assign a texture in <code>RenderData</code>?</li>
 <li>
 <p>Is the spawner object active?</p>
 </li>
@@ -232,7 +281,7 @@ public class ManualFireExample : MonoBehaviour
 <li>
 <p><strong>Bullets vanish immediately?</strong></p>
 </li>
-<li>Check <code>Lifetime</code> in <code>Main</code> settings.</li>
+<li>Check <code>Lifetime</code> in <code>Bullet Settings</code>.</li>
 <li>Check if they're hitting something immediately (collision settings).</li>
 </ul></div>
             </div>
@@ -249,6 +298,7 @@ public class ManualFireExample : MonoBehaviour
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/wayfarer-bg.js"></script>
+        <script src="../../javascripts/docs-nav.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

@@ -14,11 +14,14 @@ If you're enjoying Bulletfury and want to unlock the full suite of advanced modu
 
 The Pro version is designed to save you time. It includes pre-built modules for:
 
-- **Homing Missiles**
+- **Aimed Shots / Target Tracking**
 - **Bouncing / Ricochet**
-- **Force Fields**
+- **Force Over Time** motion shaping
+- **Sin Wave Offset** motion shaping
+- **Spawn From Transform** origin control
 - **Sub-Spawners** (bullets that spawn other bullets)
 - **Rewind / Replay**
+- **Deterministic Runtime** (stable seed/tick simulation)
 
 It's the same engine, just with more toys in the box.
 
@@ -41,12 +44,15 @@ The Pro version is basically a "batteries included" pack. It comes with advanced
 |---|---|---|
 | **Core Engine** | Included | Included |
 | **Basic Modules** (Speed, Size, Color, etc.) | Included | Included |
-| **Homing / Tracking Bullets** | Build it yourself | Ready to use |
-| **Force Fields / Magnetism** | Build it yourself | Ready to use |
+| **Aimed Shot Module** | Build it yourself | Ready to use |
+| **Track Object (Homing) Module** | Build it yourself | Ready to use |
 | **Bouncing / Ricochet** | Build it yourself | Ready to use |
+| **Force Over Time Module** | Build it yourself | Ready to use |
+| **Sin Wave Offset Module** | Build it yourself | Ready to use |
+| **Spawn From Transform Module** | Build it yourself | Ready to use |
 | **Sub-Spawners** (Spawn on hit/death) | Build it yourself | Ready to use |
 | **Rewind / Replay System** | Build it yourself | Ready to use |
-| **Deterministic Randomness** | Build it yourself | Ready to use |
+| **Deterministic Runtime Module** | Build it yourself | Ready to use |
 
 ### Which one is right for you?
 

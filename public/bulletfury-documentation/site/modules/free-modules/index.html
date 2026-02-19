@@ -42,6 +42,9 @@
                                 <a href="../../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
                             </li>
                             <li class="nav-item">
+                                <a href="../../api-reference/" class="nav-link">API Reference</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="./" class="nav-link active" aria-current="page">Free Modules</a>
                             </li>
                             <li class="nav-item">
@@ -62,7 +65,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../getting-started/setup-and-first-spawn/" class="nav-link">
+                                <a rel="prev" href="../../api-reference/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -100,6 +103,10 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#want-more" class="nav-link">Want more?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#premium-only-modules" class="nav-link">Premium-only Modules</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -176,7 +183,74 @@
 <li><strong>How to use</strong>: Call <code>spawner.ActivateWaitingBullets()</code> in your code to release them.</li>
 </ul>
 <h2 id="want-more">Want more?<a class="headerlink" href="#want-more" title="Permanent link">&para;</a></h2>
-<p>The Pro version includes even more modules like <strong>Homing/Tracking</strong>, <strong>Force Fields</strong>, <strong>Bouncing</strong>, and <strong>Sub-Spawners</strong>. But don't worry, the free version is plenty powerful for most games!</p>
+<p>The Pro version includes even more modules like <strong>Homing/Tracking</strong>, <strong>Bouncing</strong>, <strong>Sub-Spawners</strong>, and <strong>Rewind/Replay</strong>. But don't worry, the free version is plenty powerful for most games!</p>
+<h2 id="premium-only-modules">Premium-only Modules<a class="headerlink" href="#premium-only-modules" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Premium-only:</strong> The modules in this section are part of Bulletfury Pro and are not included in the free package.</p>
+</blockquote>
+<h3 id="aimedshotmodule">AimedShotModule<a class="headerlink" href="#aimedshotmodule" title="Permanent link">&para;</a></h3>
+<p><em>Smart spawn aiming</em></p>
+<ul>
+<li><strong>What it does</strong>: Re-aims emission direction at a target before bullets spawn.</li>
+<li><strong>Perfect for</strong>: Turrets, lock-on volleys, and predictive enemy shots.</li>
+<li><strong>Why it's useful</strong>: Gives you precise control over how patterns track moving targets.</li>
+</ul>
+<h3 id="trackobjectmodule">TrackObjectModule<a class="headerlink" href="#trackobjectmodule" title="Permanent link">&para;</a></h3>
+<p><em>Homing over lifetime</em></p>
+<ul>
+<li><strong>What it does</strong>: Steers bullets toward a tracked target while they are alive.</li>
+<li><strong>Perfect for</strong>: Homing missiles, pressure projectiles, and adaptive boss attacks.</li>
+<li><strong>Why it's useful</strong>: Makes patterns feel reactive without rebuilding your whole spawner setup.</li>
+</ul>
+<h3 id="bulletbouncemodule">BulletBounceModule<a class="headerlink" href="#bulletbouncemodule" title="Permanent link">&para;</a></h3>
+<p><em>Ping-pong chaos</em></p>
+<ul>
+<li><strong>What it does</strong>: Lets bullets bounce off colliders instead of dying immediately.</li>
+<li><strong>Perfect for</strong>: Arena patterns, enclosed boss rooms, and "last bullet standing" style attacks.</li>
+<li><strong>Why it's useful</strong>: Creates dense patterns from fewer bullets.</li>
+</ul>
+<h3 id="subspawnermodule">SubSpawnerModule<a class="headerlink" href="#subspawnermodule" title="Permanent link">&para;</a></h3>
+<p><em>Bullets that make bullets</em></p>
+<ul>
+<li><strong>What it does</strong>: Spawns new bullets when parent bullets hit or expire.</li>
+<li><strong>Perfect for</strong>: Splitting shots, chain reactions, and layered boss phases.</li>
+<li><strong>Why it's useful</strong>: Great for complex patterns built from simple pieces.</li>
+</ul>
+<h3 id="forceovertimemodule">ForceOverTimeModule<a class="headerlink" href="#forceovertimemodule" title="Permanent link">&para;</a></h3>
+<p><em>Add acceleration and drift</em></p>
+<ul>
+<li><strong>What it does</strong>: Applies curve-driven force over time in local or world space.</li>
+<li><strong>Perfect for</strong>: Wind-like motion, gravity drifts, and arcing trajectories.</li>
+<li><strong>Why it's useful</strong>: Lets you shape complex motion without custom per-pattern scripts.</li>
+</ul>
+<h3 id="sinwaveoffsetmodule">SinWaveOffsetModule<a class="headerlink" href="#sinwaveoffsetmodule" title="Permanent link">&para;</a></h3>
+<p><em>Wavy movement</em></p>
+<ul>
+<li><strong>What it does</strong>: Offsets bullets sideways with sinusoidal motion over time.</li>
+<li><strong>Perfect for</strong>: Serpentine shots, weaving walls, and rhythm-style bullet patterns.</li>
+<li><strong>Why it's useful</strong>: Adds visual complexity while keeping spawn logic simple.</li>
+</ul>
+<h3 id="spawnfromtransformmodule">SpawnFromTransformModule<a class="headerlink" href="#spawnfromtransformmodule" title="Permanent link">&para;</a></h3>
+<p><em>Proxy origin spawning</em></p>
+<ul>
+<li><strong>What it does</strong>: Spawns bullets from a referenced transform, then moves them back to their original target position.</li>
+<li><strong>Perfect for</strong>: Portal effects, offset emitters, and "remote muzzle" style weapons.</li>
+<li><strong>Why it's useful</strong>: Decouples where bullets appear from where the spawner lives.</li>
+</ul>
+<h3 id="replaymodule-rewindmodule">ReplayModule + RewindModule<a class="headerlink" href="#replaymodule-rewindmodule" title="Permanent link">&para;</a></h3>
+<p><em>Time tricks</em></p>
+<ul>
+<li><strong>What it does</strong>: Records simulation snapshots, then rewinds through them in real time.</li>
+<li><strong>Perfect for</strong>: Timeline attacks, deterministic pattern replays, and stylized time-control mechanics.</li>
+<li><strong>Why it's useful</strong>: Makes advanced "scripted chaos" patterns much easier to produce.</li>
+</ul>
+<h3 id="deterministicruntimemodule">DeterministicRuntimeModule<a class="headerlink" href="#deterministicruntimemodule" title="Permanent link">&para;</a></h3>
+<p><em>Stable simulation seeds</em></p>
+<ul>
+<li><strong>What it does</strong>: Installs deterministic runtime sampling with seed/tick control.</li>
+<li><strong>Perfect for</strong>: Replays, synchronized encounters, and repeatable debugging.</li>
+<li><strong>Why it's useful</strong>: Helps make runs reproducible across sessions.</li>
+</ul>
 <h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Parallel is better</strong>: Most built-in modules run in parallel (on multiple CPU cores) automatically.</li>
@@ -196,6 +270,7 @@
         </script>
         <script src="../../js/base.js"></script>
         <script src="../../javascripts/wayfarer-bg.js"></script>
+        <script src="../../javascripts/docs-nav.js"></script>
         <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

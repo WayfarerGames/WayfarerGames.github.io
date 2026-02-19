@@ -7,7 +7,7 @@ Ready to make some cool patterns? Here are a few recipes using just the free mod
 
 Great for basic enemies or player weapons.
 
-**Main:**
+**Bullet Settings:**
 
 - `FireMode`: `Automatic`
 - `FireRate`: `0.1` (fast)
@@ -28,7 +28,7 @@ Great for basic enemies or player weapons.
 
 Spawns a ring of bullets expanding outward.
 
-**Main:**
+**Bullet Settings:**
 
 - `FireMode`: `Automatic` (or `Manual` for explosions)
 - `FireRate`: `1.0` (slow)
@@ -105,7 +105,7 @@ spawner.ActivateWaitingBullets();
 
 A random spread of bullets in a cone.
 
-**Main:**
+**Bullet Settings:**
 
 - `FireMode`: `Manual`
 

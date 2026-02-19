@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://wayfarer-games.com/bulletfury-documentation/api-reference/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>API Reference - Bulletfury Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../stylesheets/wayfarer.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Bulletfury Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">API Reference</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../modules/free-modules/" class="nav-link">Free Modules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../patterns/basic-patterns/" class="nav-link">Basic Patterns</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../extending/write-your-own-modules/" class="nav-link">Write Your Own Modules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../paid-version/" class="nav-link">Paid Version</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../getting-started/setup-and-first-spawn/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../modules/free-modules/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#api-reference" class="nav-link">API Reference</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#what-this-reference-covers" class="nav-link">What this reference covers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#namespaces" class="nav-link">Namespaces</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#bulletspawner" class="nav-link">BulletSpawner</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#module-interfaces-and-contracts" class="nav-link">Module interfaces and contracts</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#core-configuration-types" class="nav-link">Core configuration types</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#bullet-data-model-bulletfurydata" class="nav-link">Bullet data model (BulletFury.Data)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#rendering-and-shared-render-data" class="nav-link">Rendering and shared render data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#built-in-free-modules-bulletfurymodules" class="nav-link">Built-in free modules (BulletFury.Modules)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#premium-add-on-modules-bulletfurymodules" class="nav-link">Premium add-on modules (BulletFury.Modules)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#attributes-and-metadata" class="nav-link">Attributes and metadata</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#commonrandom-utility-apis" class="nav-link">Common/random utility APIs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#low-leveladvanced-public-types" class="nav-link">Low-level/advanced public types</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#best-practices-and-pitfalls" class="nav-link">Best practices and pitfalls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#recommended-testing-checklist" class="nav-link">Recommended testing checklist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>This page documents the public API surface in <code>com.wayfarergames.bulletfury</code> as it exists in the package source.</p>
+<p>It is written for developers who want exact names, expected behavior, and practical usage guidance.</p>
+<h2 id="what-this-reference-covers">What this reference covers<a class="headerlink" href="#what-this-reference-covers" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Runtime APIs you are expected to use directly (<code>BulletSpawner</code>, module interfaces, data models, events).</li>
+<li>Built-in free modules in <code>BulletFury.Modules</code>.</li>
+<li>Rendering/data types that are public and available from code.</li>
+<li>Advanced/low-level public types that exist but are usually engine-internal for Bulletfury operation.</li>
+</ul>
+<h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>BulletFury</code>: spawner, modules interfaces, core config/data classes.</li>
+<li><code>BulletFury.Data</code>: bullet container/event/enums used by runtime and modules.</li>
+<li><code>BulletFury.Modules</code>: built-in free modules.</li>
+<li><code>Common</code> and <code>Common.FloatOrRandom</code>: random/value helper types used by Bulletfury.</li>
+<li><code>Wayfarer_Games.Common</code> and <code>Wayfarer_Games.Common.FloatOrRandom</code>: utility/random helper namespaces exposed by the package.</li>
+</ul>
+<hr />
+<h2 id="bulletspawner">BulletSpawner<a class="headerlink" href="#bulletspawner" title="Permanent link">&para;</a></h2>
+<p><code>BulletSpawner</code> is the main entry point. It owns bullet simulation, module execution, collision checks, and render queue submission.</p>
+<h3 id="type">Type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>BulletFury.BulletSpawner : MonoBehaviour</code></li>
+</ul>
+<h3 id="public-properties">Public properties<a class="headerlink" href="#public-properties" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>SharedRenderData RenderData</code> - Active render config (inline or shared ScriptableObject).</li>
+<li><code>BulletMainData Main</code> - Bullet simulation settings (fire mode, speed, lifetime, collision profile, etc).</li>
+<li><code>SpawnShapeData SpawnShapeData</code> - Spawn positions and initial direction generation config.</li>
+<li><code>BurstData BurstData</code> - Burst sequencing and active bullet cap config.</li>
+<li><code>float LastSimulationDeltaTime</code> - Last simulation step delta from runtime module.</li>
+<li><code>int BulletCount</code> - Current number of active bullets.</li>
+<li><code>bool Disposed</code> - Whether native buffers were disposed.</li>
+<li><code>static SortedList&lt;float, RenderQueueData&gt; RenderQueue</code> - Global queue consumed by <code>BulletRenderer</code>.</li>
+</ul>
+<h3 id="public-events">Public events<a class="headerlink" href="#public-events" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>event Action&lt;BulletContainer, bool&gt; OnBulletDiedEvent</code></li>
+<li><code>bool</code> indicates end-of-life (<code>true</code>) vs collision death (<code>false</code>).</li>
+<li><code>event Action&lt;int, BulletContainer&gt; OnBulletSpawnedEvent</code></li>
+<li>Invoked after bullet init and module bootstrapping.</li>
+<li><code>event Action OnWeaponFiredEvent</code></li>
+<li>Invoked when a spawn sequence starts.</li>
+</ul>
+<h3 id="public-methods">Public methods<a class="headerlink" href="#public-methods" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Lifecycle/control:</li>
+<li><code>void Start()</code></li>
+<li><code>void OnDestroy()</code></li>
+<li><code>void Stop()</code></li>
+<li><code>void Play()</code></li>
+<li><code>void SetSimulationPaused(bool paused)</code></li>
+<li><code>void EnsureSimulationInitialized()</code></li>
+<li><code>void ClearBullets()</code></li>
+<li><code>void RenderBulletsNow()</code></li>
+<li><code>void UpdateAllBullets(Camera cam, float? dt = null)</code></li>
+<li><code>bool CheckBulletsRemaining()</code></li>
+<li>
+<p><code>void ActivateWaitingBullets()</code></p>
+</li>
+<li>
+<p>Preset/state:</p>
+</li>
+<li><code>void SetPreset(BulletSpawnerPreset preset)</code></li>
+<li><code>SpawnerState CaptureState(SpawnerState reusableState = null)</code></li>
+<li>
+<p><code>void ApplyState(SpawnerState state)</code></p>
+</li>
+<li>
+<p>Spawning:</p>
+</li>
+<li><code>void Spawn(Vector3 position, Vector3 up, float deltaTime)</code></li>
+<li><code>void SpawnImmediate(Vector3 position, Vector3 up, float deltaTime)</code></li>
+<li>
+<p><code>void Spawn(Transform obj, float deltaTime)</code></p>
+</li>
+<li>
+<p>Module retrieval:</p>
+</li>
+<li><code>T GetModule&lt;T&gt;() where T : IBaseBulletModule</code></li>
+<li><code>bool TryGetModule&lt;T&gt;(out T module) where T : IBaseBulletModule</code></li>
+<li><code>List&lt;T&gt; GetModulesOfType&lt;T&gt;() where T : IBaseBulletModule</code></li>
+<li><code>void GetModulesOfType&lt;T&gt;(List&lt;T&gt; output) where T : IBaseBulletModule</code></li>
+</ul>
+<h3 id="nested-public-types">Nested public types<a class="headerlink" href="#nested-public-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>BulletSpawner.RenderQueueData</code></li>
+<li><code>BulletRenderData RenderData</code></li>
+<li><code>Camera Camera</code></li>
+<li><code>int Count</code></li>
+<li><code>NativeArray&lt;Matrix4x4&gt; Transforms</code></li>
+<li><code>NativeArray&lt;float4&gt; Colors</code></li>
+<li><code>NativeArray&lt;float&gt; Times</code></li>
+<li>
+<p><code>BulletSpawner Spawner</code></p>
+</li>
+<li>
+<p><code>BulletSpawner.SpawnerState</code></p>
+</li>
+<li>Snapshot payload used by <code>CaptureState</code> / <code>ApplyState</code>.</li>
+<li>Includes bullet array, spawn scheduling internals, and runtime module state.</li>
+</ul>
+<h3 id="usage-example-manual-firing">Usage example: manual firing<a class="headerlink" href="#usage-example-manual-firing" title="Permanent link">&para;</a></h3>
+<pre><code class="language-csharp">using BulletFury;
+using UnityEngine;
+
+public class PlayerGun : MonoBehaviour
+{
+    [SerializeField] private BulletSpawner spawner;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Uses this transform's current position and up direction.
+            spawner.Spawn(transform.position, transform.up, Time.deltaTime);
+        }
+    }
+}
+</code></pre>
+<h3 id="usage-example-saveload-spawner-simulation">Usage example: save/load spawner simulation<a class="headerlink" href="#usage-example-saveload-spawner-simulation" title="Permanent link">&para;</a></h3>
+<pre><code class="language-csharp">using BulletFury;
+using UnityEngine;
+
+public class SpawnerStateController : MonoBehaviour
+{
+    [SerializeField] private BulletSpawner spawner;
+    private BulletSpawner.SpawnerState state;
+
+    public void Save()
+    {
+        state = spawner.CaptureState(state);
+    }
+
+    public void Load()
+    {
+        if (state != null)
+            spawner.ApplyState(state);
+    }
+}
+</code></pre>
+<h3 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Call <code>EnsureSimulationInitialized()</code> before doing custom state operations early in lifecycle.</li>
+<li>Use <code>SpawnImmediate(...)</code> only for event-driven cases where you intentionally bypass fire-rate timing.</li>
+<li>Prefer <code>TryGetModule&lt;T&gt;</code> for optional modules; use <code>GetModule&lt;T&gt;</code> only when module presence is guaranteed.</li>
+<li>Call <code>ClearBullets()</code> when changing high-level pattern presets at runtime to avoid mixed old/new behavior.</li>
+<li>Use <code>SetSimulationPaused(true)</code> if you want to freeze simulation but keep rendering live.</li>
+</ul>
+<hr />
+<h2 id="module-interfaces-and-contracts">Module interfaces and contracts<a class="headerlink" href="#module-interfaces-and-contracts" title="Permanent link">&para;</a></h2>
+<p>These are the extension points for custom behavior.</p>
+<h3 id="ibullethithandler"><code>IBulletHitHandler</code><a class="headerlink" href="#ibullethithandler" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Signature: <code>void Hit(BulletContainer bullet)</code></li>
+<li>Implement on collider hierarchies to receive collision callbacks queued by <code>BulletSpawner</code>.</li>
+</ul>
+<h3 id="ibasebulletmodule"><code>IBaseBulletModule</code><a class="headerlink" href="#ibasebulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Marker interface for all module categories.</li>
+</ul>
+<h3 id="ibulletspawnmodule"><code>IBulletSpawnModule</code><a class="headerlink" href="#ibulletspawnmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Signature: <code>void Execute(ref Vector3 position, ref Quaternion rotation, float deltaTime)</code></li>
+<li>Runs during spawn position/orientation generation, before bullet is created.</li>
+</ul>
+<h3 id="ibulletinitmodule"><code>IBulletInitModule</code><a class="headerlink" href="#ibulletinitmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Signature: <code>void Execute(ref BulletContainer container)</code></li>
+<li>Runs once per bullet at creation.</li>
+</ul>
+<h3 id="ibulletmodule"><code>IBulletModule</code><a class="headerlink" href="#ibulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Signature: <code>void Execute(ref BulletContainer container, float deltaTime)</code></li>
+<li>Runs during simulation update.</li>
+</ul>
+<h3 id="iparallelbulletmodule"><code>IParallelBulletModule</code><a class="headerlink" href="#iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Marker interface that opts an <code>IBulletModule</code> into parallel execution (<code>Parallel.For</code>).</li>
+<li>Keep logic pure math/data only; no Unity API calls, scene access, allocations, or mutable shared state.</li>
+</ul>
+<h3 id="ibulletdiemodule"><code>IBulletDieModule</code><a class="headerlink" href="#ibulletdiemodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Signature:</li>
+<li><code>CollisionBehaviour Execute(ref BulletContainer container, bool isCollision, GameObject collidingObject)</code></li>
+<li>Enum:</li>
+<li><code>CollisionBehaviour.Dies</code></li>
+<li><code>CollisionBehaviour.StaysAlive</code></li>
+<li>Called when a bullet would die from collision or end-of-life; return <code>StaysAlive</code> to cancel death.</li>
+</ul>
+<h3 id="runtime-module-interfaces-advanced">Runtime module interfaces (advanced)<a class="headerlink" href="#runtime-module-interfaces-advanced" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ISpawnerRuntimeModule</code></li>
+<li><code>float LastSimulationDeltaTime { get; }</code></li>
+<li><code>void OnRuntimeReset(Squirrel3 random)</code></li>
+<li><code>void OnSimulationStep(float deltaTime)</code></li>
+<li><code>float Sample(FloatOrRandom value, Squirrel3 random)</code></li>
+<li><code>object CaptureState()</code></li>
+<li>
+<p><code>void RestoreState(object state)</code></p>
+</li>
+<li>
+<p><code>ISpawnerRuntimeModuleProvider : IBaseBulletModule</code></p>
+</li>
+<li><code>ISpawnerRuntimeModule CreateRuntimeModule()</code></li>
+</ul>
+<p>Use runtime modules when you need custom deterministic value sampling/state progression for spawner-level behavior.</p>
+<h3 id="custom-module-template">Custom module template<a class="headerlink" href="#custom-module-template" title="Permanent link">&para;</a></h3>
+<pre><code class="language-csharp">using System;
+using BulletFury;
+using BulletFury.Data;
+using UnityEngine;
+
+namespace MyGame.Modules
+{
+    [Serializable]
+    [ModuleDescription(&quot;Adds a constant lateral drift.&quot;)]
+    [ModulePerformanceImpact(ModulePerformanceImpactRating.Low)]
+    public class SideDriftModule : IBulletModule, IParallelBulletModule
+    {
+        [SerializeField] private float drift = 1f;
+
+        public void Execute(ref BulletContainer container, float deltaTime)
+        {
+            container.Position += container.Right * drift * deltaTime;
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2 id="core-configuration-types">Core configuration types<a class="headerlink" href="#core-configuration-types" title="Permanent link">&para;</a></h2>
+<h3 id="bulletmaindata"><code>BulletMainData</code><a class="headerlink" href="#bulletmaindata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>FireMode FireMode</code> (<code>Automatic</code>, <code>Manual</code>)</li>
+<li><code>bool PlayOnEnable</code></li>
+<li><code>FloatOrRandom FireRate</code></li>
+<li><code>FloatOrRandom Damage</code></li>
+<li><code>FloatOrRandom Lifetime</code></li>
+<li><code>FloatOrRandom Speed</code></li>
+<li><code>Color StartColor</code></li>
+<li><code>FloatOrRandom StartSize</code></li>
+<li><code>bool UseRotationForDirection</code></li>
+<li><code>bool MoveWithTransform</code></li>
+<li><code>bool RotateWithTransform</code></li>
+<li><code>ColliderType ColliderType</code> (<code>Circle</code>, <code>Capsule</code>)</li>
+<li><code>float ColliderSize</code> (0..1)</li>
+<li><code>float CapsuleLength</code> (0..1)</li>
+</ul>
+<h3 id="spawnshapedata"><code>SpawnShapeData</code><a class="headerlink" href="#spawnshapedata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>SpawnDir spawnDir</code></li>
+<li><code>int numPoints</code></li>
+<li><code>int numPerSide</code></li>
+<li><code>int numPerGroup</code></li>
+<li><code>FloatOrRandom groupRadius</code></li>
+<li><code>bool spawnCentreBullet</code></li>
+<li><code>bool groupDirection</code></li>
+<li><code>float removeFromEdgePercent</code></li>
+<li><code>FloatOrRandom radius</code></li>
+<li><code>FloatOrRandom arc</code></li>
+<li><code>bool randomise</code></li>
+<li><code>bool onEdge</code></li>
+<li><code>FloatOrRandom directionArc</code></li>
+<li><code>void Spawn(Action&lt;Vector2, Vector2&gt; onGetPoint, Squirrel3 rnd)</code></li>
+</ul>
+<p><code>Spawn(...)</code> computes all spawn positions and direction vectors based on shape/arc/group settings and invokes callback per spawn point.</p>
+<h3 id="burstdata"><code>BurstData</code><a class="headerlink" href="#burstdata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>float delay</code></li>
+<li><code>int maxActiveBullets</code> (<code>0</code> = uncapped, internally clamped by spawner storage capacity)</li>
+<li><code>int burstCount</code></li>
+<li><code>float burstDelay</code></li>
+<li><code>float stackSpeedIncrease</code></li>
+<li><code>bool burstsUpdatePositionEveryBullet</code></li>
+</ul>
+<h3 id="bulletspawnerpreset-scriptableobject"><code>BulletSpawnerPreset : ScriptableObject</code><a class="headerlink" href="#bulletspawnerpreset-scriptableobject" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>bool UseMain</code></li>
+<li><code>BulletMainData Main</code></li>
+<li><code>bool UseShape</code></li>
+<li><code>SpawnShapeData ShapeData</code></li>
+<li><code>bool UseBurstData</code></li>
+<li><code>BurstData BurstData</code></li>
+<li><code>bool UseModules</code></li>
+<li><code>List&lt;IBaseBulletModule&gt; BulletModules</code></li>
+</ul>
+<p>Apply at runtime with <code>BulletSpawner.SetPreset(...)</code>.</p>
+<hr />
+<h2 id="bullet-data-model-bulletfurydata">Bullet data model (<code>BulletFury.Data</code>)<a class="headerlink" href="#bullet-data-model-bulletfurydata" title="Permanent link">&para;</a></h2>
+<h3 id="bulletcontainer-fields"><code>BulletContainer</code> fields<a class="headerlink" href="#bulletcontainer-fields" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Identity:</li>
+<li>
+<p><code>int Id</code></p>
+</li>
+<li>
+<p>Transform and orientation:</p>
+</li>
+<li><code>float3 Position</code></li>
+<li><code>Quaternion Rotation</code></li>
+<li><code>Quaternion Direction</code></li>
+<li><code>float3 Forward</code></li>
+<li><code>float3 Right</code></li>
+<li>
+<p><code>float3 Up</code></p>
+</li>
+<li>
+<p>Visual:</p>
+</li>
+<li><code>Color Color</code></li>
+<li><code>Color StartColor</code></li>
+<li><code>float StartSize</code></li>
+<li>
+<p><code>float CurrentSize</code></p>
+</li>
+<li>
+<p>Collision:</p>
+</li>
+<li><code>float ColliderSize</code></li>
+<li><code>byte UseCapsule</code></li>
+<li><code>float CapsuleLength</code></li>
+<li>
+<p><code>byte Collided</code></p>
+</li>
+<li>
+<p>Lifetime/state:</p>
+</li>
+<li><code>float Lifetime</code></li>
+<li><code>float CurrentLifeSeconds</code></li>
+<li><code>float CurrentLifePercent</code></li>
+<li><code>byte Dead</code></li>
+<li><code>byte EndOfLife</code></li>
+<li><code>byte Waiting</code></li>
+<li>
+<p><code>float TimeToWait</code></p>
+</li>
+<li>
+<p>Movement and gameplay:</p>
+</li>
+<li><code>float Speed</code></li>
+<li><code>float CurrentSpeed</code></li>
+<li><code>float3 Velocity</code></li>
+<li><code>float3 Force</code></li>
+<li><code>float AngularVelocity</code></li>
+<li>
+<p><code>float Damage</code></p>
+</li>
+<li>
+<p>Move-to-origin behavior:</p>
+</li>
+<li><code>byte MovingToOrigin</code></li>
+<li><code>float3 OriginPosition</code></li>
+<li><code>float MoveToOriginTime</code></li>
+<li><code>float MoveToOriginCurrentTime</code></li>
+<li>
+<p><code>float3 MoveToOriginStartPosition</code></p>
+</li>
+<li>
+<p>Method:</p>
+</li>
+<li><code>void InitWithPositionRotationDirection(float3 position, Quaternion rotation, Quaternion direction)</code></li>
+</ul>
+<h3 id="data-enums">Data enums<a class="headerlink" href="#data-enums" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>SpawnDir</code>: <code>Shape</code>, <code>Randomised</code>, <code>Spherised</code>, <code>Direction</code>, <code>Point</code></li>
+<li><code>ForceSpace</code>: <code>Local</code>, <code>World</code></li>
+<li><code>CurveUsage</code>: <code>Lifetime</code>, <code>LoopedTime</code></li>
+</ul>
+<h3 id="event-types">Event types<a class="headerlink" href="#event-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>BulletSpawnedEvent : UnityEvent&lt;int, BulletContainer&gt;</code></li>
+<li><code>BulletDiedEvent : UnityEvent&lt;int, BulletContainer, bool&gt;</code></li>
+<li><code>BulletCancelledEvent : UnityEvent&lt;int, BulletContainer, bool&gt;</code></li>
+<li><code>BulletCollisionEvent : UnityEvent&lt;BulletContainer, Transform&gt;</code></li>
+</ul>
+<hr />
+<h2 id="rendering-and-shared-render-data">Rendering and shared render data<a class="headerlink" href="#rendering-and-shared-render-data" title="Permanent link">&para;</a></h2>
+<h3 id="bulletrenderdata"><code>BulletRenderData</code><a class="headerlink" href="#bulletrenderdata" title="Permanent link">&para;</a></h3>
+<p>Public fields:
+- <code>Camera Camera</code>
+- <code>Texture2D Texture</code>
+- <code>bool Animated</code>
+- <code>int Rows</code>
+- <code>int Columns</code>
+- <code>float PerFrameLength</code>
+- <code>int Layer</code>
+- <code>int Priority</code></p>
+<p>Public members:
+- <code>Material Material { get; }</code>
+- <code>static void ResetMaterials()</code>
+- <code>Material GetMaterial()</code>
+- <code>void ReturnMaterial(Material material)</code>
+- <code>void DisposeMaterials()</code></p>
+<h3 id="sharedrenderdata"><code>SharedRenderData</code><a class="headerlink" href="#sharedrenderdata" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>BulletRenderData Data { get; }</code></li>
+<li><code>SharedRenderDataSO SharedDataSO { get; }</code> (editor-only)</li>
+<li>Implicit conversions:</li>
+<li><code>SharedRenderData -&gt; BulletRenderData</code></li>
+<li><code>BulletRenderData -&gt; SharedRenderData</code></li>
+<li><code>SharedRenderDataSO -&gt; SharedRenderData</code></li>
+</ul>
+<h3 id="sharedrenderdataso-scriptableobject"><code>SharedRenderDataSO : ScriptableObject</code><a class="headerlink" href="#sharedrenderdataso-scriptableobject" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>void SetData(BulletRenderData data)</code></li>
+<li>Implicit conversion:</li>
+<li><code>SharedRenderDataSO -&gt; BulletRenderData</code></li>
+</ul>
+<h3 id="bulletrenderer-advanced-static-renderer-api"><code>BulletRenderer</code> (advanced static renderer API)<a class="headerlink" href="#bulletrenderer-advanced-static-renderer-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Mesh Mesh { get; }</code></li>
+<li><code>static void Init()</code></li>
+<li><code>static void Dispose()</code></li>
+<li><code>static void Render(BulletRenderData data, NativeArray&lt;Matrix4x4&gt; transforms, NativeArray&lt;float4&gt; colors, NativeArray&lt;float&gt; times, int numBullets, Camera cam)</code></li>
+</ul>
+<p>Most users should not call <code>BulletRenderer.Render(...)</code> manually. Use <code>BulletSpawner</code> unless building a custom render path.</p>
+<hr />
+<h2 id="built-in-free-modules-bulletfurymodules">Built-in free modules (<code>BulletFury.Modules</code>)<a class="headerlink" href="#built-in-free-modules-bulletfurymodules" title="Permanent link">&para;</a></h2>
+<h3 id="angularvelocitymodule-bulletmodule-iparallelbulletmodule"><code>AngularVelocityModule : BulletModule, IParallelBulletModule</code><a class="headerlink" href="#angularvelocitymodule-bulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: rotates bullet orientation over time.</li>
+<li>Serialized fields:</li>
+<li><code>AnimationCurve angularVelocity</code></li>
+<li><code>float scale</code></li>
+</ul>
+<h3 id="bulletcolorovertimemodule-bulletmodule"><code>BulletColorOverTimeModule : BulletModule</code><a class="headerlink" href="#bulletcolorovertimemodule-bulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: applies gradient over life or looped time.</li>
+<li>Fields:</li>
+<li><code>Gradient colorOverTime</code></li>
+</ul>
+<h3 id="bulletdamageovertimemodule-ibulletmodule-iparallelbulletmodule"><code>BulletDamageOverTimeModule : IBulletModule, IParallelBulletModule</code><a class="headerlink" href="#bulletdamageovertimemodule-ibulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: scales <code>BulletContainer.Damage</code>.</li>
+<li>Fields:</li>
+<li><code>AnimationCurve damageOverTime</code></li>
+</ul>
+<h3 id="bulletsizeovertimemodule-bulletmodule-iparallelbulletmodule"><code>BulletSizeOverTimeModule : BulletModule, IParallelBulletModule</code><a class="headerlink" href="#bulletsizeovertimemodule-bulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: scales size over time.</li>
+<li>Fields:</li>
+<li><code>AnimationCurve sizeOverTime</code></li>
+</ul>
+<h3 id="speedovertimemodule-bulletmodule-iparallelbulletmodule"><code>SpeedOverTimeModule : BulletModule, IParallelBulletModule</code><a class="headerlink" href="#speedovertimemodule-bulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: scales current speed over time.</li>
+<li>Serialized fields:</li>
+<li><code>AnimationCurve speedOverTime</code></li>
+<li><code>float scale</code></li>
+</ul>
+<h3 id="spawnerrotatemodule-ibulletspawnmodule"><code>SpawnerRotateModule : IBulletSpawnModule</code><a class="headerlink" href="#spawnerrotatemodule-ibulletspawnmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: continuously rotates spawn basis at emit time.</li>
+<li>Serialized fields:</li>
+<li><code>float angularSpeed</code></li>
+<li>Public property:</li>
+<li><code>float CurrentAngle { get; }</code></li>
+</ul>
+<h3 id="waittocontinuemodule-ibulletinitmodule"><code>WaitToContinueModule : IBulletInitModule</code><a class="headerlink" href="#waittocontinuemodule-ibulletinitmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Purpose: mark bullets as waiting after a configured pre-wait simulation time.</li>
+<li>Serialized fields:</li>
+<li><code>float timeToPlayBeforeWaiting</code></li>
+<li>Works with <code>BulletSpawner.ActivateWaitingBullets()</code>.</li>
+</ul>
+<hr />
+<h2 id="premium-add-on-modules-bulletfurymodules">Premium add-on modules (<code>BulletFury.Modules</code>)<a class="headerlink" href="#premium-add-on-modules-bulletfurymodules" title="Permanent link">&para;</a></h2>
+<p>These types are in the premium package (<code>Bulletfury.Premium</code>) and are not part of the free module set.</p>
+<h3 id="aimedshotmodule-ibulletspawnmodule"><code>AimedShotModule : IBulletSpawnModule</code><a class="headerlink" href="#aimedshotmodule-ibulletspawnmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Re-aims spawn rotation toward a target before emission.</li>
+<li>Supports multiple aim modes via <code>AimType</code>: <code>Instant</code>, <code>Linear</code>, <code>Slerp</code>, <code>SmoothDamp</code>, <code>Predicted</code>.</li>
+<li>Public method:</li>
+<li><code>void SetTarget(Transform newTarget)</code></li>
+</ul>
+<h3 id="trackobjectmodule-bulletmodule"><code>TrackObjectModule : BulletModule</code><a class="headerlink" href="#trackobjectmodule-bulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Continuously steers active bullets toward a tracked transform over lifetime.</li>
+<li>Public properties:</li>
+<li><code>Transform ToTrack { get; }</code></li>
+<li><code>float TurnSpeed { get; }</code></li>
+</ul>
+<h3 id="bulletbouncemodule-ibulletdiemodule"><code>BulletBounceModule : IBulletDieModule</code><a class="headerlink" href="#bulletbouncemodule-ibulletdiemodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Intercepts collision death and reflects bullet direction/velocity for ricochet behavior.</li>
+<li>Can filter by collider tag and scale speed/lifetime per bounce.</li>
+</ul>
+<h3 id="forceovertimemodule-bulletmodule-iparallelbulletmodule"><code>ForceOverTimeModule : BulletModule, IParallelBulletModule</code><a class="headerlink" href="#forceovertimemodule-bulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Applies curve-driven forces over bullet lifetime.</li>
+<li>Key options:</li>
+<li><code>ForceSpace space</code> (<code>Local</code>/<code>World</code>)</li>
+<li><code>Vector3 scale</code></li>
+<li><code>AnimationCurve forceOverTimeX/Y/Z</code></li>
+</ul>
+<h3 id="sinwaveoffsetmodule-bulletmodule-iparallelbulletmodule"><code>SinWaveOffsetModule : BulletModule, IParallelBulletModule</code><a class="headerlink" href="#sinwaveoffsetmodule-bulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Adds sinusoidal lateral offset to bullet trajectory over time.</li>
+<li>Key controls include amplitude, frequency, phase offset, direction invert, and amplitude curve.</li>
+</ul>
+<h3 id="spawnfromtransformmodule-ibulletinitmodule"><code>SpawnFromTransformModule : IBulletInitModule</code><a class="headerlink" href="#spawnfromtransformmodule-ibulletinitmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Spawns bullets from a referenced transform and interpolates toward original spawn position.</li>
+</ul>
+<h3 id="subspawnermodule-ibulletdiemodule"><code>SubSpawnerModule : IBulletDieModule</code><a class="headerlink" href="#subspawnermodule-ibulletdiemodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Emits configured sub-spawners on collision and/or end-of-life events.</li>
+<li>Uses <code>SubSpawnerData[]</code> payload configuration.</li>
+</ul>
+<h3 id="replaymodule-ibasebulletmodule"><code>ReplayModule : IBaseBulletModule</code><a class="headerlink" href="#replaymodule-ibasebulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Records <code>BulletSpawner.SpawnerState</code> snapshots over time for playback/rewind flows.</li>
+<li>Key methods:</li>
+<li><code>void RecordStep(BulletSpawner spawner, float deltaTime)</code></li>
+<li><code>void ResetTimeline()</code></li>
+<li><code>void PrepareForRewind(BulletSpawner spawner)</code></li>
+<li><code>void TrimFutureSteps()</code></li>
+<li><code>bool TryRewindBySeconds(float rewindSeconds, out float actualSecondsRewound)</code></li>
+<li><code>bool TryGetAppliedState(out BulletSpawner.SpawnerState state)</code></li>
+</ul>
+<h3 id="rewindmodule-ibasebulletmodule"><code>RewindModule : IBaseBulletModule</code><a class="headerlink" href="#rewindmodule-ibasebulletmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Applies rewind playback against a <code>ReplayModule</code> timeline.</li>
+<li>Key methods:</li>
+<li><code>void BeginRewind()</code></li>
+<li><code>void EndRewind()</code></li>
+<li><code>bool Rewind(BulletSpawner spawner, ReplayModule replayModule, float deltaTime)</code></li>
+</ul>
+<h3 id="deterministicruntimemodule-ispawnerruntimemoduleprovider-ispawnerruntimemodule-ibulletinitmodule"><code>DeterministicRuntimeModule : ISpawnerRuntimeModuleProvider, ISpawnerRuntimeModule, IBulletInitModule</code><a class="headerlink" href="#deterministicruntimemodule-ispawnerruntimemoduleprovider-ispawnerruntimemodule-ibulletinitmodule" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Installs deterministic random sampling/tick stepping into spawner runtime.</li>
+<li>Public members:</li>
+<li><code>ulong Tick { get; }</code></li>
+<li><code>float LastSimulationDeltaTime { get; }</code></li>
+<li><code>ISpawnerRuntimeModule CreateRuntimeModule()</code></li>
+<li><code>void OnRuntimeReset(Squirrel3 random)</code></li>
+<li><code>void OnSimulationStep(float deltaTime)</code></li>
+<li><code>float Sample(FloatOrRandom value, Squirrel3 random)</code></li>
+<li><code>object CaptureState()</code></li>
+<li><code>void RestoreState(object state)</code></li>
+<li><code>void Execute(ref BulletContainer container)</code></li>
+</ul>
+<h3 id="subspawnerdata-premium-data-model"><code>SubSpawnerData</code> (premium data model)<a class="headerlink" href="#subspawnerdata-premium-data-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>bool emitOnCollide</code></li>
+<li><code>bool emitOnLifeEnd</code></li>
+<li><code>bool inheritRotation</code></li>
+<li><code>bool inheritColor</code></li>
+<li><code>BulletSpawner spawner</code></li>
+</ul>
+<hr />
+<h2 id="attributes-and-metadata">Attributes and metadata<a class="headerlink" href="#attributes-and-metadata" title="Permanent link">&para;</a></h2>
+<h3 id="moduleperformanceimpactrating"><code>ModulePerformanceImpactRating</code><a class="headerlink" href="#moduleperformanceimpactrating" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Low</code>, <code>Medium</code>, <code>High</code>, <code>VeryHigh</code></li>
+</ul>
+<h3 id="moduleperformanceimpactattribute"><code>ModulePerformanceImpactAttribute</code><a class="headerlink" href="#moduleperformanceimpactattribute" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Constructors:</li>
+<li><code>ModulePerformanceImpactAttribute(ModulePerformanceImpactRating rating)</code></li>
+<li><code>ModulePerformanceImpactAttribute(ModulePerformanceImpactRating rating, string justification)</code></li>
+<li>Properties:</li>
+<li><code>ModulePerformanceImpactRating Rating { get; }</code></li>
+<li><code>string Justification { get; }</code></li>
+</ul>
+<h3 id="moduledescriptionattribute"><code>ModuleDescriptionAttribute</code><a class="headerlink" href="#moduledescriptionattribute" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Constructor:</li>
+<li><code>ModuleDescriptionAttribute(string description)</code></li>
+<li>Property:</li>
+<li><code>string Description { get; }</code></li>
+</ul>
+<p>Use these on custom modules to improve inspector discoverability and team readability.</p>
+<hr />
+<h2 id="commonrandom-utility-apis">Common/random utility APIs<a class="headerlink" href="#commonrandom-utility-apis" title="Permanent link">&para;</a></h2>
+<p>These are public in the package and often useful in custom runtime/module code.</p>
+<h3 id="commonfloatorrandomfloatorrandom"><code>Common.FloatOrRandom.FloatOrRandom</code><a class="headerlink" href="#commonfloatorrandomfloatorrandom" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>float Value { get; }</code></li>
+<li><code>float GetValue(Squirrel3 rnd)</code></li>
+<li>Implicit conversion:</li>
+<li><code>FloatOrRandom -&gt; float</code></li>
+<li><code>float -&gt; FloatOrRandom</code></li>
+</ul>
+<h3 id="wayfarer_gamescommonfloatorrandomintorrandom"><code>Wayfarer_Games.Common.FloatOrRandom.IntOrRandom</code><a class="headerlink" href="#wayfarer_gamescommonfloatorrandomintorrandom" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>int Value { get; }</code></li>
+<li><code>int GetValue(Squirrel3 rnd)</code></li>
+<li>Implicit conversion:</li>
+<li><code>IntOrRandom -&gt; int</code></li>
+<li><code>int -&gt; IntOrRandom</code></li>
+</ul>
+<h3 id="commonsquirrel3"><code>Common.Squirrel3</code><a class="headerlink" href="#commonsquirrel3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Constructors:</li>
+<li><code>Squirrel3()</code></li>
+<li><code>Squirrel3(int seed)</code></li>
+<li>Static:</li>
+<li><code>Squirrel3 Instance</code></li>
+<li>State:</li>
+<li><code>readonly struct State</code></li>
+<li><code>void SetSeed(int seed)</code></li>
+<li><code>void ResetState()</code></li>
+<li><code>State CaptureState()</code></li>
+<li><code>void RestoreState(State state)</code></li>
+<li>Sampling:</li>
+<li><code>float Next()</code></li>
+<li><code>double NextDouble()</code></li>
+<li><code>Vector2 RandomPointInUnitCircle()</code></li>
+<li><code>float Range(float min, float max)</code></li>
+<li><code>double Range(double min, double max)</code></li>
+<li><code>int Range(int min, int max)</code></li>
+<li><code>bool Bool()</code></li>
+<li><code>bool Bool(float chance)</code></li>
+<li><code>bool Bool(double chance)</code></li>
+<li>Selection:</li>
+<li><code>T WeightedRandom&lt;T&gt;(Dictionary&lt;T, float&gt; items) where T : class</code></li>
+<li><code>T WeightedRandom&lt;T&gt;(List&lt;T&gt; items) where T : class, IWeightedItem</code></li>
+<li><code>T GetRandomElement&lt;T&gt;(IEnumerable&lt;T&gt; list, out int idx)</code></li>
+</ul>
+<h3 id="commoniweighteditem"><code>Common.IWeightedItem</code><a class="headerlink" href="#commoniweighteditem" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>float Weight { get; }</code></li>
+</ul>
+<h3 id="wayfarer_gamescommonquaternionutil"><code>Wayfarer_Games.Common.QuaternionUtil</code><a class="headerlink" href="#wayfarer_gamescommonquaternionutil" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>Quaternion AngVelToDeriv(Quaternion current, Vector3 angVel)</code></li>
+<li><code>Vector3 DerivToAngVel(Quaternion current, Quaternion deriv)</code></li>
+<li><code>Quaternion IntegrateRotation(Quaternion rotation, Vector3 angularVelocity, float deltaTime)</code></li>
+<li><code>Quaternion SmoothDamp(Quaternion rot, Quaternion target, ref Quaternion deriv, float time, float deltaTime)</code></li>
+</ul>
+<hr />
+<h2 id="low-leveladvanced-public-types">Low-level/advanced public types<a class="headerlink" href="#low-leveladvanced-public-types" title="Permanent link">&para;</a></h2>
+<h3 id="bulletjob-ijobparallelfor"><code>BulletJob : IJobParallelFor</code><a class="headerlink" href="#bulletjob-ijobparallelfor" title="Permanent link">&para;</a></h3>
+<p><code>BulletJob</code> is public, but primarily intended for internal scheduling from <code>BulletSpawner</code>.</p>
+<p>Public fields include bullet arrays, render output arrays, transform deltas, collision sizing, and feature toggles (<code>UseRotationForDirection</code>, <code>MoveWithTransform</code>, <code>RotateWithTransform</code>).</p>
+<p>Public method:
+- <code>void Execute(int index)</code></p>
+<p>Unless you are building a custom simulation runner, use <code>BulletSpawner.UpdateAllBullets(...)</code> rather than scheduling <code>BulletJob</code> yourself.</p>
+<hr />
+<h2 id="best-practices-and-pitfalls">Best practices and pitfalls<a class="headerlink" href="#best-practices-and-pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Keep module logic deterministic and side-effect free where possible.</li>
+<li>For <code>IParallelBulletModule</code>, do not call Unity object APIs (<code>Transform</code>, scene queries, physics, object creation/destruction).</li>
+<li>Treat <code>BulletContainer</code> as mutable state for the current step only; initialize all values you depend on.</li>
+<li>Use <code>TryGetModule&lt;T&gt;</code> and null checks in gameplay code that supports optional module loadouts.</li>
+<li>Keep <code>maxActiveBullets</code> tuned; uncapped (<code>0</code>) can still hit internal limits depending on spawner capacity.</li>
+<li>Prefer circle colliders for throughput; capsule colliders are heavier.</li>
+<li>If using <code>CaptureState/ApplyState</code>, keep module composition stable between save/load to avoid semantic mismatches.</li>
+</ul>
+<h2 id="recommended-testing-checklist">Recommended testing checklist<a class="headerlink" href="#recommended-testing-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Verify <code>FireMode.Automatic</code> and <code>FireMode.Manual</code> behaviors independently.</li>
+<li>Validate module behavior with and without <code>IParallelBulletModule</code>.</li>
+<li>Test collision and end-of-life death paths separately (including custom <code>IBulletDieModule</code> cancellation).</li>
+<li>Test pause/resume (<code>SetSimulationPaused</code>) and waiting bullets (<code>ActivateWaitingBullets</code>).</li>
+<li>If you rely on replay/state restore, test deterministic capture/restore over multiple seconds under varying frame rates.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../javascripts/wayfarer-bg.js"></script>
+        <script src="../javascripts/docs-nav.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

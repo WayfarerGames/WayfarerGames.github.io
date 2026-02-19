@@ -17,6 +17,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Setup and First Spawn: getting-started/setup-and-first-spawn.md
+  - API Reference: api-reference.md
   - Free Modules: modules/free-modules.md
   - Basic Patterns: patterns/basic-patterns.md
   - Write Your Own Modules: extending/write-your-own-modules.md
