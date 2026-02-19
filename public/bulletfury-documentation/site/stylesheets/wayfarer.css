@@ -136,6 +136,12 @@ body {
   display: block;
 }
 
+/* Keep top bar clean across all sizes: show search, hide prev/next */
+#navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(2),
+#navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(3) {
+  display: none !important;
+}
+
 @media (min-width: 992px) {
   #navbar-collapse {
     display: flex !important;
@@ -157,11 +163,6 @@ body {
     padding-left: 8px;
   }
 
-  /* Keep top bar clean: search stays, pager links move out of header */
-  #navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(2),
-  #navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(3) {
-    display: none !important;
-  }
 }
 
 /* Layout */
@@ -343,17 +344,54 @@ footer p {
 
   .navbar .container {
     padding: 0;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
   }
 
   .navbar-brand {
     font-size: 1.08rem !important;
+    margin-right: 0 !important;
+  }
+
+  .navbar-toggler {
+    margin-left: auto;
+  }
+
+  #navbar-collapse {
+    flex: 0 0 100%;
+    width: 100%;
   }
 
   .navbar-collapse.show {
-    margin-top: 10px;
-    padding: 8px;
+    margin-top: 8px;
+    padding: 10px 12px;
     border-radius: 12px;
     background: rgba(20, 18, 38, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+  }
+
+  #navbar-collapse > .navbar-nav {
+    width: 100%;
+    display: block;
+    margin: 0;
+  }
+
+  #navbar-collapse > .navbar-nav .nav-item {
+    width: 100%;
+  }
+
+  #navbar-collapse > .navbar-nav .nav-link {
+    display: block;
+    width: 100%;
+    padding: 8px 10px !important;
+  }
+
+  #navbar-collapse > .navbar-nav.ms-md-auto {
+    margin-left: 0 !important;
+    padding-left: 0;
   }
 
   .navbar.fixed-top {
@@ -362,10 +400,16 @@ footer p {
 
   body > .container {
     margin-top: 18px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .bs-sidebar {
     margin-bottom: 16px;
+  }
+
+  .col-md-9[role="main"] {
+    padding: 0 4px !important;
   }
 
   h1 {
