@@ -1,34 +1,38 @@
-# Bulletfury Documentation
+# Welcome to Bulletfury!
 
-Bulletfury is a high-performance 2D bullet spawning and rendering framework for Unity.
+Hi! Bulletfury is a high-performance 2D bullet spawning and rendering framework for Unity. Whether you're making a chaotic bullet hell or just need a few projectiles for your platformer, this tool is designed to make it easy, fast, and fun.
 
 ## Compatibility
 
-- Unity 6 and above
-- URP only
+Just a quick heads-up on what you'll need:
+- **Unity 6** or newer
+- **URP** (Universal Render Pipeline)
 
-This documentation is organized around the most common workflow:
+## How to use these docs
 
-1. Install the package and make your first spawner.
-2. Learn the free modules and how to combine them.
-3. Build a few common bullet-hell style patterns.
-4. Extend the system with your own custom modules.
+We've set things up to get you moving quickly:
 
-## Who this is for
+1. **Getting Started**: We'll walk you through installing the package and getting your first bullets on screen.
+2. **Modules**: Learn about the building blocks of Bulletfury and how to snap them together.
+3. **Patterns**: We've got some recipes for common bullet patterns to help you get started.
+4. **Extending**: Want to do something unique? We'll show you how to write your own custom modules.
 
-- Unity developers building shooter or bullet-hell gameplay.
-- Teams that want data-driven bullet behavior in the Inspector.
-- Developers who want to add custom bullet logic in C# with minimal boilerplate.
+## Is this for you?
 
-## Documentation map
+If you're building a shooter, a bullet hell game, or anything that needs a lot of projectiles, then yes! Bulletfury is perfect for:
+- **Designers** who want to tweak bullet behavior right in the Inspector without touching code.
+- **Programmers** who want a solid foundation to build custom bullet logic on top of.
+- **Teams** who want a shared language for defining bullet patterns.
 
-- `Getting Started / Setup and First Spawn`: package install, GameObject setup, and first bullets.
-- `Modules / Free Modules`: all free modules currently available and how to use each.
-- `Patterns / Basic Patterns`: practical pattern recipes built from core settings + free modules.
-- `Extending / Write Your Own Modules`: custom module interfaces, examples, and best practices.
+## Where to go next
+
+- **Setup and First Spawn**: The best place to start. Get the package installed and fire your first shot.
+- **Free Modules**: See what tools are in your toolbox right now.
+- **Basic Patterns**: Learn by example with some classic bullet patterns.
+- **Write Your Own Modules**: Dive into the code and make Bulletfury do exactly what you need.
 
 ## Quick links
 
-- Package path in this repository: `PackageSource/com.wayfarergames.bulletfury`
-- UPM package name: `com.wayfarergames.bulletfury`
-- Paid version details: `Paid Version` page in this docs site
+- **Package Path**: `PackageSource/com.wayfarergames.bulletfury` (if you're looking in the repo)
+- **UPM Package Name**: `com.wayfarergames.bulletfury`
+- **Paid Version**: Check out the `Paid Version` page if you're interested in the advanced features.

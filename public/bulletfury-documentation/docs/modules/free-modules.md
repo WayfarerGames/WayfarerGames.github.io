@@ -1,100 +1,67 @@
 # Free Modules
 
-This page documents the modules currently available in the free package.
+Here's the toolbox you get with the free version of Bulletfury. These modules are the building blocks for creating all sorts of patterns.
 
-All modules are added on a `BulletSpawner` via the modules list in the custom inspector.
+You can add any of these to your `BulletSpawner` component in the Inspector.
 
-## Module execution phases
+## How modules work
 
-Bulletfury supports multiple module interfaces, each executed at a different point:
+Think of modules as little scripts that run at specific times in a bullet's life:
 
-- `IBulletSpawnModule`: modifies spawn position/rotation before bullet creation.
-- `IBulletInitModule`: runs once when each bullet is created.
-- `IBulletModule`: runs every simulation step on active bullets.
-- `IParallelBulletModule`: marker for `IBulletModule` implementations that are safe to run in parallel.
-- `IBulletDieModule`: runs when a bullet dies/collides; can keep it alive.
-- `ISpawnerRuntimeModuleProvider`: supplies custom runtime random/simulation behavior.
+- **Spawn Modules**: Run *before* the bullet is created (to set position/rotation).
+- **Init Modules**: Run *once* when the bullet is born.
+- **Update Modules**: Run *every frame* while the bullet is alive.
+- **Die Modules**: Run when the bullet hits something or expires.
 
-## Free module list
+## The Modules
 
-## `SpawnerRotateModule`
+### SpawnerRotateModule
+*Make it spin!*
+- **What it does**: Rotates the spawner over time.
+- **Perfect for**: Spirals, rotating fans, spinning rings.
+- **Key setting**: `angularSpeed` (how fast it spins in degrees per second).
 
-- **Interface**: `IBulletSpawnModule`
-- **Purpose**: continuously rotates spawn orientation.
-- **Key setting**:
-  - `angularSpeed`: degrees/second.
-- **Use when**:
-  - You want spirals, rotating fans, or rotating rings.
+### SpeedOverTimeModule
+*Faster! Slower!*
+- **What it does**: Changes the bullet's speed over its lifetime.
+- **Perfect for**: Bullets that start slow and speed up, or pulse in speed.
+- **Key settings**: Draw a curve for speed over time.
 
-## `SpeedOverTimeModule`
+### AngularVelocityModule
+*Curved shots*
+- **What it does**: Rotates the bullet's direction over time.
+- **Perfect for**: Wavy patterns, boomerangs, or spiraling shots.
+- **Key settings**: Draw a curve for rotation speed over time.
 
-- **Interfaces**: `BulletModule`, `IParallelBulletModule`
-- **Purpose**: scales `CurrentSpeed` over bullet life or looped time.
-- **Key settings**:
-  - `speedOverTime` curve
-  - `scale`
-  - inherited `Mode` (`Lifetime` or looping)
-  - inherited `Time` loop duration
-- **Use when**:
-  - You want acceleration/deceleration or pulsing speed.
+### BulletSizeOverTimeModule
+*Grow and shrink*
+- **What it does**: Changes the bullet's size.
+- **Perfect for**: Popping bullets into existence, or shrinking them as they fade out.
+- **Key settings**: Draw a curve for size over time.
 
-## `AngularVelocityModule`
+### BulletColorOverTimeModule
+*Pretty colors*
+- **What it does**: Tints the bullet color over its life.
+- **Perfect for**: Fading bullets out, or making them "heat up" as they travel.
+- **Key settings**: Set a gradient for color over time.
 
-- **Interfaces**: `BulletModule`, `IParallelBulletModule`
-- **Purpose**: rotates bullet orientation over time.
-- **Key settings**:
-  - `angularVelocity` curve
-  - `scale`
-  - inherited `Mode` and `Time`
-- **Use when**:
-  - You want curved trajectories driven by changing forward direction.
+### BulletDamageOverTimeModule
+*Damage falloff*
+- **What it does**: Changes how much damage a bullet does based on how long it's been alive.
+- **Perfect for**: Shotguns (high damage close up, low damage far away).
+- **Key settings**: Draw a curve for damage multiplier.
 
-## `BulletSizeOverTimeModule`
+### WaitToContinueModule
+*Wait for it...*
+- **What it does**: Pauses bullets after a certain time, waiting for a signal to continue.
+- **Perfect for**: "Trace then release" patterns, or freezing bullets in place before launching them at the player.
+- **How to use**: Call `spawner.ActivateWaitingBullets()` in your code to release them.
 
-- **Interfaces**: `BulletModule`, `IParallelBulletModule`
-- **Purpose**: scales bullet size over time.
-- **Key settings**:
-  - `sizeOverTime` curve
-  - inherited `Mode` and `Time`
-- **Use when**:
-  - You want grow/shrink effects, telegraphing, or pop-in/out visuals.
+## Want more?
 
-## `BulletColorOverTimeModule`
+The Pro version includes even more modules like **Homing/Tracking**, **Force Fields**, **Bouncing**, and **Sub-Spawners**. But don't worry, the free version is plenty powerful for most games!
 
-- **Interface**: `BulletModule`
-- **Purpose**: multiplies bullet color by a gradient over time.
-- **Key settings**:
-  - `colorOverTime` gradient
-  - inherited `Mode` and `Time`
-- **Use when**:
-  - You want fade-in/fade-out, warning colors, or heat-up visuals.
+## Performance Tips
 
-## `BulletDamageOverTimeModule`
-
-- **Interfaces**: `IBulletModule`, `IParallelBulletModule`
-- **Purpose**: sets bullet damage from a curve using life percent.
-- **Key settings**:
-  - `damageOverTime` curve
-- **Use when**:
-  - You want damage falloff/ramp-up during lifetime.
-
-## `WaitToContinueModule`
-
-- **Interface**: `IBulletInitModule`
-- **Purpose**: spawns bullets into waiting mode after an optional initial run time.
-- **Key setting**:
-  - `timeToPlayBeforeWaiting`
-- **Use when**:
-  - You want "trace then release" behavior, synchronized releases, or hold-and-fire moments.
-- **Pair with**:
-  - `BulletSpawner.ActivateWaitingBullets()`
-
-## Notes on free vs premium
-
-The free package module list above does not include premium-only modules (tracking, force fields, replay/rewind, bounce, sub-spawners, and similar advanced modules).
-
-## Performance guidance
-
-- Prefer modules marked `IParallelBulletModule` for heavy per-bullet logic.
-- Keep custom `IParallelBulletModule` code stateless and avoid Unity API calls inside `Execute`.
-- Minimize expensive curve/gradient work when very high bullet counts are active.
+- **Parallel is better**: Most built-in modules run in parallel (on multiple CPU cores) automatically.
+- **Keep it simple**: If you're spawning thousands of bullets, try to use simple curves.

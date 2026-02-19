@@ -1,37 +1,27 @@
 # Write Your Own Modules
 
-Custom modules are plain serializable C# classes that implement Bulletfury module interfaces.
+So you want to go beyond the basics? Awesome! Bulletfury is designed to be extended, and writing your own modules is surprisingly easy.
 
-## Can Free recreate Pro-style features?
+## How it works
 
-Yes. The same public module interfaces let you implement advanced behavior yourself.  
-Pro packages common advanced features as ready-made modules, but the module API is open in Free.
+Custom modules are just C# classes. You don't need to inherit from `MonoBehaviour`—just implement one of the module interfaces, and Bulletfury will pick it up automatically.
 
-See `Extending -> Free vs Pro Comparison` for a capability-by-capability view.
+### The Rules
+For your module to show up in the Inspector, it must be:
+1. `[Serializable]`
+2. A normal `class` (not abstract)
+3. Have a default constructor (which C# gives you for free usually)
 
-## How modules are discovered
+## Choose your weapon (Interface)
 
-The editor add-module picker finds all non-abstract classes derived from `IBaseBulletModule` that:
+- **`IBulletSpawnModule`**: Run this *before* a bullet is born. Good for changing where it spawns.
+- **`IBulletInitModule`**: Run this *once* when a bullet is born. Good for setting initial stats.
+- **`IBulletModule`**: Run this *every frame*. This is where the magic happens (movement, color, etc.).
+- **`IBulletDieModule`**: Run this when a bullet hits something. Want bouncing bullets? This is the place.
 
-- are not `UnityEngine.Object` types
-- are constructible with a parameterless constructor
+## Example 1: Making bullets drift sideways
 
-That means your custom module should be:
-
-- `[Serializable]`
-- a class (not abstract)
-- default-constructible
-
-## Choose the right interface
-
-- `IBulletSpawnModule`: alter spawn position/rotation before bullet exists.
-- `IBulletInitModule`: initialize bullet fields once at spawn.
-- `IBulletModule`: run each simulation step.
-- `IParallelBulletModule`: add to your `IBulletModule` when thread-safe.
-- `IBulletDieModule`: customize collision/end-of-life behavior.
-- `ISpawnerRuntimeModuleProvider`: override sampling/runtime behavior.
-
-## Example 1: simple per-frame bullet drift
+Let's make a module that pushes bullets to the right over time.
 
 ```csharp
 using System;
@@ -42,20 +32,23 @@ using UnityEngine;
 namespace MyGame.BulletModules
 {
     [Serializable]
+    // We implement IParallelBulletModule to say "this is safe to run on multiple threads!"
     public class SideDriftModule : IBulletModule, IParallelBulletModule
     {
         [SerializeField] private float driftSpeed = 1f;
 
         public void Execute(ref BulletContainer container, float deltaTime)
         {
-            // Move along local right vector over time.
+            // Move along the bullet's local right vector
             container.Position += container.Right * driftSpeed * deltaTime;
         }
     }
 }
 ```
 
-## Example 2: custom spawn offset
+## Example 2: Custom spawn offset
+
+Want to shift the spawn point a bit?
 
 ```csharp
 using System;
@@ -77,7 +70,9 @@ namespace MyGame.BulletModules
 }
 ```
 
-## Example 3: override death-on-collision
+## Example 3: Ignoring certain colliders
+
+By default, bullets die when they hit anything. Let's change that!
 
 ```csharp
 using System;
@@ -95,57 +90,45 @@ namespace MyGame.BulletModules
             bool isCollision,
             GameObject collidingObject)
         {
-            if (!isCollision || collidingObject == null)
-                return IBulletDieModule.CollisionBehaviour.Dies;
+            // If we hit a "TriggerOnly" object, stay alive!
+            if (isCollision && collidingObject != null && collidingObject.CompareTag("TriggerOnly"))
+            {
+                return IBulletDieModule.CollisionBehaviour.StaysAlive;
+            }
 
-            return collidingObject.CompareTag("TriggerOnly")
-                ? IBulletDieModule.CollisionBehaviour.StaysAlive
-                : IBulletDieModule.CollisionBehaviour.Dies;
+            // Otherwise, die as usual
+            return IBulletDieModule.CollisionBehaviour.Dies;
         }
     }
 }
 ```
 
-## Recommended metadata attributes
+## Make it pretty in the Inspector
 
-These improve discoverability in the inspector:
-
-- `ModuleDescriptionAttribute("...")`
-- `ModulePerformanceImpactAttribute(ModulePerformanceImpactRating.Low | Medium | High | VeryHigh, "...")`
-
-Example:
+You can add descriptions and performance warnings to help your team:
 
 ```csharp
-[ModuleDescription("Apply sideways drift over time.")]
+[ModuleDescription("Makes bullets drift sideways.")]
 [ModulePerformanceImpact(ModulePerformanceImpactRating.Low)]
-public class SideDriftModule : IBulletModule, IParallelBulletModule
-{
-    // ...
-}
+public class SideDriftModule : ...
 ```
 
-## Thread safety rules for `IParallelBulletModule`
+## A note on performance (Parallel vs Main Thread)
 
-When implementing `IParallelBulletModule`:
+If you implement `IParallelBulletModule`, your code will run on worker threads. This is **much faster**, but it has rules:
+- **Don't** touch Unity APIs (like `transform`, `GameObject.Find`, `Physics`).
+- **Don't** change global variables.
+- **Do** stick to math and the `BulletContainer` data.
 
-- Do not call Unity scene APIs (`FindObjectOfType`, `Physics2D`, `Transform`, etc.).
-- Do not mutate shared static/global state.
-- Only read/write the passed `BulletContainer` and immutable module fields.
-- Keep logic deterministic and stateless where possible.
+If you *need* to touch Unity stuff, just implement `IBulletModule` (without `IParallel...`) and it will run safely on the main thread.
 
-If your module needs Unity API calls, implement `IBulletModule` only (main-thread execution path).
+## Controlling modules from code
 
-## Accessing modules from gameplay code
-
-Use `BulletSpawner` helpers:
-
-- `TryGetModule<T>(out T module)`
-- `GetModule<T>()`
-- `GetModulesOfType<T>()`
+You can grab your modules at runtime to tweak them:
 
 ```csharp
 if (spawner.TryGetModule<SideDriftModule>(out var drift))
 {
-    // Use module reference to tweak settings at runtime if desired.
+    drift.driftSpeed = 5f; // Turbo drift!
 }
 ```

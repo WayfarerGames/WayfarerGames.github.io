@@ -1,6 +1,6 @@
-# Paid Version
+# Support the Project
 
-Use the Unity Asset Store widget below to view the paid version:
+If you're enjoying Bulletfury and want to unlock the full suite of advanced modules, check out the Pro version on the Asset Store.
 
 <iframe
   src="https://assetstore.unity.com/linkmaker/embed/package/199208/widget-wide?aid=1101lwk2s"
@@ -9,13 +9,16 @@ Use the Unity Asset Store widget below to view the paid version:
   title="Unity Asset Store - Bulletfury Paid Version">
 </iframe>
 
-## Free and Pro relationship
+## Why upgrade?
 
-Pro provides prebuilt advanced modules and workflows.  
-Free still exposes the same module APIs, so these behaviors can be implemented yourself in custom modules.
+The Pro version is designed to save you time. It includes pre-built modules for:
+- **Homing Missiles**
+- **Bouncing / Ricochet**
+- **Force Fields**
+- **Sub-Spawners** (bullets that spawn other bullets)
+- **Rewind / Replay**
 
-If you want a detailed breakdown, see `Extending -> Free vs Pro Comparison`.
+It's the same engine, just with more toys in the box.
 
-If the embed does not load on your site, use the direct link:
-
-- https://prf.hn/click/camref:1101lwk2s/destination:https://assetstore.unity.com/
+If the widget above doesn't load, you can find it here:
+[**Bulletfury on the Unity Asset Store**](https://prf.hn/click/camref:1101lwk2s/destination:https://assetstore.unity.com/)

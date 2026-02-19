@@ -1,147 +1,119 @@
 # Basic Patterns
 
-These recipes use free package features only.
+Ready to make some cool patterns? Here are a few recipes using just the free modules. Feel free to tweak the numbers and make them your own!
 
-## Pattern 1: Straight stream
+## 1. Straight Stream
+*The classic "pew pew"*
 
-Good for baseline enemy fire.
+Great for basic enemies or player weapons.
 
-### Main settings
-
+**Main Settings:**
 - `FireMode`: `Automatic`
-- `FireRate`: `0.08` to `0.15`
-- `Speed`: `4` to `8`
-- `Lifetime`: `1.5` to `3`
+- `FireRate`: `0.1` (fast)
+- `Speed`: `6`
+- `Lifetime`: `2`
 
-### Spawn Shape Data
-
+**Spawn Shape:**
 - `numPoints`: `1`
-- `numPerSide`: `1`
-- `radius`: `0`
 - `spawnDir`: `Direction`
 
-### Modules
-
-- none required
+**Modules:** None needed!
 
 ---
 
-## Pattern 2: Radial burst
+## 2. Radial Burst
+*The "shockwave"*
 
-Spawns a full ring from a single emitter.
+Spawns a ring of bullets expanding outward.
 
-### Main settings
+**Main Settings:**
+- `FireMode`: `Automatic` (or `Manual` for explosions)
+- `FireRate`: `1.0` (slow)
 
-- `FireMode`: `Automatic` or `Manual`
-- `FireRate`: `0.5` to `1.2`
-
-### Spawn Shape Data
-
-- `numPoints`: `24` (or 12/36 depending on density)
-- `numPerSide`: `1`
+**Spawn Shape:**
+- `numPoints`: `24` (more points = smoother circle)
 - `radius`: `0`
 - `arc`: `360`
-- `spawnDir`: `Spherised`
+- `spawnDir`: `Spherised` (this makes them shoot outward from the center)
 
-### Burst Data (optional)
-
-- `burstCount`: `1` for single ring
-- `burstCount` > `1` + `burstDelay` for stacked rings
-
----
-
-## Pattern 3: Rotating spiral
-
-Classic bullet-hell spiral using one spawn module.
-
-### Base settings
-
-- Start from Pattern 1 settings.
-
-### Add module
-
-- Add `SpawnerRotateModule`.
-- Set `angularSpeed` to `60`-`240` depending on desired spin.
-
-### Optional polish modules
-
-- `SpeedOverTimeModule` for acceleration tails.
-- `BulletColorOverTimeModule` for visual rhythm.
+**Burst Data:**
+- `burstCount`: `1` (single ring)
+- Try `3` with a small `burstDelay` for a triple-ring effect!
 
 ---
 
-## Pattern 4: Wave stream
+## 3. Rotating Spiral
+*The "bullet hell staple"*
 
-Creates movement variation while preserving directional fire.
+A single stream that spins around, creating a beautiful spiral.
 
-### Base settings
+**Base Settings:** Start with the **Straight Stream** above.
 
-- Start from Pattern 1.
+**Add Module:** `SpawnerRotateModule`
+- `angularSpeed`: `120` (spin speed)
 
-### Add module
-
-- Add `SpeedOverTimeModule`.
-- Example curve:
-  - starts at `0.7`
-  - peaks around `1.2`
-  - returns to `0.8`
-- Set `Mode` to `Time` and `Time` to `0.5`-`1.2` for repeated pulsing.
+**Polish:**
+- Add `SpeedOverTimeModule` to make the spiral expand faster or slower as it goes out.
+- Add `BulletColorOverTimeModule` to make it look hypnotic.
 
 ---
 
-## Pattern 5: Hold then release
+## 4. Wave Stream
+*The "wobbly laser"*
 
-Spawn bullets, pause them, then release in sync.
+A stream of bullets that speeds up and slows down, creating a wave effect.
 
-### Setup
+**Base Settings:** Start with the **Straight Stream**.
 
+**Add Module:** `SpeedOverTimeModule`
+- **Curve**: Make it go up and down (e.g., 0.8 -> 1.2 -> 0.8).
+- **Mode**: `Time` (loops the curve)
+- **Time**: `0.8` (how fast the wave pulses)
+
+---
+
+## 5. Hold & Release
+*The "wait for it..."*
+
+Spawn bullets, freeze them in place, then launch them all at once.
+
+**Setup:**
 - Add `WaitToContinueModule`.
-- Set `timeToPlayBeforeWaiting` to when bullets should enter waiting mode.
+- Set `timeToPlayBeforeWaiting` to a small number (like `0.5`) so they fly out a bit and then stop.
 
-### Trigger release
-
-Call:
-
+**Trigger:**
+Call this in your code when you're ready to fire:
 ```csharp
 spawner.ActivateWaitingBullets();
 ```
 
-### Common use
-
-- Boss attack telegraph:
-  - spawn pattern
-  - short pause
-  - release all bullets at once
+**Great for:** Boss attacks where you want to telegraph the pattern before it becomes dangerous.
 
 ---
 
-## Pattern 6: Manual shotgun cone
+## 6. Shotgun Blast
+*The "boomstick"*
 
-Fire on input and randomize cone direction with spawn settings.
+A random spread of bullets in a cone.
 
-### Main settings
-
+**Main Settings:**
 - `FireMode`: `Manual`
 
-### Spawn Shape Data
-
-- `numPoints`: `8` to `16`
-- `numPerSide`: `1`
+**Spawn Shape:**
+- `numPoints`: `10`
 - `spawnDir`: `Randomised`
-- `directionArc`: `20` to `45`
+- `directionArc`: `30` (how wide the spread is)
 - `randomise`: `true`
-- `onEdge`: `true` (optional for edge-only spread)
 
-### Script trigger
-
+**Trigger:**
 ```csharp
 if (Input.GetMouseButtonDown(0))
     spawner.Spawn(transform, Time.deltaTime);
 ```
 
-## Pattern tuning checklist
+## Tuning Tips
 
-- Increase `numPoints` for denser patterns.
-- Increase `FireRate` interval to reduce spawn frequency.
-- Reduce module count first when optimizing heavy scenes.
-- Prefer circle collider mode unless capsule behavior is required.
+- **Too dense?** Lower `numPoints` or increase `FireRate` (higher number = slower fire).
+- **Too slow?** Increase `Speed`.
+- **Laggy?** Reduce the number of modules or total bullet count.
+- **Colliders**: Use Circle colliders for best performance.
