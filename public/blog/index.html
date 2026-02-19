@@ -299,13 +299,34 @@
     let allPosts = [];
     let filteredPosts = [];
     let currentIndex = -1;
+    let requestedPostSlug = "";
+
+    const slugFromFileName = (fileName) =>
+      (fileName || "")
+        .replace(/\.(md|markdown|txt)$/i, "")
+        .trim()
+        .toLowerCase();
+
+    const getRequestedPostSlug = () => {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get("post") || "").trim().toLowerCase();
+    };
+
+    const syncPostUrl = (post, { replace = false } = {}) => {
+      if (!post?.slug) return;
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("post") === post.slug) return;
+      url.searchParams.set("post", post.slug);
+      const method = replace ? "replaceState" : "pushState";
+      window.history[method]({ postSlug: post.slug }, "", `${url.pathname}${url.search}`);
+    };
 
     const updateNavButtons = () => {
       prevBtn.disabled = currentIndex <= 0;
       nextBtn.disabled = currentIndex === -1 || currentIndex >= filteredPosts.length - 1;
     };
 
-    const renderPost = (index) => {
+    const renderPost = (index, { updateHistory = true, replaceHistory = false } = {}) => {
       const post = filteredPosts[index];
       if (!post) return;
       currentIndex = index;
@@ -313,6 +334,7 @@
       postDate.textContent = post.date ? humanDate(post.date) : "No date";
       postBody.innerHTML = post.html || "<p>No content available.</p>";
       applySyntaxHighlighting();
+      if (updateHistory) syncPostUrl(post, { replace: replaceHistory });
       emptyState.style.display = "none";
       postView.style.display = "block";
       updateNavButtons();
@@ -365,9 +387,17 @@
         currentIndex = -1;
         updateNavButtons();
       } else if (currentIndex === -1 || currentIndex >= filteredPosts.length) {
-        renderPost(0);
+        const targetIndex = requestedPostSlug
+          ? filteredPosts.findIndex((post) => post.slug === requestedPostSlug)
+          : -1;
+        if (targetIndex >= 0) {
+          renderPost(targetIndex, { updateHistory: true, replaceHistory: true });
+          requestedPostSlug = "";
+        } else {
+          renderPost(0, { updateHistory: true, replaceHistory: true });
+        }
       } else {
-        renderPost(currentIndex);
+        renderPost(currentIndex, { updateHistory: false });
       }
     };
 
@@ -390,6 +420,7 @@
       return {
         id: `${fileName}-${Math.random().toString(36).slice(2, 9)}`,
         fileName,
+        slug: slugFromFileName(fileName),
         title,
         date: meta.date || "",
         summary: meta.summary || "",
@@ -418,6 +449,7 @@
 
     const loadPosts = async () => {
       try {
+        requestedPostSlug = getRequestedPostSlug();
         const manifestRes = await fetch("/blog/posts/posts.json", { cache: "no-store" });
         if (!manifestRes.ok) throw new Error("Could not load posts manifest.");
         const manifestData = await manifestRes.json();
@@ -455,6 +487,19 @@
     searchInput.addEventListener("input", filterPosts);
     prevBtn.addEventListener("click", () => { if (currentIndex > 0) renderPost(currentIndex - 1); });
     nextBtn.addEventListener("click", () => { if (currentIndex < filteredPosts.length - 1) renderPost(currentIndex + 1); });
+    window.addEventListener("popstate", () => {
+      if (!allPosts.length) return;
+      const slug = getRequestedPostSlug();
+      if (!slug) return;
+      if (searchInput.value) searchInput.value = "";
+      filteredPosts = [...allPosts];
+      currentIndex = -1;
+      const nextIndex = filteredPosts.findIndex((post) => post.slug === slug);
+      if (nextIndex >= 0) {
+        renderList();
+        renderPost(nextIndex, { updateHistory: false });
+      }
+    });
     updateNavButtons();
     loadPosts();
   </script>
