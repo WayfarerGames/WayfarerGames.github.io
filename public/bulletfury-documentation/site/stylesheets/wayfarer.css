@@ -45,11 +45,14 @@ body {
 .navbar .container {
   max-width: 1200px;
   padding: 0 42px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .navbar-brand {
   font-family: "Fredoka", sans-serif !important;
-  font-size: 1.15rem !important;
+  font-size: 1rem !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   color: var(--white) !important;
@@ -57,6 +60,7 @@ body {
   align-items: center;
   gap: 10px;
   white-space: nowrap;
+  margin-right: 10px !important;
 }
 
 .navbar-brand::before {
@@ -69,11 +73,12 @@ body {
 
 .navbar-nav .nav-link {
   font-family: "Fredoka", sans-serif !important;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600 !important;
   color: rgba(250, 252, 255, 0.68) !important;
   border-radius: 8px;
-  padding: 4px 7px !important;
+  padding: 4px 6px !important;
+  white-space: nowrap;
 }
 
 .navbar-nav .nav-link:hover,
@@ -112,6 +117,43 @@ body {
 .navbar-toggler {
   border-color: rgba(90, 214, 255, 0.45) !important;
   background: rgba(255, 255, 255, 0.04) !important;
+}
+
+#navbar-collapse {
+  flex: 1;
+}
+
+#navbar-collapse.collapse.show,
+#navbar-collapse.collapsing {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  #navbar-collapse {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  #navbar-collapse > .navbar-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  #navbar-collapse > .navbar-nav.ms-md-auto {
+    margin-left: auto !important;
+    padding-left: 8px;
+  }
+
+  /* Keep top bar clean: search stays, pager links move out of header */
+  #navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(2),
+  #navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(3) {
+    display: none !important;
+  }
 }
 
 /* Layout */
@@ -197,6 +239,7 @@ h6 {
 h1 {
   font-size: clamp(48px, 6.5vw, 86px) !important;
   line-height: 0.92 !important;
+  font-weight: 700 !important;
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--poly) !important;
@@ -205,10 +248,12 @@ h1 {
 h2 {
   font-size: clamp(34px, 4.4vw, 52px) !important;
   line-height: 1.04 !important;
+  font-weight: 600 !important;
   color: var(--lime) !important;
 }
 
 h3 {
+  font-weight: 600 !important;
   color: var(--lav) !important;
 }
 
