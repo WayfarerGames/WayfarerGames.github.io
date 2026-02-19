@@ -7,14 +7,14 @@ Ready to make some cool patterns? Here are a few recipes using just the free mod
 
 Great for basic enemies or player weapons.
 
-**Main Settings:**
+**Main:**
 
 - `FireMode`: `Automatic`
 - `FireRate`: `0.1` (fast)
 - `Speed`: `6`
 - `Lifetime`: `2`
 
-**Spawn Shape:**
+**Spawn Shape Data:**
 
 - `numPoints`: `1`
 - `spawnDir`: `Direction`
@@ -28,12 +28,12 @@ Great for basic enemies or player weapons.
 
 Spawns a ring of bullets expanding outward.
 
-**Main Settings:**
+**Main:**
 
 - `FireMode`: `Automatic` (or `Manual` for explosions)
 - `FireRate`: `1.0` (slow)
 
-**Spawn Shape:**
+**Spawn Shape Data:**
 
 - `numPoints`: `24` (more points = smoother circle)
 - `radius`: `0`
@@ -105,11 +105,11 @@ spawner.ActivateWaitingBullets();
 
 A random spread of bullets in a cone.
 
-**Main Settings:**
+**Main:**
 
 - `FireMode`: `Manual`
 
-**Spawn Shape:**
+**Spawn Shape Data:**
 
 - `numPoints`: `10`
 - `spawnDir`: `Randomised`

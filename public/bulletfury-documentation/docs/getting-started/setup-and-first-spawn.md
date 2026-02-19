@@ -4,11 +4,12 @@ Let's get you up and running! This guide will take you from zero to seeing your 
 
 ## 1) Install the package
 
-First things first, add Bulletfury to your Unity project's `Packages/manifest.json`:
+First things first, let's get Bulletfury into your project. You can add the Git URL directly through the Unity Package Manager:
 
-```json
-"com.wayfarergames.bulletfury": "https://github.com/<your-org>/<your-repo>.git?path=/PackageSource/com.wayfarergames.bulletfury"
-```
+1. Open the Package Manager (**Window > Package Manager**).
+2. Click the `+` button in the top left and select **Add package from git URL...**
+3. Enter the URL for the Bulletfury repository: `https://github.com/<your-org>/<your-repo>.git?path=/PackageSource/com.wayfarergames.bulletfury`
+4. Click **Add**.
 
 Just a reminder: Bulletfury needs **Unity 6+** and **URP**. It also relies on a few Unity packages like Burst and Mathematics, but those should install automatically.
 
@@ -34,6 +35,8 @@ In **Render Data**:
 - Assign a **Texture2D** for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)
 - Set the sorting **Layer** and **Priority** if you need them to appear on top of other things.
 
+*(Note: In the Scene view, you'll see a green circle in the bullet preview above the spawner. This green circle shows the size of the bullet's collision area relative to the bullet sprite itself. Bulletfury collisions work natively with Unity's 2D colliders!)*
+
 ## 4) Configure the basics
 
 Let's set up a simple stream of bullets.
@@ -53,6 +56,14 @@ In **Spawn Shape Data** (let's keep it simple for now):
 - `radius`: `0`
 - `spawnDir`: `Direction`
 
+> **What does `spawnDir` do?**
+> This setting controls the initial direction your bullets will travel:
+> - **`Direction`**: Bullets fly straight up (relative to the spawner's rotation).
+> - **`Spherised`**: Bullets fly directly outward from the center point.
+> - **`Shape`**: Bullets fly perpendicular to the edge of the shape they spawned on.
+> - **`Point`**: Bullets fly outward towards the closest corner/point of the shape.
+> - **`Randomised`**: Bullets fly in a random direction within the defined `directionArc`.
+
 In **Burst Data**:
 
 - `burstCount`: `1`
@@ -61,6 +72,23 @@ In **Burst Data**:
 ## 5) Fire!
 
 Hit **Play Mode**. If everything is set up right, you should see a stream of bullets shooting out!
+
+**Scene View Tool:** For rapid iteration without entering Play Mode, check the bottom left of your Scene window when the spawner is selected. You'll find a little widget to **play, pause, and stop** the selected spawner. This widget also displays the **current and maximum bullet count**, which is incredibly useful for testing performance and tuning density.
+
+## Exploring Modules
+
+You might be wondering where settings like "acceleration", "homing", or "color changes" are. In Bulletfury, a lot of behavior is intentionally "hidden" behind **Modules**. Instead of one massive inspector with a hundred settings you aren't using, you snap on only the behaviors you need. 
+
+We highly encourage you to check out the [**Free Modules**](../modules/free-modules.md) page and experiment with adding them to your spawner to see what they do!
+
+## Advanced Spawn Settings
+
+While the basics will get you started, the **Spawn Shape Data** has a lot of hidden power for making complex patterns without any extra modules:
+
+- **`arc`**: Only spawn bullets along a specific angle (e.g. 180 for a half-circle).
+- **`randomise` / `onEdge`**: Places bullets randomly within the shape or strictly on its outline.
+- **Grouping (`numPerGroup`, `groupRadius`, `groupDirection`)**: Instead of single bullets, spawn them in clusters! Great for making thick walls of bullets.
+- **`removeFromEdgePercent`**: Creates gaps at the corners of your shapes.
 
 ## Manual spawning
 
