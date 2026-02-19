@@ -8,6 +8,7 @@ Custom modules are just C# classes. You don't need to inherit from `MonoBehaviou
 
 ### The Rules
 For your module to show up in the Inspector, it must be:
+
 1. `[Serializable]`
 2. A normal `class` (not abstract)
 3. Have a default constructor (which C# gives you for free usually)
@@ -116,6 +117,7 @@ public class SideDriftModule : ...
 ## A note on performance (Parallel vs Main Thread)
 
 If you implement `IParallelBulletModule`, your code will run on worker threads. This is **much faster**, but it has rules:
+
 - **Don't** touch Unity APIs (like `transform`, `GameObject.Find`, `Physics`).
 - **Don't** change global variables.
 - **Do** stick to math and the `BulletContainer` data.

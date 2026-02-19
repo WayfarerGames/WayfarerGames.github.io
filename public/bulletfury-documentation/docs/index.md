@@ -5,6 +5,7 @@ Hi! Bulletfury is a high-performance 2D bullet spawning and rendering framework 
 ## Compatibility
 
 Just a quick heads-up on what you'll need:
+
 - **Unity 6** or newer
 - **URP** (Universal Render Pipeline)
 
@@ -15,11 +16,12 @@ We've set things up to get you moving quickly:
 1. **Getting Started**: We'll walk you through installing the package and getting your first bullets on screen.
 2. **Modules**: Learn about the building blocks of Bulletfury and how to snap them together.
 3. **Patterns**: We've got some recipes for common bullet patterns to help you get started.
-4. **Extending**: Want to do something unique? We'll show you how to write your own custom modules.
+4. **Custom Modules**: Want to do something unique? We'll show you how to write your own modules.
 
 ## Is this for you?
 
 If you're building a shooter, a bullet hell game, or anything that needs a lot of projectiles, then yes! Bulletfury is perfect for:
+
 - **Designers** who want to tweak bullet behavior right in the Inspector without touching code.
 - **Programmers** who want a solid foundation to build custom bullet logic on top of.
 - **Teams** who want a shared language for defining bullet patterns.

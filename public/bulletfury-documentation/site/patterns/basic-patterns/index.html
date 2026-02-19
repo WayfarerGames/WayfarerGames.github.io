@@ -131,56 +131,74 @@
 <h2 id="1-straight-stream">1. Straight Stream<a class="headerlink" href="#1-straight-stream" title="Permanent link">&para;</a></h2>
 <p><em>The classic "pew pew"</em></p>
 <p>Great for basic enemies or player weapons.</p>
-<p><strong>Main Settings:</strong>
-- <code>FireMode</code>: <code>Automatic</code>
-- <code>FireRate</code>: <code>0.1</code> (fast)
-- <code>Speed</code>: <code>6</code>
-- <code>Lifetime</code>: <code>2</code></p>
-<p><strong>Spawn Shape:</strong>
-- <code>numPoints</code>: <code>1</code>
-- <code>spawnDir</code>: <code>Direction</code></p>
+<p><strong>Main Settings:</strong></p>
+<ul>
+<li><code>FireMode</code>: <code>Automatic</code></li>
+<li><code>FireRate</code>: <code>0.1</code> (fast)</li>
+<li><code>Speed</code>: <code>6</code></li>
+<li><code>Lifetime</code>: <code>2</code></li>
+</ul>
+<p><strong>Spawn Shape:</strong></p>
+<ul>
+<li><code>numPoints</code>: <code>1</code></li>
+<li><code>spawnDir</code>: <code>Direction</code></li>
+</ul>
 <p><strong>Modules:</strong> None needed!</p>
 <hr />
 <h2 id="2-radial-burst">2. Radial Burst<a class="headerlink" href="#2-radial-burst" title="Permanent link">&para;</a></h2>
 <p><em>The "shockwave"</em></p>
 <p>Spawns a ring of bullets expanding outward.</p>
-<p><strong>Main Settings:</strong>
-- <code>FireMode</code>: <code>Automatic</code> (or <code>Manual</code> for explosions)
-- <code>FireRate</code>: <code>1.0</code> (slow)</p>
-<p><strong>Spawn Shape:</strong>
-- <code>numPoints</code>: <code>24</code> (more points = smoother circle)
-- <code>radius</code>: <code>0</code>
-- <code>arc</code>: <code>360</code>
-- <code>spawnDir</code>: <code>Spherised</code> (this makes them shoot outward from the center)</p>
-<p><strong>Burst Data:</strong>
-- <code>burstCount</code>: <code>1</code> (single ring)
-- Try <code>3</code> with a small <code>burstDelay</code> for a triple-ring effect!</p>
+<p><strong>Main Settings:</strong></p>
+<ul>
+<li><code>FireMode</code>: <code>Automatic</code> (or <code>Manual</code> for explosions)</li>
+<li><code>FireRate</code>: <code>1.0</code> (slow)</li>
+</ul>
+<p><strong>Spawn Shape:</strong></p>
+<ul>
+<li><code>numPoints</code>: <code>24</code> (more points = smoother circle)</li>
+<li><code>radius</code>: <code>0</code></li>
+<li><code>arc</code>: <code>360</code></li>
+<li><code>spawnDir</code>: <code>Spherised</code> (this makes them shoot outward from the center)</li>
+</ul>
+<p><strong>Burst Data:</strong></p>
+<ul>
+<li><code>burstCount</code>: <code>1</code> (single ring)</li>
+<li>Try <code>3</code> with a small <code>burstDelay</code> for a triple-ring effect!</li>
+</ul>
 <hr />
 <h2 id="3-rotating-spiral">3. Rotating Spiral<a class="headerlink" href="#3-rotating-spiral" title="Permanent link">&para;</a></h2>
 <p><em>The "bullet hell staple"</em></p>
 <p>A single stream that spins around, creating a beautiful spiral.</p>
 <p><strong>Base Settings:</strong> Start with the <strong>Straight Stream</strong> above.</p>
-<p><strong>Add Module:</strong> <code>SpawnerRotateModule</code>
-- <code>angularSpeed</code>: <code>120</code> (spin speed)</p>
-<p><strong>Polish:</strong>
-- Add <code>SpeedOverTimeModule</code> to make the spiral expand faster or slower as it goes out.
-- Add <code>BulletColorOverTimeModule</code> to make it look hypnotic.</p>
+<p><strong>Add Module:</strong> <code>SpawnerRotateModule</code></p>
+<ul>
+<li><code>angularSpeed</code>: <code>120</code> (spin speed)</li>
+</ul>
+<p><strong>Polish:</strong></p>
+<ul>
+<li>Add <code>SpeedOverTimeModule</code> to make the spiral expand faster or slower as it goes out.</li>
+<li>Add <code>BulletColorOverTimeModule</code> to make it look hypnotic.</li>
+</ul>
 <hr />
 <h2 id="4-wave-stream">4. Wave Stream<a class="headerlink" href="#4-wave-stream" title="Permanent link">&para;</a></h2>
 <p><em>The "wobbly laser"</em></p>
 <p>A stream of bullets that speeds up and slows down, creating a wave effect.</p>
 <p><strong>Base Settings:</strong> Start with the <strong>Straight Stream</strong>.</p>
-<p><strong>Add Module:</strong> <code>SpeedOverTimeModule</code>
-- <strong>Curve</strong>: Make it go up and down (e.g., 0.8 -&gt; 1.2 -&gt; 0.8).
-- <strong>Mode</strong>: <code>Time</code> (loops the curve)
-- <strong>Time</strong>: <code>0.8</code> (how fast the wave pulses)</p>
+<p><strong>Add Module:</strong> <code>SpeedOverTimeModule</code></p>
+<ul>
+<li><strong>Curve</strong>: Make it go up and down (e.g., 0.8 -&gt; 1.2 -&gt; 0.8).</li>
+<li><strong>Mode</strong>: <code>Time</code> (loops the curve)</li>
+<li><strong>Time</strong>: <code>0.8</code> (how fast the wave pulses)</li>
+</ul>
 <hr />
 <h2 id="5-hold-release">5. Hold &amp; Release<a class="headerlink" href="#5-hold-release" title="Permanent link">&para;</a></h2>
 <p><em>The "wait for it..."</em></p>
 <p>Spawn bullets, freeze them in place, then launch them all at once.</p>
-<p><strong>Setup:</strong>
-- Add <code>WaitToContinueModule</code>.
-- Set <code>timeToPlayBeforeWaiting</code> to a small number (like <code>0.5</code>) so they fly out a bit and then stop.</p>
+<p><strong>Setup:</strong></p>
+<ul>
+<li>Add <code>WaitToContinueModule</code>.</li>
+<li>Set <code>timeToPlayBeforeWaiting</code> to a small number (like <code>0.5</code>) so they fly out a bit and then stop.</li>
+</ul>
 <p><strong>Trigger:</strong>
 Call this in your code when you're ready to fire:</p>
 <pre><code class="language-csharp">spawner.ActivateWaitingBullets();
@@ -190,13 +208,17 @@ Call this in your code when you're ready to fire:</p>
 <h2 id="6-shotgun-blast">6. Shotgun Blast<a class="headerlink" href="#6-shotgun-blast" title="Permanent link">&para;</a></h2>
 <p><em>The "boomstick"</em></p>
 <p>A random spread of bullets in a cone.</p>
-<p><strong>Main Settings:</strong>
-- <code>FireMode</code>: <code>Manual</code></p>
-<p><strong>Spawn Shape:</strong>
-- <code>numPoints</code>: <code>10</code>
-- <code>spawnDir</code>: <code>Randomised</code>
-- <code>directionArc</code>: <code>30</code> (how wide the spread is)
-- <code>randomise</code>: <code>true</code></p>
+<p><strong>Main Settings:</strong></p>
+<ul>
+<li><code>FireMode</code>: <code>Manual</code></li>
+</ul>
+<p><strong>Spawn Shape:</strong></p>
+<ul>
+<li><code>numPoints</code>: <code>10</code></li>
+<li><code>spawnDir</code>: <code>Randomised</code></li>
+<li><code>directionArc</code>: <code>30</code> (how wide the spread is)</li>
+<li><code>randomise</code>: <code>true</code></li>
+</ul>
 <p><strong>Trigger:</strong></p>
 <pre><code class="language-csharp">if (Input.GetMouseButtonDown(0))
     spawner.Spawn(transform, Time.deltaTime);

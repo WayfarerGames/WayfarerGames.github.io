@@ -29,6 +29,7 @@ Now for the fun part!
 Before we can see anything, we need to tell Bulletfury how to draw the bullets.
 
 In **Render Data**:
+
 - Assign your **Main Camera**.
 - Assign a **Texture2D** for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)
 - Set the sorting **Layer** and **Priority** if you need them to appear on top of other things.
@@ -38,6 +39,7 @@ In **Render Data**:
 Let's set up a simple stream of bullets.
 
 In **Main**:
+
 - Set `FireMode` to `Automatic` so it starts firing right away.
 - Check `PlayOnEnable`.
 - Set `FireRate` to `0.1` (that's 10 shots per second).
@@ -45,12 +47,14 @@ In **Main**:
 - Set `Speed` to `5`.
 
 In **Spawn Shape Data** (let's keep it simple for now):
+
 - `numPoints`: `1`
 - `numPerSide`: `1`
 - `radius`: `0`
 - `spawnDir`: `Direction`
 
 In **Burst Data**:
+
 - `burstCount`: `1`
 - `delay`: `0`
 
@@ -82,6 +86,7 @@ public class ManualFireExample : MonoBehaviour
 ```
 
 Here are the main methods you'll use:
+
 - `Spawn(Transform obj, float deltaTime)`: Uses the transform's position and rotation.
 - `Spawn(Vector3 position, Vector3 up, float deltaTime)`: Uses a specific position and direction.
 - `SpawnImmediate(...)`: Fires instantly, ignoring the fire rate.
@@ -89,6 +94,7 @@ Here are the main methods you'll use:
 ## Controlling the simulation
 
 You can also control the spawner at runtime:
+
 - `Play()` / `Stop()`: Start or stop the automatic firing.
 - `SetSimulationPaused(bool paused)`: Pause all bullets in mid-air.
 - `ClearBullets()`: Remove all active bullets.

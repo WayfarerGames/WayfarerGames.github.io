@@ -150,26 +150,34 @@
 </ol>
 <h2 id="3-make-it-visible">3) Make it visible<a class="headerlink" href="#3-make-it-visible" title="Permanent link">&para;</a></h2>
 <p>Before we can see anything, we need to tell Bulletfury how to draw the bullets.</p>
-<p>In <strong>Render Data</strong>:
-- Assign your <strong>Main Camera</strong>.
-- Assign a <strong>Texture2D</strong> for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)
-- Set the sorting <strong>Layer</strong> and <strong>Priority</strong> if you need them to appear on top of other things.</p>
+<p>In <strong>Render Data</strong>:</p>
+<ul>
+<li>Assign your <strong>Main Camera</strong>.</li>
+<li>Assign a <strong>Texture2D</strong> for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)</li>
+<li>Set the sorting <strong>Layer</strong> and <strong>Priority</strong> if you need them to appear on top of other things.</li>
+</ul>
 <h2 id="4-configure-the-basics">4) Configure the basics<a class="headerlink" href="#4-configure-the-basics" title="Permanent link">&para;</a></h2>
 <p>Let's set up a simple stream of bullets.</p>
-<p>In <strong>Main</strong>:
-- Set <code>FireMode</code> to <code>Automatic</code> so it starts firing right away.
-- Check <code>PlayOnEnable</code>.
-- Set <code>FireRate</code> to <code>0.1</code> (that's 10 shots per second).
-- Set <code>Lifetime</code> to <code>1.5</code> seconds.
-- Set <code>Speed</code> to <code>5</code>.</p>
-<p>In <strong>Spawn Shape Data</strong> (let's keep it simple for now):
-- <code>numPoints</code>: <code>1</code>
-- <code>numPerSide</code>: <code>1</code>
-- <code>radius</code>: <code>0</code>
-- <code>spawnDir</code>: <code>Direction</code></p>
-<p>In <strong>Burst Data</strong>:
-- <code>burstCount</code>: <code>1</code>
-- <code>delay</code>: <code>0</code></p>
+<p>In <strong>Main</strong>:</p>
+<ul>
+<li>Set <code>FireMode</code> to <code>Automatic</code> so it starts firing right away.</li>
+<li>Check <code>PlayOnEnable</code>.</li>
+<li>Set <code>FireRate</code> to <code>0.1</code> (that's 10 shots per second).</li>
+<li>Set <code>Lifetime</code> to <code>1.5</code> seconds.</li>
+<li>Set <code>Speed</code> to <code>5</code>.</li>
+</ul>
+<p>In <strong>Spawn Shape Data</strong> (let's keep it simple for now):</p>
+<ul>
+<li><code>numPoints</code>: <code>1</code></li>
+<li><code>numPerSide</code>: <code>1</code></li>
+<li><code>radius</code>: <code>0</code></li>
+<li><code>spawnDir</code>: <code>Direction</code></li>
+</ul>
+<p>In <strong>Burst Data</strong>:</p>
+<ul>
+<li><code>burstCount</code>: <code>1</code></li>
+<li><code>delay</code>: <code>0</code></li>
+</ul>
 <h2 id="5-fire">5) Fire!<a class="headerlink" href="#5-fire" title="Permanent link">&para;</a></h2>
 <p>Hit <strong>Play Mode</strong>. If everything is set up right, you should see a stream of bullets shooting out!</p>
 <h2 id="manual-spawning">Manual spawning<a class="headerlink" href="#manual-spawning" title="Permanent link">&para;</a></h2>
@@ -191,16 +199,20 @@ public class ManualFireExample : MonoBehaviour
     }
 }
 </code></pre>
-<p>Here are the main methods you'll use:
-- <code>Spawn(Transform obj, float deltaTime)</code>: Uses the transform's position and rotation.
-- <code>Spawn(Vector3 position, Vector3 up, float deltaTime)</code>: Uses a specific position and direction.
-- <code>SpawnImmediate(...)</code>: Fires instantly, ignoring the fire rate.</p>
+<p>Here are the main methods you'll use:</p>
+<ul>
+<li><code>Spawn(Transform obj, float deltaTime)</code>: Uses the transform's position and rotation.</li>
+<li><code>Spawn(Vector3 position, Vector3 up, float deltaTime)</code>: Uses a specific position and direction.</li>
+<li><code>SpawnImmediate(...)</code>: Fires instantly, ignoring the fire rate.</li>
+</ul>
 <h2 id="controlling-the-simulation">Controlling the simulation<a class="headerlink" href="#controlling-the-simulation" title="Permanent link">&para;</a></h2>
-<p>You can also control the spawner at runtime:
-- <code>Play()</code> / <code>Stop()</code>: Start or stop the automatic firing.
-- <code>SetSimulationPaused(bool paused)</code>: Pause all bullets in mid-air.
-- <code>ClearBullets()</code>: Remove all active bullets.
-- <code>ActivateWaitingBullets()</code>: Release bullets that are waiting (great for complex patterns).</p>
+<p>You can also control the spawner at runtime:</p>
+<ul>
+<li><code>Play()</code> / <code>Stop()</code>: Start or stop the automatic firing.</li>
+<li><code>SetSimulationPaused(bool paused)</code>: Pause all bullets in mid-air.</li>
+<li><code>ClearBullets()</code>: Remove all active bullets.</li>
+<li><code>ActivateWaitingBullets()</code>: Release bullets that are waiting (great for complex patterns).</li>
+</ul>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>If things aren't working, check these common issues:</p>
 <ul>

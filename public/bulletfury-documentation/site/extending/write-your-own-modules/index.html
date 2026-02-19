@@ -135,10 +135,12 @@
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>Custom modules are just C# classes. You don't need to inherit from <code>MonoBehaviour</code>—just implement one of the module interfaces, and Bulletfury will pick it up automatically.</p>
 <h3 id="the-rules">The Rules<a class="headerlink" href="#the-rules" title="Permanent link">&para;</a></h3>
-<p>For your module to show up in the Inspector, it must be:
-1. <code>[Serializable]</code>
-2. A normal <code>class</code> (not abstract)
-3. Have a default constructor (which C# gives you for free usually)</p>
+<p>For your module to show up in the Inspector, it must be:</p>
+<ol>
+<li><code>[Serializable]</code></li>
+<li>A normal <code>class</code> (not abstract)</li>
+<li>Have a default constructor (which C# gives you for free usually)</li>
+</ol>
 <h2 id="choose-your-weapon-interface">Choose your weapon (Interface)<a class="headerlink" href="#choose-your-weapon-interface" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>IBulletSpawnModule</code></strong>: Run this <em>before</em> a bullet is born. Good for changing where it spawns.</li>
@@ -225,10 +227,12 @@ namespace MyGame.BulletModules
 public class SideDriftModule : ...
 </code></pre>
 <h2 id="a-note-on-performance-parallel-vs-main-thread">A note on performance (Parallel vs Main Thread)<a class="headerlink" href="#a-note-on-performance-parallel-vs-main-thread" title="Permanent link">&para;</a></h2>
-<p>If you implement <code>IParallelBulletModule</code>, your code will run on worker threads. This is <strong>much faster</strong>, but it has rules:
-- <strong>Don't</strong> touch Unity APIs (like <code>transform</code>, <code>GameObject.Find</code>, <code>Physics</code>).
-- <strong>Don't</strong> change global variables.
-- <strong>Do</strong> stick to math and the <code>BulletContainer</code> data.</p>
+<p>If you implement <code>IParallelBulletModule</code>, your code will run on worker threads. This is <strong>much faster</strong>, but it has rules:</p>
+<ul>
+<li><strong>Don't</strong> touch Unity APIs (like <code>transform</code>, <code>GameObject.Find</code>, <code>Physics</code>).</li>
+<li><strong>Don't</strong> change global variables.</li>
+<li><strong>Do</strong> stick to math and the <code>BulletContainer</code> data.</li>
+</ul>
 <p>If you <em>need</em> to touch Unity stuff, just implement <code>IBulletModule</code> (without <code>IParallel...</code>) and it will run safely on the main thread.</p>
 <h2 id="controlling-modules-from-code">Controlling modules from code<a class="headerlink" href="#controlling-modules-from-code" title="Permanent link">&para;</a></h2>
 <p>You can grab your modules at runtime to tweak them:</p>

@@ -12,6 +12,7 @@ If you're enjoying Bulletfury and want to unlock the full suite of advanced modu
 ## Why upgrade?
 
 The Pro version is designed to save you time. It includes pre-built modules for:
+
 - **Homing Missiles**
 - **Bouncing / Ricochet**
 - **Force Fields**

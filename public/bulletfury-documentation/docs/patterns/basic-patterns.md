@@ -8,12 +8,14 @@ Ready to make some cool patterns? Here are a few recipes using just the free mod
 Great for basic enemies or player weapons.
 
 **Main Settings:**
+
 - `FireMode`: `Automatic`
 - `FireRate`: `0.1` (fast)
 - `Speed`: `6`
 - `Lifetime`: `2`
 
 **Spawn Shape:**
+
 - `numPoints`: `1`
 - `spawnDir`: `Direction`
 
@@ -27,16 +29,19 @@ Great for basic enemies or player weapons.
 Spawns a ring of bullets expanding outward.
 
 **Main Settings:**
+
 - `FireMode`: `Automatic` (or `Manual` for explosions)
 - `FireRate`: `1.0` (slow)
 
 **Spawn Shape:**
+
 - `numPoints`: `24` (more points = smoother circle)
 - `radius`: `0`
 - `arc`: `360`
 - `spawnDir`: `Spherised` (this makes them shoot outward from the center)
 
 **Burst Data:**
+
 - `burstCount`: `1` (single ring)
 - Try `3` with a small `burstDelay` for a triple-ring effect!
 
@@ -50,9 +55,11 @@ A single stream that spins around, creating a beautiful spiral.
 **Base Settings:** Start with the **Straight Stream** above.
 
 **Add Module:** `SpawnerRotateModule`
+
 - `angularSpeed`: `120` (spin speed)
 
 **Polish:**
+
 - Add `SpeedOverTimeModule` to make the spiral expand faster or slower as it goes out.
 - Add `BulletColorOverTimeModule` to make it look hypnotic.
 
@@ -66,6 +73,7 @@ A stream of bullets that speeds up and slows down, creating a wave effect.
 **Base Settings:** Start with the **Straight Stream**.
 
 **Add Module:** `SpeedOverTimeModule`
+
 - **Curve**: Make it go up and down (e.g., 0.8 -> 1.2 -> 0.8).
 - **Mode**: `Time` (loops the curve)
 - **Time**: `0.8` (how fast the wave pulses)
@@ -78,6 +86,7 @@ A stream of bullets that speeds up and slows down, creating a wave effect.
 Spawn bullets, freeze them in place, then launch them all at once.
 
 **Setup:**
+
 - Add `WaitToContinueModule`.
 - Set `timeToPlayBeforeWaiting` to a small number (like `0.5`) so they fly out a bit and then stop.
 
@@ -97,9 +106,11 @@ spawner.ActivateWaitingBullets();
 A random spread of bullets in a cone.
 
 **Main Settings:**
+
 - `FireMode`: `Manual`
 
 **Spawn Shape:**
+
 - `numPoints`: `10`
 - `spawnDir`: `Randomised`
 - `directionArc`: `30` (how wide the spread is)
