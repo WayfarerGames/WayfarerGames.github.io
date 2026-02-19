@@ -327,3 +327,149 @@ hr {
     margin-bottom: 14px;
   }
 }
+
+/* --- Hard overrides to fully match Wayfarer style --- */
+html,
+body,
+.container,
+.row,
+.col-md-9,
+.col-md-3 {
+  background-color: transparent !important;
+}
+
+body {
+  background: var(--bg) !important;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.well,
+.well-lg,
+.well-sm {
+  background: rgba(20, 18, 38, 0.9) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--muted) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28) !important;
+}
+
+.bs-sidebar,
+.bs-sidebar.well,
+.bs-sidebar.affix,
+.bs-sidebar.affix.well,
+.bs-sidebar .nav,
+.bs-sidebar .bs-sidenav,
+.bs-sidenav {
+  background: rgba(20, 18, 38, 0.9) !important;
+  color: var(--white) !important;
+}
+
+.bs-sidebar .nav > li > a,
+.bs-sidebar .bs-sidenav > li > a,
+.bs-sidenav > li > a {
+  color: rgba(250, 252, 255, 0.92) !important;
+  font-family: "Fredoka", sans-serif !important;
+  font-weight: 600 !important;
+  border-radius: 8px;
+}
+
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .bs-sidenav > li > a:hover,
+.bs-sidenav > li > a:hover,
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active > a:hover,
+.bs-sidebar .nav > .active > a:focus,
+.bs-sidebar .bs-sidenav > .active > a,
+.bs-sidebar .bs-sidenav > .active > a:hover,
+.bs-sidebar .bs-sidenav > .active > a:focus {
+  color: var(--lime) !important;
+  background: rgba(255, 138, 102, 0.14) !important;
+}
+
+.bs-sidebar .nav .nav > li > a,
+.bs-sidebar .bs-sidenav .nav > li > a {
+  color: rgba(250, 252, 255, 0.78) !important;
+}
+
+.navbar,
+.navbar.navbar-default,
+.navbar.navbar-inverse {
+  min-height: 64px;
+}
+
+.navbar-brand {
+  line-height: 34px !important;
+  font-size: 30px !important;
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-inverse .navbar-nav > li > a {
+  line-height: 34px;
+}
+
+.navbar-form {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.navbar-right .dropdown-menu,
+.navbar-nav .dropdown-menu {
+  background: rgba(20, 18, 38, 0.98) !important;
+  border: 1px solid var(--line) !important;
+}
+
+.navbar-right .dropdown-menu > li > a,
+.navbar-nav .dropdown-menu > li > a {
+  color: rgba(250, 252, 255, 0.86) !important;
+}
+
+.navbar-right .dropdown-menu > li > a:hover,
+.navbar-nav .dropdown-menu > li > a:hover {
+  color: var(--white) !important;
+  background: rgba(90, 214, 255, 0.14) !important;
+}
+
+.col-md-9[role="main"] {
+  background:
+    linear-gradient(140deg, rgba(90, 214, 255, 0.05), transparent 45%),
+    linear-gradient(320deg, rgba(255, 138, 102, 0.06), transparent 48%),
+    rgba(255, 255, 255, 0.04) !important;
+}
+
+.table,
+table,
+.table-bordered,
+.table-striped {
+  background: rgba(20, 18, 38, 0.74) !important;
+  color: var(--muted) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  background: rgba(20, 18, 38, 0.72) !important;
+  color: var(--muted) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.table > thead > tr > th {
+  background: rgba(90, 214, 255, 0.16) !important;
+  color: var(--white) !important;
+  font-family: "Fredoka", sans-serif !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > td,
+.table-striped > tbody > tr:nth-of-type(odd) > th {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) > td,
+.table-striped > tbody > tr:nth-of-type(even) > th {
+  background: rgba(255, 255, 255, 0.01) !important;
+}
