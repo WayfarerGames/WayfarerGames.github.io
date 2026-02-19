@@ -5,156 +5,139 @@ summary: How great danmaku patterns aren't hand-placed — they're mathematical 
 ---
 
 # The Mathematics of Bullet Hell Patterns
+Hey! As I put the finishing touches on the open source version of Bulletfury, I thought it would be fun to talk bullet spawning and maths (everyone's favourite).
 
-Great danmaku patterns aren't hand-placed. They're mathematical functions.
+> This post focuses on implementation math. For design theory I'll point you to [Sparen's Danmaku Design Guides](https://sparen.github.io/ph3tutorials/danmakudesign.html), which are excellent.
 
-The moment I internalised that, everything about designing Polyfury changed. You stop thinking about individual bullets and start thinking about systems — functions that take a handful of variables and output a thousand projectiles in a coherent, readable, beautiful barrage.
+I'll let you in on a secret: it's all circles! Most of the best patterns are just different types of circles under the hood. We'll start off simple and evolve the process until it's clear how the craziest bullet hell games make their pretty patterns.
 
-What follows is a walkthrough of a single algorithm, traced from its simplest form to its most complex. We start with a point on a circle. By the end, we have spiraling, fractal curtains of bullets. Each step is one idea added on top of the last.
+## Circles!
+So let's start at the beginning: spawning bullets in a circle. When dealing with circles, we like polar coordinates - that's an angle and a radius. We'll use the number of bullets to work out the angle, and then we'll convert the polar coordinates to an x and y position so our game engine knows where to put them:
 
-> This post focuses on implementation math. For design theory — *why* a pattern feels fair, readable, or satisfying — I'd point you to [Sparen's Danmaku Design Guides](https://sparen.github.io/ph3tutorials/danmakudesign.html), which are excellent.
-
----
-
-## Step 1: The Unit Circle
-
-Everything begins here. A loop index becomes a 2D position.
-
-The mechanism is polar-to-Cartesian conversion. Given an angle θ and a radius:
-
-```
-x = cos(θ) * radius
-y = sin(θ) * radius
+```cs
+for (int i=0;i<numBullets;++i)
+{
+    var angle = (float)i/numBullets * 360;
+    var position = (cos(angle) * radius, sin(angle) * radius);
+}
 ```
 
-You feed in an angle, you get a point on a circle. Iterate over angles and you get a shape. The number of bullets you want divided into 360° gives you your step size.
+Here's what that looks like as we increase the number of bullets:
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-points.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-- Divide 360° by **1** → a single point.
-- Divide by **3** → a triangle.
-- Divide by **100** → a circle.
+Notice anything? We get useful shapes out of this, not just circles! Bullets = 3 gives us a triangle, 4 gives a square, 5 a pentagon, etc.
 
-The shape isn't a special case. A triangle is just a low-resolution circle. A hexagon is a medium-resolution circle. Every polygon is the same function with a different loop count. The "shape" is a resolution setting.
+## Polygons!
+Now let's fill in the edges. To do that, we need to create bullets between two points - so we'll take this point and the next point, and interpolate between them. Linearly. We're gonna use lerp.
 
----
+```cs
+// We already know the angles for our corners from the Circle step
+var p1 = PolarToCartesian(angle, radius);
+var p2 = PolarToCartesian(nextAngle, radius);
 
-## Step 2: The Edge
+// Now we fill the gap between them!
+for (int j = 0; j < numPerSide; j++)
+{
+    // Calculate how far along the line we are (from 0 to 1)
+    float t = (float)j / numPerSide;
+    
+    // A little offset to center the bullets nicely on the line
+    t += (1f / numPerSide) / 2f; 
 
-Vertices alone make for gappy walls. Six bullets placed at the corners of a hexagon don't read as a hexagon — they read as six bullets. To create a solid shape, we need to fill the space between vertices.
-
-The tool for this is **linear interpolation**, or lerp.
-
-Take two adjacent vertices, A and B. Calculate a point P along the line between them using a percentage `t` where 0 is A and 1 is B:
-
-```
-P = A + t * (B - A)
-```
-
-By iterating `t` from 0 to 1 across enough steps, you draw a straight line of bullets connecting the two corners. Apply this to every pair of adjacent vertices from Step 1 and the sparse polygon becomes a solid geometric wall.
-
-The density of the wall is just a loop count on `t`. More iterations, tighter spacing.
-
----
-
-## Step 3: The Arc
-
-A full 360° circle isn't always what you want. A focused burst, a shotgun spread, a crescent — all of these are partial circles.
-
-The fix is **domain limiting**. Instead of iterating θ from `0` to `360°`, you iterate from `angle_start` to `angle_end`:
-
-```
-angle_start = aim_direction - (arc_width / 2)
-angle_end   = aim_direction + (arc_width / 2)
+    // Find the exact point on the edge
+    var position = Vector2.Lerp(p1, p2, t);
+    
+    SpawnBullet(position);
+}
 ```
 
-Subtracting half the arc width from the starting angle keeps the pattern centred on whatever direction you're aiming. A 90° arc aimed forward becomes a forward-facing fan. A 30° arc aimed down becomes a focused downward blast.
+Here's what that looks like as we increase the number of bullets per side:
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edges.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-The same polygon generation code from Steps 1 and 2 works unchanged. You're just clamping the range of angles it operates over. A square with a 180° domain becomes a three-sided open shape. A circle with a 45° domain becomes a tight arc. One variable, entirely different silhouettes.
-
----
-
-## Step 4: The Flow
-
-Here's where patterns go from geometric to dynamic. **Where a bullet spawns and where it travels are completely separate vectors.**
-
-Once you've calculated a spawn position using Steps 1–3, you independently calculate a velocity. Three common modes:
-
-**Radial** — the bullet flies straight away from the centre. Velocity is just the normalised spawn position vector. This is the default for most "explosion" patterns — bullets all spreading outward.
-
-**Normal** — velocity is perpendicular to the edge the bullet spawned on. Bullets fly flat, parallel to the wall they formed part of. This creates sliding, sweeping walls that travel sideways across the screen rather than expanding outward.
-
-**Cartesian** — velocity is a fixed world-space vector, like `(0, 1)` for straight down. Every bullet falls at the same angle regardless of where it spawned. This is how "rain" and "curtain" patterns work — bullets arranged in a geometric pattern but all falling in the same direction.
-
-The key insight is that these are composable. You can mix radial and Cartesian by blending the two vectors. The spawn shape and the travel direction are just two knobs, and they're orthogonal.
-
----
-
-## Step 5: The Spiral
-
-Static shapes are readable but lifeless. The hypnotic quality of a great bullet hell pattern comes from motion — specifically, from the whole coordinate system rotating over time.
-
-This is **angular velocity**. Each frame (or each time the pattern fires), you add a small rotation offset to every angle:
-
+## Arcs!
+An extra way to add some visual interest is to limit the _arc_ of the circle. Instead of doing the hard coded 360° in, we'll swap that out for an arc that we can define from 0-360:
+```cs
+var angle = (i * arc / numPoints);
 ```
-θ_final = θ_base + (ω * time)
+One extra bit of polish here is adding an offset, so the shape is centered:
+```cs
+var offset = arc / 2f - (0.5f * arc);
+var angle = (i * arc / numPoints) + offset;
 ```
+Now here's what that looks like:
+Here's what that looks like as we increase the number of bullets per side:
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-arc.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-Where `ω` is your rotation speed in degrees per second (or per shot).
+## Movement!
+Bullets should, obviously, move. We're going to keep it simple here and just set an initial direction and make the bullets move in that direction for their whole lifetime. 
 
-The effect is striking. A ring of bullets fired once a second becomes a slow-spinning ring. A tight burst fired rapidly with a small `ω` between each shot traces out a multi-armed spiral galaxy. The bullets themselves travel in straight lines — it's only the spawn positions that rotate, but the visual result reads as curving, sweeping arcs.
-
-Changing the sign of `ω` reverses the spiral direction. Running two instances simultaneously with `+ω` and `-ω` creates counter-rotating double helices. This is the core of most "flower" and "galaxy" patterns in the genre.
-
----
-
-## Step 6: The Fractal
-
-Density is the defining visual quality of a danmaku curtain. But naively adding more bullets to a single shape has diminishing returns — at some point you're just making a solid block.
-
-The more interesting approach is **grouping**: instead of spawning a single bullet at a calculated point, you spawn *another shape* centred on that point.
-
-A ring of points, each of which is itself a ring of bullets. A rotating arc of points, each emitting a small radial burst. You're stacking the output of Step 1 as the input of another Step 1. The emergent complexity is much greater than the sum of the parts, and the CPU cost is linear — just two nested loops.
-
-A second technique is **stacking**: run the entire simulation multiple times in a single frame with slightly different speed values:
-
+We have a few options here! We can make the bullets move:
+- all together in the same direction - I use the `up` direction of the spawner GameObject, so you can rotate the object to aim:
+```cs
+Vector2 direction = spawnerTransform.up;
 ```
-speed = base_speed + (burst_index * delta_speed)
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-direction.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+- out from the center of the shape (radial), which forms a circle over time. We can just normalize the spawn position of the bullet:
+```cs
+Vector2 direction = spawnPosition.normalized;
 ```
-
-This produces the layered "fast bullets overtaking slow bullets" effect — multiple rings expanding at different rates from the same origin point, creating depth and parallax in a 2D space.
-
-Both techniques are applications of the same idea: reuse the algorithm, don't complicate it.
-
----
-
-## Step 7: Bounded Chaos
-
-Pure math feels robotic. Perfect circles, perfect spirals — they're technically impressive but visually cold. The last ingredient is **controlled randomness**.
-
-The technique is applying a small noise range to constants:
-
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-sphereized.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+- perpendicular to the edges of the polygon, which keeps the shape. We get the direction at the midpoint of the edge for this:
+```cs
+Vector2 edgeMidpoint = Vector2.Lerp(vertexA, vertexB, 0.5f);
+Vector2 direction = edgeMidpoint.normalized;
 ```
-actual_radius = base_radius + random(-noise, noise)
-actual_angle  = base_angle  + random(-jitter, jitter)
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edge.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+- along the points of the shape, which shoots bullets diagonally. To do this, we just grab the direciton of the closest corner:
+```cs
+Vector2 direction = t < 0.5f ? vertexA : vertexB;
 ```
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-point.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-A circle with radius noise becomes a vibrating, organic ring. A spiral with angle jitter stops looking like a mechanism and starts looking like something alive. The underlying geometry is still there — you haven't abandoned the structure — but the regularity is broken just enough to feel magical rather than algorithmic.
+## Spirals!
+This is where the fun begins. Most of the patterns you see in bullet hell games will use spirals a _lot_ - but there is no complexity here! All we do is rotate the spawned position by an angle, and change that angle over time:
+```cs
+// In your Update loop
+currentRotation += angularSpeed * Time.deltaTime;
 
-The key word is *bounded*. `random(-noise, noise)` keeps the variation within a controlled range, so the pattern remains readable. Too much noise and you lose the shape entirely. The right amount makes it breathe.
+// Apply this rotation to the final spawn position
+var finalPos = Quaternion.Euler(0, 0, currentRotation) * position;
+```
+And that's it!
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-spiral.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
----
+## Randomness!
+A quick note on randomness - pure random feels bad in bullet hell games. It is unpredictable and can often hurt the player experience. However, there is a fix if you want a bit of variation: bounded randomness. Instead of a radius of 3, we can pick a random number between 2 and 4. Instead of a speed of 5, we'll put the speed between 5 and 7. That will give you variation in how the bullets look and behave, which gives it a more "natural" feeling without being unfair:
+<video controls playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-random.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-## Putting It Together
+It's up to you whether you prefer the look of this or not, and it will depend entirely on the game!
 
-These seven steps aren't a sequence you run once. They're a set of variables on a single function:
-
-| Variable | What it controls |
-|---|---|
-| `bullet_count` | Shape resolution (Step 1) |
-| `fill_steps` | Edge density (Step 2) |
-| `arc_width` | Domain (Step 3) |
-| `velocity_mode` | Flow direction (Step 4) |
-| `angular_velocity` | Spiral rate (Step 5) |
-| `group_count` / `burst_layers` | Density (Step 6) |
-| `noise` / `jitter` | Organic feel (Step 7) |
-
-Tweaking one variable changes the entire character of the pattern. That's the power of thinking in algorithms rather than placements. You're not designing individual bullets — you're designing the function that generates them. And functions are infinitely tunable.
+## Taking it further!
+This is only the beginning. In Bulletfury there are even more options, but they all start from the circular base. We've got bullet groups - which is a separate circle spawned from every point on the original circle. There are modules for making bullets rotate their direction over time, apply an extra force, change speed over time, track objects, spawn two bullets with different speeds in the same position, the list goes on, but it all starts with this.

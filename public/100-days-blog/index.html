@@ -118,6 +118,22 @@
     }
     .nlink:hover { color: var(--white); background: rgba(255,255,255,0.06); }
 
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      font-family: "Fredoka", sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 999px;
+      transition: 0.2s;
+      border: 0;
+    }
+    .pill:hover { transform: translateY(-1px) scale(1.02); }
+    .pill-lime { background: var(--lime); color: var(--bg); }
+
     .mobile-menu-btn {
       display: none;
       align-items: center;
@@ -518,6 +534,7 @@
 
       .mobile-menu-btn { display: flex; }
       .mobile-overlay { display: block; }
+      .nav-right .nlink, .nav-right .pill { display: none; }
 
       .sidebar {
         position: fixed;
@@ -556,19 +573,18 @@
   <div class="mobile-overlay" id="mobileOverlay"></div>
 
   <nav>
-    <div class="nav-left">
-      <a href="/" style="display:flex;align-items:center;text-decoration:none;">
-        <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
-      </a>
-      <div class="nav-divider"></div>
-      <a href="/#polyfury" class="nlink">← Back</a>
-    </div>
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
+    </a>
     <div class="nav-right">
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Browse posts">
         <div class="menu-icon"><span></span><span></span><span></span></div>
         Posts
       </button>
-      <span class="blog-badge">100 Days Blog</span>
+      <a href="/#polyfury" class="nlink">Polyfury</a>
+      <a href="/100-days-blog/" class="nlink">100 Days</a>
+      <a href="/blog/" class="nlink">Blog</a>
+      <a href="https://store.steampowered.com/app/1804980/Polyfury/" target="_blank" class="pill pill-lime">Play Now</a>
     </div>
   </nav>
 

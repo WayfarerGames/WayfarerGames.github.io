@@ -97,6 +97,7 @@
     .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
     .post-body pre code { background:none; padding:0; border-radius:0; color:rgba(250,252,255,.85); }
     .post-body hr { border:none; border-top:1px solid rgba(255,255,255,.08); margin:2em 0; }
+    .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
 
     @media (max-width: 920px) {
       body { cursor:auto; }
@@ -110,6 +111,7 @@
     @media (max-width: 768px) {
       .mobile-menu-btn { display:flex; }
       .mobile-overlay { display:block; }
+      .nav-right .nlink, .nav-right .pill { display:none; }
       .sidebar {
         position:fixed;
         left:0;
@@ -135,20 +137,18 @@
   <div class="mobile-overlay" id="mobileOverlay"></div>
 
   <nav>
-    <div class="nav-left">
-      <a href="/" style="display:flex;align-items:center;text-decoration:none;">
-        <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
-      </a>
-      <div class="nav-divider"></div>
-      <span class="blog-badge">Blog</span>
-    </div>
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;">
+      <img src="/logo.png" alt="Wayfarer Games" style="height:28px;width:auto;">
+    </a>
     <div class="nav-right">
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Browse posts">
         <div class="menu-icon"><span></span><span></span><span></span></div>
         Posts
       </button>
+      <a href="/#polyfury" class="nlink">Polyfury</a>
       <a href="/100-days-blog/" class="nlink">100 Days</a>
-      <a href="/#polyfury" class="nlink">Back Home</a>
+      <a href="/blog/" class="nlink">Blog</a>
+      <a href="https://store.steampowered.com/app/1804980/Polyfury/" target="_blank" class="pill pill-lime">Play Now</a>
     </div>
   </nav>
 
