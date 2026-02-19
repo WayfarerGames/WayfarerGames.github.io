@@ -98,7 +98,18 @@
     .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
     .post-body pre code { background:none; padding:0; border-radius:0; color:rgba(250,252,255,.85); }
-    .post-body pre code.hljs { display:block; background:transparent; padding:0; }
+    .post-body pre code.hljs { display:block; background:transparent; padding:0; color:rgba(250,252,255,.88); }
+    .post-body pre code .hljs-keyword,
+    .post-body pre code .hljs-selector-tag,
+    .post-body pre code .hljs-literal { color:#ff8a66; }
+    .post-body pre code .hljs-type,
+    .post-body pre code .hljs-title.class_,
+    .post-body pre code .hljs-built_in { color:#5ad6ff; }
+    .post-body pre code .hljs-number,
+    .post-body pre code .hljs-symbol { color:#b693ff; }
+    .post-body pre code .hljs-string,
+    .post-body pre code .hljs-title.function_ { color:#8be9fd; }
+    .post-body pre code .hljs-comment { color:rgba(250,252,255,.45); }
     .post-body hr { border:none; border-top:1px solid rgba(255,255,255,.08); margin:2em 0; }
     .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
 
@@ -250,13 +261,33 @@
 
     marked.setOptions({ gfm: true, breaks: false });
 
+    const codeBlockLanguage = (block) => {
+      const classNames = Array.from(block.classList);
+      const fromClass = classNames
+        .map((name) => {
+          const match = name.match(/^(?:language|lang)-(.+)$/i);
+          return match ? match[1].toLowerCase() : "";
+        })
+        .find(Boolean);
+
+      if (!fromClass) return "";
+      if (fromClass === "cs" || fromClass === "c#") return "csharp";
+      return fromClass;
+    };
+
     const applySyntaxHighlighting = () => {
       if (!window.hljs) return;
       postBody.querySelectorAll("pre code").forEach((block) => {
-        if (block.classList.contains("language-cs")) {
-          block.classList.remove("language-cs");
-          block.classList.add("language-csharp");
+        const language = codeBlockLanguage(block);
+        const source = block.textContent || "";
+
+        if (language && hljs.getLanguage(language)) {
+          const highlighted = hljs.highlight(source, { language, ignoreIllegals: true });
+          block.innerHTML = highlighted.value;
+          block.classList.add("hljs", `language-${language}`);
+          return;
         }
+
         hljs.highlightElement(block);
       });
     };
