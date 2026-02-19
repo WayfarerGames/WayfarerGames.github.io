@@ -22,79 +22,28 @@
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="../..">Bulletfury Documentation</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="../.." class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../getting-started/setup-and-first-spawn/" class="nav-link">Setup and First Spawn</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../api-reference/" class="nav-link">API Reference</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./" class="nav-link active" aria-current="page">Free Modules</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../patterns/basic-patterns/" class="nav-link">Basic Patterns</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../extending/write-your-own-modules/" class="nav-link">Write Your Own Modules</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../paid-version/" class="nav-link">Paid Version</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../../api-reference/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../patterns/basic-patterns/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+    <body class="docs-sidebar-only">
+        
         <div class="container">
             <div class="row">
                     <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#free-modules" class="nav-link">Free Modules</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#how-modules-work" class="nav-link">How modules work</a>
+  <div class="navbar-header mb-2">
+    <a class="navbar-brand d-block mb-2" href="../../">Bulletfury Documentation</a>
+    <a href="#" class="nav-link small" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal"><i class="fa fa-search"></i> Search</a>
+  </div>
+  <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="../../">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../getting-started/setup-and-first-spawn/">Setup and First Spawn</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" data-bs-toggle="collapse" href="#side-toc-modules" role="button" aria-expanded="true">Free Modules <span class="fa fa-angle-down"></span></a>
+        <div id="side-toc-modules" class="collapse show">
+          <ul class="nav flex-column ms-2">
+<li class="nav-item" data-bs-level="2"><a href="#how-modules-work" class="nav-link">How modules work</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -114,10 +63,20 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../patterns/basic-patterns/">Basic Patterns</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../extending/write-your-own-modules/">Write Your Own Modules</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../paid-version/">Paid Version</a>
+      </li>
+    </ul>
+  </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -240,7 +199,7 @@
 <h3 id="replaymodule-rewindmodule">ReplayModule + RewindModule<a class="headerlink" href="#replaymodule-rewindmodule" title="Permanent link">&para;</a></h3>
 <p><em>Time tricks</em></p>
 <ul>
-<li><strong>What it does</strong>: Records simulation snapshots, then rewinds through them in real time.</li>
+<li><strong>What it does</strong>: Records simulation snapshots, then rewinds through them in real time. Requires the <code>DeterministicRuntimeModule</code></li>
 <li><strong>Perfect for</strong>: Timeline attacks, deterministic pattern replays, and stylized time-control mechanics.</li>
 <li><strong>Why it's useful</strong>: Makes advanced "scripted chaos" patterns much easier to produce.</li>
 </ul>

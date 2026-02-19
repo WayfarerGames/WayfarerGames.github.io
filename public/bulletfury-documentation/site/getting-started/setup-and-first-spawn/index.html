@@ -22,79 +22,25 @@
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="../..">Bulletfury Documentation</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="../.." class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./" class="nav-link active" aria-current="page">Setup and First Spawn</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../api-reference/" class="nav-link">API Reference</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../modules/free-modules/" class="nav-link">Free Modules</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../patterns/basic-patterns/" class="nav-link">Basic Patterns</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../extending/write-your-own-modules/" class="nav-link">Write Your Own Modules</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../paid-version/" class="nav-link">Paid Version</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../.." class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../api-reference/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+    <body class="docs-sidebar-only">
+        
         <div class="container">
             <div class="row">
                     <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
-
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#setup-and-first-spawn" class="nav-link">Setup and First Spawn</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#1-install-the-package" class="nav-link">1) Install the package</a>
+  <div class="navbar-header mb-2">
+    <a class="navbar-brand d-block mb-2" href="../../">Bulletfury Documentation</a>
+    <a href="#" class="nav-link small" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal"><i class="fa fa-search"></i> Search</a>
+  </div>
+  <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="../../">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" data-bs-toggle="collapse" href="#side-toc-setup" role="button" aria-expanded="true">Setup and First Spawn <span class="fa fa-angle-down"></span></a>
+        <div id="side-toc-setup" class="collapse show">
+          <ul class="nav flex-column ms-2">
+<li class="nav-item" data-bs-level="2"><a href="#1-install-the-package" class="nav-link">1) Install the package</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -114,7 +60,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#6-fire" class="nav-link">6) Fire!</a>
+            <li class="nav-item" data-bs-level="2"><a href="#6-fire" class="nav-link">6) Fire</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -138,10 +84,23 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../modules/free-modules/">Free Modules</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../patterns/basic-patterns/">Basic Patterns</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../extending/write-your-own-modules/">Write Your Own Modules</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../paid-version/">Paid Version</a>
+      </li>
+    </ul>
+  </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -184,7 +143,12 @@
 <li>Assign a <strong>Texture2D</strong> for your bullet sprite. (Crucial! If you don't set this, nothing will show up.)</li>
 <li>Set the sorting <strong>Layer</strong> and <strong>Priority</strong> if you need them to appear on top of other things.</li>
 </ul>
-<p><em>(Note: In the Inspector's RenderData section, you'll see a green circle in the bullet preview. This green circle shows the size of the bullet's collision area relative to the bullet sprite itself. Bulletfury collisions work natively with Unity's 2D colliders!)</em></p>
+<blockquote>
+<p><strong>Note:</strong> In the Inspector's RenderData section, you'll see a green
+circle in the bullet preview. This green circle shows the size of the
+bullet's collision area relative to the bullet sprite itself.
+Bulletfury collisions work natively with Unity's 2D colliders.</p>
+</blockquote>
 <h2 id="5-configure-the-basics">5) Configure the basics<a class="headerlink" href="#5-configure-the-basics" title="Permanent link">&para;</a></h2>
 <p>Let's set up a simple stream of bullets.</p>
 <p>In <strong>Bullet Settings</strong>:</p>
@@ -204,23 +168,28 @@
 </ul>
 <blockquote>
 <p><strong>What does <code>spawnDir</code> do?</strong>
-This setting controls the initial direction your bullets will travel:
-- <strong><code>Direction</code></strong>: Bullets fly straight up (relative to the spawner's rotation).
-- <strong><code>Spherised</code></strong>: Bullets fly directly outward from the center point.
-- <strong><code>Shape</code></strong>: Bullets fly perpendicular to the edge of the shape they spawned on.
-- <strong><code>Point</code></strong>: Bullets fly outward towards the closest corner/point of the shape.
-- <strong><code>Randomised</code></strong>: Bullets fly in a random direction within the defined <code>directionArc</code>.</p>
+This setting controls the initial direction your bullets will travel:</p>
+<ul>
+<li><strong><code>Direction</code></strong>: Bullets fly straight up (relative to the spawner's rotation).</li>
+<li><strong><code>Spherised</code></strong>: Bullets fly directly outward from the center point.</li>
+<li><strong><code>Shape</code></strong>: Bullets fly perpendicular to the edge of the shape they spawned on.</li>
+<li><strong><code>Point</code></strong>: Bullets fly outward towards the closest corner/point of the shape.</li>
+<li><strong><code>Randomised</code></strong>: Bullets fly in a random direction within the defined <code>directionArc</code>.</li>
+</ul>
 </blockquote>
 <p>In <strong>Burst Data</strong>:</p>
 <ul>
 <li><code>burstCount</code>: <code>1</code></li>
 <li><code>delay</code>: <code>0</code></li>
 </ul>
-<h2 id="6-fire">6) Fire!<a class="headerlink" href="#6-fire" title="Permanent link">&para;</a></h2>
+<h2 id="6-fire">6) Fire<a class="headerlink" href="#6-fire" title="Permanent link">&para;</a></h2>
 <p>Hit <strong>Play Mode</strong>. If everything is set up right, you should see a stream of bullets shooting out!</p>
 <p><strong>Scene View Tool:</strong> For rapid iteration without entering Play Mode, check the bottom left of your Scene window when the spawner is selected. You'll find a little widget to <strong>play, pause, and stop</strong> the selected spawner. This widget also displays the <strong>current and maximum bullet count</strong>, which is incredibly useful for testing performance and tuning density.</p>
 <h2 id="exploring-modules">Exploring Modules<a class="headerlink" href="#exploring-modules" title="Permanent link">&para;</a></h2>
-<p>You might be wondering where settings like "acceleration", "homing", or "color changes" are. In Bulletfury, a lot of behavior is intentionally "hidden" behind <strong>Modules</strong>. Instead of one massive inspector with a hundred settings you aren't using, you snap on only the behaviors you need. </p>
+<p>You might be wondering where settings like "acceleration", "homing", or
+"color changes" are. In Bulletfury, a lot of behavior is intentionally
+"hidden" behind <strong>Modules</strong>. Instead of one massive inspector with a
+hundred settings you aren't using, you snap on only the behaviors you need.</p>
 <p>We highly encourage you to check out the <a href="../../modules/free-modules/"><strong>Free Modules</strong></a> page and experiment with adding them to your spawner to see what they do!</p>
 <h2 id="advanced-spawn-settings">Advanced Spawn Settings<a class="headerlink" href="#advanced-spawn-settings" title="Permanent link">&para;</a></h2>
 <p>While the basics will get you started, the <strong>Spawn Shape Data</strong> has a lot of hidden power for making complex patterns without any extra modules:</p>
@@ -232,7 +201,7 @@ This setting controls the initial direction your bullets will travel:
 </ul>
 <h2 id="manual-spawning">Manual spawning<a class="headerlink" href="#manual-spawning" title="Permanent link">&para;</a></h2>
 <p>Want to control when bullets fire? Set <code>FireMode</code> to <code>Manual</code> and use a script like this:</p>
-<pre><code class="language-csharp">using BulletFury;
+<pre><code class="language-csharp">using Bulletfury;
 using UnityEngine;
 
 public class ManualFireExample : MonoBehaviour

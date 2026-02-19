@@ -112,7 +112,7 @@ While the basics will get you started, the **Spawn Shape Data** has a lot of hid
 Want to control when bullets fire? Set `FireMode` to `Manual` and use a script like this:
 
 ```csharp
-using BulletFury;
+using Bulletfury;
 using UnityEngine;
 
 public class ManualFireExample : MonoBehaviour

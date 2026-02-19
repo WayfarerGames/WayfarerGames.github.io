@@ -27,8 +27,8 @@ Let's make a module that pushes bullets to the right over time.
 
 ```csharp
 using System;
-using BulletFury;
-using BulletFury.Data;
+using Bulletfury;
+using Bulletfury.Data;
 using UnityEngine;
 
 namespace MyGame.BulletModules
@@ -54,7 +54,7 @@ Want to shift the spawn point a bit?
 
 ```csharp
 using System;
-using BulletFury;
+using Bulletfury;
 using UnityEngine;
 
 namespace MyGame.BulletModules
@@ -78,8 +78,8 @@ By default, bullets die when they hit anything. Let's change that!
 
 ```csharp
 using System;
-using BulletFury;
-using BulletFury.Data;
+using Bulletfury;
+using Bulletfury.Data;
 using UnityEngine;
 
 namespace MyGame.BulletModules

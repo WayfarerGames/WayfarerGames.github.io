@@ -114,7 +114,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#bullet-data-model-bulletfurydata" class="nav-link">Bullet data model (BulletFury.Data)</a>
+            <li class="nav-item" data-bs-level="2"><a href="#bullet-data-model-bulletfurydata" class="nav-link">Bullet data model (Bulletfury.Data)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -122,11 +122,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#built-in-free-modules-bulletfurymodules" class="nav-link">Built-in free modules (BulletFury.Modules)</a>
+            <li class="nav-item" data-bs-level="2"><a href="#built-in-free-modules-bulletfurymodules" class="nav-link">Built-in free modules (Bulletfury.Modules)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#premium-add-on-modules-bulletfurymodules" class="nav-link">Premium add-on modules (BulletFury.Modules)</a>
+            <li class="nav-item" data-bs-level="2"><a href="#premium-add-on-modules-bulletfurymodules" class="nav-link">Premium add-on modules (Bulletfury.Modules)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -163,15 +163,15 @@
 <h2 id="what-this-reference-covers">What this reference covers<a class="headerlink" href="#what-this-reference-covers" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Runtime APIs you are expected to use directly (<code>BulletSpawner</code>, module interfaces, data models, events).</li>
-<li>Built-in free modules in <code>BulletFury.Modules</code>.</li>
+<li>Built-in free modules in <code>Bulletfury.Modules</code>.</li>
 <li>Rendering/data types that are public and available from code.</li>
 <li>Advanced/low-level public types that exist but are usually engine-internal for Bulletfury operation.</li>
 </ul>
 <h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>BulletFury</code>: spawner, modules interfaces, core config/data classes.</li>
-<li><code>BulletFury.Data</code>: bullet container/event/enums used by runtime and modules.</li>
-<li><code>BulletFury.Modules</code>: built-in free modules.</li>
+<li><code>Bulletfury</code>: spawner, modules interfaces, core config/data classes.</li>
+<li><code>Bulletfury.Data</code>: bullet container/event/enums used by runtime and modules.</li>
+<li><code>Bulletfury.Modules</code>: built-in free modules.</li>
 <li><code>Common</code> and <code>Common.FloatOrRandom</code>: random/value helper types used by Bulletfury.</li>
 <li><code>Wayfarer_Games.Common</code> and <code>Wayfarer_Games.Common.FloatOrRandom</code>: utility/random helper namespaces exposed by the package.</li>
 </ul>
@@ -180,7 +180,7 @@
 <p><code>BulletSpawner</code> is the main entry point. It owns bullet simulation, module execution, collision checks, and render queue submission.</p>
 <h3 id="type">Type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>BulletFury.BulletSpawner : MonoBehaviour</code></li>
+<li><code>Bulletfury.BulletSpawner : MonoBehaviour</code></li>
 </ul>
 <h3 id="public-properties">Public properties<a class="headerlink" href="#public-properties" title="Permanent link">&para;</a></h3>
 <ul>
@@ -261,7 +261,7 @@
 <li>Includes bullet array, spawn scheduling internals, and runtime module state.</li>
 </ul>
 <h3 id="usage-example-manual-firing">Usage example: manual firing<a class="headerlink" href="#usage-example-manual-firing" title="Permanent link">&para;</a></h3>
-<pre><code class="language-csharp">using BulletFury;
+<pre><code class="language-csharp">using Bulletfury;
 using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
@@ -279,7 +279,7 @@ public class PlayerGun : MonoBehaviour
 }
 </code></pre>
 <h3 id="usage-example-saveload-spawner-simulation">Usage example: save/load spawner simulation<a class="headerlink" href="#usage-example-saveload-spawner-simulation" title="Permanent link">&para;</a></h3>
-<pre><code class="language-csharp">using BulletFury;
+<pre><code class="language-csharp">using Bulletfury;
 using UnityEngine;
 
 public class SpawnerStateController : MonoBehaviour
@@ -367,8 +367,8 @@ public class SpawnerStateController : MonoBehaviour
 <p>Use runtime modules when you need custom deterministic value sampling/state progression for spawner-level behavior.</p>
 <h3 id="custom-module-template">Custom module template<a class="headerlink" href="#custom-module-template" title="Permanent link">&para;</a></h3>
 <pre><code class="language-csharp">using System;
-using BulletFury;
-using BulletFury.Data;
+using Bulletfury;
+using Bulletfury.Data;
 using UnityEngine;
 
 namespace MyGame.Modules
@@ -446,7 +446,7 @@ namespace MyGame.Modules
 </ul>
 <p>Apply at runtime with <code>BulletSpawner.SetPreset(...)</code>.</p>
 <hr />
-<h2 id="bullet-data-model-bulletfurydata">Bullet data model (<code>BulletFury.Data</code>)<a class="headerlink" href="#bullet-data-model-bulletfurydata" title="Permanent link">&para;</a></h2>
+<h2 id="bullet-data-model-bulletfurydata">Bullet data model (<code>Bulletfury.Data</code>)<a class="headerlink" href="#bullet-data-model-bulletfurydata" title="Permanent link">&para;</a></h2>
 <h3 id="bulletcontainer-fields"><code>BulletContainer</code> fields<a class="headerlink" href="#bulletcontainer-fields" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Identity:</li>
@@ -536,21 +536,25 @@ namespace MyGame.Modules
 <hr />
 <h2 id="rendering-and-shared-render-data">Rendering and shared render data<a class="headerlink" href="#rendering-and-shared-render-data" title="Permanent link">&para;</a></h2>
 <h3 id="bulletrenderdata"><code>BulletRenderData</code><a class="headerlink" href="#bulletrenderdata" title="Permanent link">&para;</a></h3>
-<p>Public fields:
-- <code>Camera Camera</code>
-- <code>Texture2D Texture</code>
-- <code>bool Animated</code>
-- <code>int Rows</code>
-- <code>int Columns</code>
-- <code>float PerFrameLength</code>
-- <code>int Layer</code>
-- <code>int Priority</code></p>
-<p>Public members:
-- <code>Material Material { get; }</code>
-- <code>static void ResetMaterials()</code>
-- <code>Material GetMaterial()</code>
-- <code>void ReturnMaterial(Material material)</code>
-- <code>void DisposeMaterials()</code></p>
+<p>Public fields:</p>
+<ul>
+<li><code>Camera Camera</code></li>
+<li><code>Texture2D Texture</code></li>
+<li><code>bool Animated</code></li>
+<li><code>int Rows</code></li>
+<li><code>int Columns</code></li>
+<li><code>float PerFrameLength</code></li>
+<li><code>int Layer</code></li>
+<li><code>int Priority</code></li>
+</ul>
+<p>Public members:</p>
+<ul>
+<li><code>Material Material { get; }</code></li>
+<li><code>static void ResetMaterials()</code></li>
+<li><code>Material GetMaterial()</code></li>
+<li><code>void ReturnMaterial(Material material)</code></li>
+<li><code>void DisposeMaterials()</code></li>
+</ul>
 <h3 id="sharedrenderdata"><code>SharedRenderData</code><a class="headerlink" href="#sharedrenderdata" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>BulletRenderData Data { get; }</code></li>
@@ -575,7 +579,7 @@ namespace MyGame.Modules
 </ul>
 <p>Most users should not call <code>BulletRenderer.Render(...)</code> manually. Use <code>BulletSpawner</code> unless building a custom render path.</p>
 <hr />
-<h2 id="built-in-free-modules-bulletfurymodules">Built-in free modules (<code>BulletFury.Modules</code>)<a class="headerlink" href="#built-in-free-modules-bulletfurymodules" title="Permanent link">&para;</a></h2>
+<h2 id="built-in-free-modules-bulletfurymodules">Built-in free modules (<code>Bulletfury.Modules</code>)<a class="headerlink" href="#built-in-free-modules-bulletfurymodules" title="Permanent link">&para;</a></h2>
 <h3 id="angularvelocitymodule-bulletmodule-iparallelbulletmodule"><code>AngularVelocityModule : BulletModule, IParallelBulletModule</code><a class="headerlink" href="#angularvelocitymodule-bulletmodule-iparallelbulletmodule" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Purpose: rotates bullet orientation over time.</li>
@@ -624,7 +628,7 @@ namespace MyGame.Modules
 <li>Works with <code>BulletSpawner.ActivateWaitingBullets()</code>.</li>
 </ul>
 <hr />
-<h2 id="premium-add-on-modules-bulletfurymodules">Premium add-on modules (<code>BulletFury.Modules</code>)<a class="headerlink" href="#premium-add-on-modules-bulletfurymodules" title="Permanent link">&para;</a></h2>
+<h2 id="premium-add-on-modules-bulletfurymodules">Premium add-on modules (<code>Bulletfury.Modules</code>)<a class="headerlink" href="#premium-add-on-modules-bulletfurymodules" title="Permanent link">&para;</a></h2>
 <p>These types are in the premium package (<code>Bulletfury.Premium</code>) and are not part of the free module set.</p>
 <h3 id="aimedshotmodule-ibulletspawnmodule"><code>AimedShotModule : IBulletSpawnModule</code><a class="headerlink" href="#aimedshotmodule-ibulletspawnmodule" title="Permanent link">&para;</a></h3>
 <ul>
@@ -794,8 +798,10 @@ namespace MyGame.Modules
 <h3 id="bulletjob-ijobparallelfor"><code>BulletJob : IJobParallelFor</code><a class="headerlink" href="#bulletjob-ijobparallelfor" title="Permanent link">&para;</a></h3>
 <p><code>BulletJob</code> is public, but primarily intended for internal scheduling from <code>BulletSpawner</code>.</p>
 <p>Public fields include bullet arrays, render output arrays, transform deltas, collision sizing, and feature toggles (<code>UseRotationForDirection</code>, <code>MoveWithTransform</code>, <code>RotateWithTransform</code>).</p>
-<p>Public method:
-- <code>void Execute(int index)</code></p>
+<p>Public method:</p>
+<ul>
+<li><code>void Execute(int index)</code></li>
+</ul>
 <p>Unless you are building a custom simulation runner, use <code>BulletSpawner.UpdateAllBullets(...)</code> rather than scheduling <code>BulletJob</code> yourself.</p>
 <hr />
 <h2 id="best-practices-and-pitfalls">Best practices and pitfalls<a class="headerlink" href="#best-practices-and-pitfalls" title="Permanent link">&para;</a></h2>

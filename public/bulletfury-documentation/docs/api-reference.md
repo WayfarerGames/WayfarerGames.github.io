@@ -7,15 +7,15 @@ It is written for developers who want exact names, expected behavior, and practi
 ## What this reference covers
 
 - Runtime APIs you are expected to use directly (`BulletSpawner`, module interfaces, data models, events).
-- Built-in free modules in `BulletFury.Modules`.
+- Built-in free modules in `Bulletfury.Modules`.
 - Rendering/data types that are public and available from code.
 - Advanced/low-level public types that exist but are usually engine-internal for Bulletfury operation.
 
 ## Namespaces
 
-- `BulletFury`: spawner, modules interfaces, core config/data classes.
-- `BulletFury.Data`: bullet container/event/enums used by runtime and modules.
-- `BulletFury.Modules`: built-in free modules.
+- `Bulletfury`: spawner, modules interfaces, core config/data classes.
+- `Bulletfury.Data`: bullet container/event/enums used by runtime and modules.
+- `Bulletfury.Modules`: built-in free modules.
 - `Common` and `Common.FloatOrRandom`: random/value helper types used by Bulletfury.
 - `Wayfarer_Games.Common` and `Wayfarer_Games.Common.FloatOrRandom`: utility/random helper namespaces exposed by the package.
 
@@ -27,7 +27,7 @@ It is written for developers who want exact names, expected behavior, and practi
 
 ### Type
 
-- `BulletFury.BulletSpawner : MonoBehaviour`
+- `Bulletfury.BulletSpawner : MonoBehaviour`
 
 ### Public properties
 
@@ -98,7 +98,7 @@ It is written for developers who want exact names, expected behavior, and practi
 ### Usage example: manual firing
 
 ```csharp
-using BulletFury;
+using Bulletfury;
 using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
@@ -119,7 +119,7 @@ public class PlayerGun : MonoBehaviour
 ### Usage example: save/load spawner simulation
 
 ```csharp
-using BulletFury;
+using Bulletfury;
 using UnityEngine;
 
 public class SpawnerStateController : MonoBehaviour
@@ -211,8 +211,8 @@ Use runtime modules when you need custom deterministic value sampling/state prog
 
 ```csharp
 using System;
-using BulletFury;
-using BulletFury.Data;
+using Bulletfury;
+using Bulletfury.Data;
 using UnityEngine;
 
 namespace MyGame.Modules
@@ -296,7 +296,7 @@ Apply at runtime with `BulletSpawner.SetPreset(...)`.
 
 ---
 
-## Bullet data model (`BulletFury.Data`)
+## Bullet data model (`Bulletfury.Data`)
 
 ### `BulletContainer` fields
 
@@ -414,7 +414,7 @@ Most users should not call `BulletRenderer.Render(...)` manually. Use `BulletSpa
 
 ---
 
-## Built-in free modules (`BulletFury.Modules`)
+## Built-in free modules (`Bulletfury.Modules`)
 
 ### `AngularVelocityModule : BulletModule, IParallelBulletModule`
 
@@ -465,7 +465,7 @@ Most users should not call `BulletRenderer.Render(...)` manually. Use `BulletSpa
 
 ---
 
-## Premium add-on modules (`BulletFury.Modules`)
+## Premium add-on modules (`Bulletfury.Modules`)
 
 These types are in the premium package (`Bulletfury.Premium`) and are not part of the free module set.
 
