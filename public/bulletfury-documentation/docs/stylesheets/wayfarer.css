@@ -19,19 +19,131 @@ body {
 body {
   font-family: "Nunito", sans-serif !important;
   color: var(--white) !important;
-  padding-top: 0;
+  padding-top: 52px;
   margin: 0 !important;
 }
 
-/* Hide top nav so docs are fully sidebar driven */
+/* Top nav: keep site title + search only */
 .navbar.fixed-top {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 10px 44px;
+  background: var(--nav-bg) !important;
+  border: 0 !important;
+  border-bottom: 2px solid rgba(255, 138, 102, 0.2) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.navbar.fixed-top::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: rgba(255, 138, 102, 0.14);
+}
+
+.navbar .container {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.navbar-brand {
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 1.28rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: var(--white) !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  margin-right: 10px !important;
+}
+
+.navbar-brand::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background: url("/logo.png") center / contain no-repeat;
+  opacity: 0.95;
+}
+
+.navbar-nav .nav-link {
+  font-family: "Fredoka", sans-serif !important;
+  font-size: 15px;
+  font-weight: 600 !important;
+  color: rgba(250, 252, 255, 0.68) !important;
+  border-radius: 8px;
+  padding: 3px 7px !important;
+  white-space: nowrap;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: var(--white) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .show > .nav-link {
+  color: var(--poly) !important;
+  background: rgba(90, 214, 255, 0.14) !important;
+}
+
+.navbar-toggler {
+  border-color: rgba(90, 214, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+#navbar-collapse {
+  flex: 1;
+}
+
+#navbar-collapse.collapse.show,
+#navbar-collapse.collapsing {
+  display: block;
+}
+
+/* Hide top-level doc links, keep search controls */
+#navbar-collapse > .navbar-nav:first-child {
   display: none !important;
+}
+
+/* Hide prev/next links and keep search only in right group */
+#navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(2),
+#navbar-collapse > .navbar-nav.ms-md-auto .nav-item:nth-child(3) {
+  display: none !important;
+}
+
+@media (min-width: 992px) {
+  #navbar-collapse {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  #navbar-collapse > .navbar-nav.ms-md-auto {
+    margin-left: auto !important;
+    padding-left: 8px;
+  }
 }
 
 /* Layout */
 body > .container {
   max-width: 1200px;
-  margin-top: 20px;
+  margin-top: 26px;
   position: relative;
   z-index: 1;
 }
@@ -42,7 +154,7 @@ body > .container {
 
 /* Side nav: fix broken look and remove clashing defaults */
 .bs-sidebar.affix {
-  top: 20px;
+  top: 104px;
 }
 
 .bs-sidebar {
@@ -101,9 +213,13 @@ body > .container {
 .docs-nav-group {
   border-radius: 10px;
   overflow: hidden;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 .docs-nav-summary {
+  display: block;
   list-style: none;
   cursor: pointer;
   font-family: "Fredoka", sans-serif !important;
@@ -113,6 +229,8 @@ body > .container {
   border-radius: 10px;
   padding: 8px 12px !important;
   user-select: none;
+  background: transparent !important;
+  border: 0 !important;
 }
 
 .docs-nav-summary::-webkit-details-marker {
@@ -137,12 +255,15 @@ body > .container {
 
 .docs-sub-nav {
   padding: 0 0 4px 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
 }
 
 .docs-sub-item .nav-link {
   font-size: 15px;
   color: rgba(250, 252, 255, 0.65) !important;
   padding-left: 18px !important;
+  background: transparent !important;
 }
 
 /* Main content: remove the heavy "glassy card" wrapper */
@@ -277,7 +398,53 @@ footer p {
 
 @media (max-width: 991px) {
   body {
-    padding-top: 0;
+    padding-top: 52px;
+  }
+
+  .navbar .container {
+    padding: 0;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+  }
+
+  .navbar-brand {
+    font-size: 1.08rem !important;
+    margin-right: 0 !important;
+  }
+
+  .navbar-toggler {
+    margin-left: auto;
+  }
+
+  #navbar-collapse {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .navbar-collapse.show {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(20, 18, 38, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+  }
+
+  #navbar-collapse > .navbar-nav {
+    width: 100%;
+    display: block;
+    margin: 0;
+  }
+
+  #navbar-collapse > .navbar-nav.ms-md-auto {
+    margin-left: 0 !important;
+    padding-left: 0;
+  }
+
+  .navbar.fixed-top {
+    padding: 10px 12px;
   }
 
   body > .container {

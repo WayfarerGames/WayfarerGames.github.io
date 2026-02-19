@@ -28,10 +28,10 @@ If you're building a shooter, a bullet hell game, or anything that needs a lot o
 
 ## Where to go next
 
-- **Setup and First Spawn**: The best place to start. Get the package installed and fire your first shot.
-- **Free Modules**: See what tools are in your toolbox right now.
-- **Basic Patterns**: Learn by example with some classic bullet patterns.
-- **Write Your Own Modules**: Dive into the code and make Bulletfury do exactly what you need.
+- [**Setup and First Spawn**](getting-started/setup-and-first-spawn.md): The best place to start. Get the package installed and fire your first shot.
+- [**Free Modules**](modules/free-modules.md): See what tools are in your toolbox right now.
+- [**Basic Patterns**](patterns/basic-patterns.md): Learn by example with some classic bullet patterns.
+- [**Write Your Own Modules**](extending/write-your-own-modules.md): Dive into the code and make Bulletfury do exactly what you need.
 
 ## Quick links
 
