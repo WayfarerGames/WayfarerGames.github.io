@@ -1,0 +1,448 @@
+@import url("/styles/wayfarer-shared.css");
+
+:root {
+  --muted: rgba(250, 252, 255, 0.72);
+  --card: rgba(255, 255, 255, 0.04);
+  --line: rgba(255, 255, 255, 0.14);
+  --nav-bg: rgba(20, 18, 38, 0.88);
+}
+
+body::before {
+  content: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar,
+.navbar.navbar-default,
+.navbar.navbar-inverse {
+  position: relative;
+  z-index: 1030;
+  background: var(--nav-bg) !important;
+  border: 0 !important;
+  border-bottom: 2px solid rgba(255, 138, 102, 0.2) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(90, 214, 255, 0.35), rgba(255, 138, 102, 0.35), rgba(182, 147, 255, 0.35));
+}
+
+.navbar-default .navbar-brand,
+.navbar-inverse .navbar-brand {
+  color: var(--poly);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 22px rgba(90, 214, 255, 0.25);
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-inverse .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: var(--white);
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-inverse .navbar-nav > li > a {
+  color: var(--muted);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  background: rgba(90, 214, 255, 0.14);
+  color: var(--poly);
+  border-radius: 999px;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background: rgba(90, 214, 255, 0.14) !important;
+  color: var(--poly) !important;
+  border-radius: 999px;
+}
+
+.navbar-toggle {
+  border-color: rgba(90, 214, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.navbar-toggle .icon-bar {
+  background: var(--poly) !important;
+}
+
+.navbar-form .form-control,
+.navbar input[type="text"] {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(90, 214, 255, 0.32) !important;
+  color: var(--white) !important;
+  border-radius: 999px;
+}
+
+.navbar-form .form-control::placeholder,
+.navbar input[type="text"]::placeholder {
+  color: rgba(250, 252, 255, 0.55);
+}
+
+.bs-sidebar .nav > li > a {
+  color: rgba(250, 252, 255, 0.9) !important;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  font-weight: 700;
+  transition: all 0.16s ease;
+}
+
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li.active > a {
+  background: rgba(255, 138, 102, 0.12);
+  color: var(--lime);
+}
+
+.bs-sidebar .nav .nav > li > a {
+  padding-left: 22px;
+  color: rgba(250, 252, 255, 0.78) !important;
+}
+
+.bs-sidebar,
+.bs-sidebar.well,
+.bs-sidebar.affix,
+.bs-sidebar.affix.well {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(20, 18, 38, 0.9) !important;
+  padding: 12px 10px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(6px);
+}
+
+.col-md-9[role="main"] {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 28px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Fredoka", sans-serif;
+  color: var(--white);
+}
+
+h1 {
+  color: var(--poly);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+h2 {
+  color: var(--lime);
+}
+
+h3 {
+  color: var(--lav);
+}
+
+p,
+li {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+a {
+  color: var(--poly);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus {
+  color: var(--lime);
+}
+
+code,
+pre {
+  border-radius: 10px;
+}
+
+code {
+  background: rgba(90, 214, 255, 0.12);
+  color: var(--poly);
+  border: 1px solid rgba(90, 214, 255, 0.25);
+}
+
+pre code {
+  display: block;
+  background: #100f1d;
+  color: #f7faff;
+  border-color: rgba(182, 147, 255, 0.3);
+  padding: 12px 14px;
+}
+
+table {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table th {
+  background: rgba(90, 214, 255, 0.14);
+  color: var(--white);
+  font-family: "Fredoka", sans-serif;
+}
+
+table th,
+table td {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.admonition {
+  border: 1px solid rgba(255, 138, 102, 0.45);
+  border-left-width: 4px;
+  border-radius: 12px;
+  background: rgba(255, 138, 102, 0.08);
+  padding: 12px 14px;
+}
+
+.admonition > .admonition-title {
+  font-family: "Fredoka", sans-serif;
+  color: var(--lime);
+  margin: 0 0 8px;
+}
+
+.pager li > a,
+.pager li > span {
+  color: var(--poly);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(90, 214, 255, 0.35);
+  border-radius: 999px;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+  color: var(--bg);
+  background: var(--poly);
+  border-color: var(--poly);
+}
+
+.hr,
+hr {
+  border-top-color: rgba(255, 255, 255, 0.16);
+}
+
+.dropdown-menu {
+  background: #1b1830;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1100;
+}
+
+.navbar .dropdown-menu {
+  margin-top: 8px;
+}
+
+.dropdown-menu > li > a {
+  color: var(--muted);
+}
+
+.dropdown-menu > li > a:hover {
+  color: var(--white);
+  background: rgba(90, 214, 255, 0.12);
+}
+
+.navbar-default .navbar-text,
+.navbar-default .navbar-link,
+.navbar-inverse .navbar-text,
+.navbar-inverse .navbar-link,
+.navbar-default .navbar-nav > li > a .fa,
+.navbar-inverse .navbar-nav > li > a .fa {
+  color: var(--muted) !important;
+}
+
+@media (max-width: 991px) {
+  .col-md-9[role="main"] {
+    padding: 20px 18px;
+    border-radius: 12px;
+  }
+
+  .bs-sidebar,
+  .bs-sidebar.well,
+  .bs-sidebar.affix,
+  .bs-sidebar.affix.well {
+    margin-bottom: 14px;
+  }
+}
+
+/* --- Hard overrides to fully match Wayfarer style --- */
+html,
+body,
+.container,
+.row,
+.col-md-9,
+.col-md-3 {
+  background-color: transparent !important;
+}
+
+body {
+  background: var(--bg) !important;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.well,
+.well-lg,
+.well-sm {
+  background: rgba(20, 18, 38, 0.9) !important;
+  border: 1px solid var(--line) !important;
+  color: var(--muted) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28) !important;
+}
+
+.bs-sidebar,
+.bs-sidebar.well,
+.bs-sidebar.affix,
+.bs-sidebar.affix.well,
+.bs-sidebar .nav,
+.bs-sidebar .bs-sidenav,
+.bs-sidenav {
+  background: rgba(20, 18, 38, 0.9) !important;
+  color: var(--white) !important;
+}
+
+.bs-sidebar .nav > li > a,
+.bs-sidebar .bs-sidenav > li > a,
+.bs-sidenav > li > a {
+  color: rgba(250, 252, 255, 0.92) !important;
+  font-family: "Fredoka", sans-serif !important;
+  font-weight: 600 !important;
+  border-radius: 8px;
+}
+
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .bs-sidenav > li > a:hover,
+.bs-sidenav > li > a:hover,
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active > a:hover,
+.bs-sidebar .nav > .active > a:focus,
+.bs-sidebar .bs-sidenav > .active > a,
+.bs-sidebar .bs-sidenav > .active > a:hover,
+.bs-sidebar .bs-sidenav > .active > a:focus {
+  color: var(--lime) !important;
+  background: rgba(255, 138, 102, 0.14) !important;
+}
+
+.bs-sidebar .nav .nav > li > a,
+.bs-sidebar .bs-sidenav .nav > li > a {
+  color: rgba(250, 252, 255, 0.78) !important;
+}
+
+.navbar,
+.navbar.navbar-default,
+.navbar.navbar-inverse {
+  min-height: 64px;
+}
+
+.navbar-brand {
+  line-height: 34px !important;
+  font-size: 30px !important;
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-inverse .navbar-nav > li > a {
+  line-height: 34px;
+}
+
+.navbar-form {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.navbar-right .dropdown-menu,
+.navbar-nav .dropdown-menu {
+  background: rgba(20, 18, 38, 0.98) !important;
+  border: 1px solid var(--line) !important;
+}
+
+.navbar-right .dropdown-menu > li > a,
+.navbar-nav .dropdown-menu > li > a {
+  color: rgba(250, 252, 255, 0.86) !important;
+}
+
+.navbar-right .dropdown-menu > li > a:hover,
+.navbar-nav .dropdown-menu > li > a:hover {
+  color: var(--white) !important;
+  background: rgba(90, 214, 255, 0.14) !important;
+}
+
+.col-md-9[role="main"] {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.table,
+table,
+.table-bordered,
+.table-striped {
+  background: rgba(20, 18, 38, 0.74) !important;
+  color: var(--muted) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  background: rgba(20, 18, 38, 0.72) !important;
+  color: var(--muted) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.table > thead > tr > th {
+  background: rgba(90, 214, 255, 0.16) !important;
+  color: var(--white) !important;
+  font-family: "Fredoka", sans-serif !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > td,
+.table-striped > tbody > tr:nth-of-type(odd) > th {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) > td,
+.table-striped > tbody > tr:nth-of-type(even) > th {
+  background: rgba(255, 255, 255, 0.01) !important;
+}
