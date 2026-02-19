@@ -22,15 +22,11 @@
     {"@context":"https://schema.org","@type":"BlogPosting","headline":"Bullet Pattern Generation - Circles, Arcs, and Spirals","description":"How great danmaku patterns aren't hand-placed; they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.","datePublished":"2026-02-18T00:00:00.000Z","dateModified":"2026-02-18T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/bullet-hell-math/","url":"https://wayfarer-games.com/blog/bullet-hell-math/","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"}}
   </script>
   <style>
-    :root { --bg:#141226; --poly:#5AD6FF; --lime:#FF8A66; --lav:#B693FF; --white:#FAFCFF; }
     * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:var(--bg); color:var(--white); font-family:"Nunito",sans-serif; }
     .wrap { max-width:900px; margin:0 auto; padding:30px 20px 80px; }
     .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:10px; flex-wrap:wrap; }
     .brand { color:var(--white); text-decoration:none; font-family:"Fredoka",sans-serif; font-weight:700; letter-spacing:.3px; }
-    .pill { display:inline-flex; align-items:center; font-family:"Fredoka",sans-serif; font-weight:600; font-size:13px; line-height:1; text-decoration:none; padding:9px 16px; border-radius:999px; transition:.2s; }
-    .pill-lime { background:var(--lime); color:var(--bg); }
-    .pill-out { background:transparent; color:var(--white); border:2px solid rgba(255,255,255,.25); }
+    .pill { font-size:13px; padding:9px 16px; }
     .kicker { font-family:"Fredoka",sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); margin-bottom:10px; }
     h1 { font-family:"Fredoka",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.1; margin-bottom:10px; }
     .meta { font-size:13px; color:rgba(250,252,255,.6); margin-bottom:26px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:20px; }

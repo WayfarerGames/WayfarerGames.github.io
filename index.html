@@ -37,16 +37,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#141226; --poly:#5AD6FF; --lime:#FF8A66; --lav:#B693FF; --sky:var(--poly); --white:#FAFCFF; --open:var(--lime); --wip:var(--lav); }
     * { box-sizing:border-box; margin:0; padding:0; }
-    html { scroll-behavior:smooth; }
-    body { background:var(--bg); color:var(--white); font-family:"Nunito",sans-serif; overflow-x:hidden; cursor:none; }
-    #cursor { position:fixed; width:26px; height:26px; border-radius:50%; background:var(--lime); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
-    .bg-shapes { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    body { overflow-x:hidden; }
 
-    @keyframes float1 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(22px,-34px) rotate(180deg)} }
-    @keyframes float2 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-22px,-30px) rotate(-150deg)} }
-    @keyframes float3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(22px,-28px) scale(1.12)} }
     @keyframes bounceIn { 0%{opacity:0;transform:scale(.35) rotate(-12deg)} 65%{opacity:1;transform:scale(1.08) rotate(4deg)} 100%{transform:scale(1) rotate(0)} }
 
     .reveal { opacity:0; transform:translateY(18px) scale(.98); transition:opacity .7s, transform .7s; }
@@ -54,29 +47,10 @@
 
     nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:16px 44px; display:flex; justify-content:space-between; align-items:center; gap:12px; background:rgba(20,18,38,.88); backdrop-filter:blur(16px); border-bottom:2px solid rgba(255,138,102,.15); }
     .links { display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
-    .nlink { font-family:"Fredoka",sans-serif; font-size:16px; font-weight:600; color:rgba(250,252,255,.68); text-decoration:none; padding:4px 8px; border-radius:6px; transition:.2s; }
-    .nlink:hover { color:var(--white); background:rgba(255,255,255,.06); }
+    .nlink { font-size:16px; padding:4px 8px; border-radius:6px; }
+    .nlink:hover { background:rgba(255,255,255,.06); }
 
-    .pill { display:inline-flex; align-items:center; font-family:"Fredoka",sans-serif; font-weight:600; font-size:14px; line-height:1; text-decoration:none; padding:10px 20px; border-radius:999px; transition:.2s; }
-    .pill:hover { transform:translateY(-2px) scale(1.03); }
-    .pill-lime { background:var(--lime); color:var(--bg); }
-    .pill-poly { background:var(--poly); color:var(--bg); }
-    .pill-out { background:transparent; color:var(--white); border:2px solid rgba(255,255,255,.25); }
-    .pill-out:hover { border-color:var(--lime); color:var(--lime); }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 30px;
-      line-height: 1;
-      font-family: "Fredoka", sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 0 12px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
+    .pill { font-size:14px; padding:10px 20px; }
     .triangle-container {
       display:flex;
       justify-content:center;
@@ -136,8 +110,6 @@
       .work-grid { grid-template-columns:repeat(2,1fr); }
     }
     @media (max-width:768px) {
-      body { cursor:auto; }
-      #cursor { display:none; }
       nav { position:sticky; top:0; padding:10px 12px; align-items:flex-start; }
       .nlink { font-size:13px; padding:2px 6px; }
       .hero { padding:84px 14px 50px; }

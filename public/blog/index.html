@@ -39,15 +39,10 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
   <style>
-    :root { --bg:#141226; --poly:#5AD6FF; --lime:#FF8A66; --lav:#B693FF; --white:#FAFCFF; --nav-h:62px; }
+    :root { --nav-h:62px; }
     * { box-sizing:border-box; margin:0; padding:0; }
     html, body { height:100%; }
-    body { background:var(--bg); color:var(--white); font-family:"Nunito",sans-serif; overflow:hidden; cursor:none; display:flex; flex-direction:column; }
-    #cursor { position:fixed; width:26px; height:26px; border-radius:50%; background:var(--lime); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
-    .bg-shapes { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
-    @keyframes float1 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(22px,-34px) rotate(180deg)} }
-    @keyframes float2 { 0%,100%{transform:translate(0,0) rotate(0)} 50%{transform:translate(-22px,-30px) rotate(-150deg)} }
-    @keyframes float3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(22px,-28px) scale(1.12)} }
+    body { overflow:hidden; display:flex; flex-direction:column; }
     @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
     nav { position:sticky; top:0; z-index:100; padding:0 34px; height:var(--nav-h); display:flex; justify-content:space-between; align-items:center; gap:12px; background:rgba(20,18,38,.92); backdrop-filter:blur(16px); border-bottom:2px solid rgba(255,138,102,.15); flex-shrink:0; }
@@ -55,16 +50,14 @@
     .nav-divider { width:1px; height:20px; background:rgba(255,255,255,.12); }
     .blog-badge { font-family:"Fredoka",sans-serif; font-size:14px; font-weight:600; color:var(--poly); background:rgba(90,214,255,.11); border:1.5px solid rgba(90,214,255,.28); padding:4px 13px; border-radius:999px; white-space:nowrap; }
     .nav-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-    .nlink { font-family:"Fredoka",sans-serif; font-size:15px; font-weight:600; color:rgba(250,252,255,.65); text-decoration:none; padding:5px 10px; border-radius:8px; transition:.2s; }
-    .nlink:hover { color:var(--white); background:rgba(255,255,255,.06); }
+    .nlink { font-size:15px; padding:5px 10px; border-radius:8px; }
+    .nlink:hover { background:rgba(255,255,255,.06); }
     .mobile-menu-btn { display:none; align-items:center; gap:6px; font-family:"Fredoka",sans-serif; font-size:14px; font-weight:600; color:rgba(250,252,255,.75); background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); border-radius:8px; padding:6px 13px; cursor:pointer; transition:.2s; }
     .mobile-menu-btn:hover { background:rgba(90,214,255,.1); border-color:rgba(90,214,255,.3); color:var(--poly); }
     .menu-icon { display:flex; flex-direction:column; gap:3.5px; width:16px; }
     .menu-icon span { display:block; height:2px; background:currentColor; border-radius:1px; }
-    .pill { display:inline-flex; align-items:center; font-family:"Fredoka",sans-serif; font-weight:600; font-size:13px; line-height:1; text-decoration:none; padding:9px 16px; border-radius:999px; transition:.2s; border:0; }
+    .pill { font-size:13px; padding:9px 16px; border:0; }
     .pill:hover { transform:translateY(-1px) scale(1.02); }
-    .pill-lime { background:var(--lime); color:var(--bg); }
-    .pill-out { background:transparent; color:var(--white); border:2px solid rgba(255,255,255,.25); }
     .pill-out:hover { border-color:var(--poly); color:var(--poly); }
 
     .page-wrap { flex:1; display:flex; overflow:hidden; position:relative; }
@@ -143,8 +136,6 @@
     .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
 
     @media (max-width: 920px) {
-      body { cursor:auto; }
-      #cursor { display:none; }
       nav { padding:0 14px; }
       .sidebar { width:min(300px, 46vw); }
       .search-input, .post-btn, .nav-btn { cursor:pointer; }
