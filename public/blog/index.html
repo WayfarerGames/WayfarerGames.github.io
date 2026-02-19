@@ -291,6 +291,9 @@
       else openSidebar();
     });
     mobileOverlay.addEventListener("click", closeSidebar);
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) closeSidebar();
+    });
 
     const ensureMeta = (selector, createTag, attrs) => {
       let el = document.head.querySelector(selector);
@@ -461,6 +464,8 @@
     };
 
     const renderPost = (index, { updateHistory = true, replaceHistory = false } = {}) => {
+      // Close mobile overlay first so content is never dimmed.
+      closeSidebar();
       const post = filteredPosts[index];
       if (!post) return;
       currentIndex = index;
@@ -483,7 +488,6 @@
         btn.setAttribute("aria-pressed", i === index ? "true" : "false");
       });
       contentWrap.scrollTo({ top: 0, behavior: "smooth" });
-      closeSidebar();
     };
 
     const renderList = () => {
@@ -648,6 +652,7 @@
       }
     });
     updateNavButtons();
+    closeSidebar();
     loadPosts();
   </script>
 </body>
