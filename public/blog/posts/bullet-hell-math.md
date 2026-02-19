@@ -23,7 +23,7 @@ for (int i=0;i<numBullets;++i)
 ```
 
 Here's what that looks like as we increase the number of bullets:
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-points.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -55,7 +55,7 @@ for (int j = 0; j < numPerSide; j++)
 ```
 
 Here's what that looks like as we increase the number of bullets per side:
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-edges.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -72,7 +72,7 @@ var angle = (i * arc / numPoints) + offset;
 ```
 Now here's what that looks like:
 Here's what that looks like as we increase the number of bullets per side:
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-arc.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -85,7 +85,7 @@ We have a few options here! We can make the bullets move:
 ```cs
 Vector2 direction = spawnerTransform.up;
 ```
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-direction.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -93,7 +93,7 @@ Vector2 direction = spawnerTransform.up;
 ```cs
 Vector2 direction = spawnPosition.normalized;
 ```
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-sphereized.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -102,7 +102,7 @@ Vector2 direction = spawnPosition.normalized;
 Vector2 edgeMidpoint = Vector2.Lerp(vertexA, vertexB, 0.5f);
 Vector2 direction = edgeMidpoint.normalized;
 ```
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-edge.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -110,7 +110,7 @@ Vector2 direction = edgeMidpoint.normalized;
 ```cs
 Vector2 direction = t < 0.5f ? vertexA : vertexB;
 ```
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-point.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
@@ -125,14 +125,14 @@ currentRotation += angularSpeed * Time.deltaTime;
 var finalPos = Quaternion.Euler(0, 0, currentRotation) * position;
 ```
 And that's it!
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-spiral.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 ## Randomness!
 A quick note on randomness - pure random feels bad in bullet hell games. It is unpredictable and can often hurt the player experience. However, there is a fix if you want a bit of variation: bounded randomness. Instead of a radius of 3, we can pick a random number between 2 and 4. Instead of a speed of 5, we'll put the speed between 5 and 7. That will give you variation in how the bullets look and behave, which gives it a more "natural" feeling without being unfair:
-<video controls playsinline preload="metadata">
+<video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-random.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
