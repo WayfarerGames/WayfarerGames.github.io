@@ -53,7 +53,7 @@ jobs:
       - name: Build Bulletfury docs
         run: |
           rm -rf _site/bulletfury-documentation
-          mkdocs build --config-file public/bulletfury-documentation/mkdocs.yml --site-dir _site/bulletfury-documentation
+          mkdocs build --config-file public/bulletfury-documentation/mkdocs.yml --site-dir "$GITHUB_WORKSPACE/_site/bulletfury-documentation"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
