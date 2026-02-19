@@ -4,6 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog — Wayfarer Games</title>
+  <meta name="description" content="Devlogs, design notes, and technical breakdowns from Wayfarer Games.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/blog/">
+  <link rel="alternate" type="application/rss+xml" title="Wayfarer Games Blog RSS" href="https://wayfarer-games.com/blog/rss.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Blog — Wayfarer Games">
+  <meta property="og:description" content="Devlogs, design notes, and technical breakdowns from Wayfarer Games.">
+  <meta property="og:url" content="https://wayfarer-games.com/blog/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Wayfarer Games">
+  <meta name="twitter:description" content="Devlogs, design notes, and technical breakdowns from Wayfarer Games.">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json" id="blogSchema">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Wayfarer Games Blog",
+      "url": "https://wayfarer-games.com/blog/",
+      "inLanguage": "en-GB",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Wayfarer Games",
+        "url": "https://wayfarer-games.com/"
+      }
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
@@ -174,6 +202,7 @@
       </div>
       <div class="sidebar-tools">
         <input type="search" class="search-input" id="searchInput" placeholder="Search posts..." autocomplete="off">
+        <a href="/blog/rss.xml" class="pill pill-out" style="justify-content:center;font-size:12px;padding:8px 12px;" target="_blank" rel="noopener">RSS Feed</a>
         <div class="post-count" id="postCount">0 posts loaded</div>
       </div>
       <ul class="post-list" id="postList" role="listbox" aria-label="Markdown posts"></ul>
@@ -242,6 +271,11 @@
     const sidebar = document.getElementById("sidebar");
     const mobileOverlay = document.getElementById("mobileOverlay");
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const blogSchema = document.getElementById("blogSchema");
+    const siteUrl = "https://wayfarer-games.com";
+    const blogUrl = `${siteUrl}/blog/`;
+    const defaultTitle = "Blog — Wayfarer Games";
+    const defaultDescription = "Devlogs, design notes, and technical breakdowns from Wayfarer Games.";
     const openSidebar = () => {
       sidebar.classList.add("open");
       mobileOverlay.classList.add("active");
@@ -257,6 +291,73 @@
       else openSidebar();
     });
     mobileOverlay.addEventListener("click", closeSidebar);
+
+    const ensureMeta = (selector, createTag, attrs) => {
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = document.createElement(createTag);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+        document.head.appendChild(el);
+      }
+      return el;
+    };
+
+    const setSeo = ({ title, description, canonicalUrl, type = "website" }) => {
+      const safeTitle = title || defaultTitle;
+      const safeDescription = description || defaultDescription;
+      const safeCanonical = canonicalUrl || blogUrl;
+      document.title = safeTitle;
+
+      ensureMeta('meta[name="description"]', "meta", { name: "description" }).setAttribute("content", safeDescription);
+      ensureMeta('link[rel="canonical"]', "link", { rel: "canonical" }).setAttribute("href", safeCanonical);
+
+      ensureMeta('meta[property="og:type"]', "meta", { property: "og:type" }).setAttribute("content", type);
+      ensureMeta('meta[property="og:title"]', "meta", { property: "og:title" }).setAttribute("content", safeTitle);
+      ensureMeta('meta[property="og:description"]', "meta", { property: "og:description" }).setAttribute("content", safeDescription);
+      ensureMeta('meta[property="og:url"]', "meta", { property: "og:url" }).setAttribute("content", safeCanonical);
+
+      ensureMeta('meta[name="twitter:title"]', "meta", { name: "twitter:title" }).setAttribute("content", safeTitle);
+      ensureMeta('meta[name="twitter:description"]', "meta", { name: "twitter:description" }).setAttribute("content", safeDescription);
+    };
+
+    const setBlogSchema = (post = null) => {
+      if (!blogSchema) return;
+      if (!post) {
+        blogSchema.textContent = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          name: "Wayfarer Games Blog",
+          url: blogUrl,
+          inLanguage: "en-GB",
+          publisher: {
+            "@type": "Organization",
+            name: "Wayfarer Games",
+            url: `${siteUrl}/`
+          }
+        });
+        return;
+      }
+
+      blogSchema.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.title || "Untitled",
+        description: post.summary || defaultDescription,
+        datePublished: post.date || undefined,
+        dateModified: post.date || undefined,
+        mainEntityOfPage: post.url || blogUrl,
+        url: post.url || blogUrl,
+        author: {
+          "@type": "Person",
+          name: "Dom Harris"
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Wayfarer Games",
+          url: `${siteUrl}/`
+        }
+      });
+    };
 
 
     marked.setOptions({ gfm: true, breaks: false });
@@ -366,6 +467,13 @@
       postBody.innerHTML = post.html || "<p>No content available.</p>";
       applySyntaxHighlighting();
       if (updateHistory) syncPostUrl(post, { replace: replaceHistory });
+      setSeo({
+        title: `${post.title || "Untitled"} — Wayfarer Games Blog`,
+        description: post.summary || defaultDescription,
+        canonicalUrl: post.url || blogUrl,
+        type: "article"
+      });
+      setBlogSchema(post);
       emptyState.style.display = "none";
       postView.style.display = "block";
       updateNavButtons();
@@ -415,6 +523,8 @@
       if (!filteredPosts.length) {
         postView.style.display = "none";
         emptyState.style.display = "flex";
+        setSeo({ title: defaultTitle, description: defaultDescription, canonicalUrl: blogUrl, type: "website" });
+        setBlogSchema();
         currentIndex = -1;
         updateNavButtons();
       } else if (currentIndex === -1 || currentIndex >= filteredPosts.length) {
@@ -452,6 +562,7 @@
         id: `${fileName}-${Math.random().toString(36).slice(2, 9)}`,
         fileName,
         slug: slugFromFileName(fileName),
+        url: "",
         title,
         date: meta.date || "",
         summary: meta.summary || "",
@@ -495,6 +606,7 @@
           const parsed = parseMarkdownText(raw, entry.file);
           return {
             ...parsed,
+            url: `${blogUrl}?post=${encodeURIComponent(parsed.slug)}`,
             title: entry.title || parsed.title,
             date: entry.date || parsed.date,
             summary: entry.summary || parsed.summary
@@ -508,6 +620,8 @@
       } catch (error) {
         postView.style.display = "none";
         emptyState.style.display = "flex";
+        setSeo({ title: defaultTitle, description: defaultDescription, canonicalUrl: blogUrl, type: "website" });
+        setBlogSchema();
         const msg = error instanceof Error ? error.message : "Unexpected loading error.";
         emptyState.querySelector(".empty-title").textContent = "Blog not ready";
         emptyState.querySelector(".empty-sub").textContent = msg;

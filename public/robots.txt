@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wayfarer-games.com/sitemap.xml

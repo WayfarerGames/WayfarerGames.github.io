@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wayfarer Games Blog</title>
+    <description>Devlogs and technical breakdowns from Wayfarer Games.</description>
+    <link>https://wayfarer-games.com/blog/</link>
+    <atom:link href="https://wayfarer-games.com/blog/rss.xml" rel="self" type="application/rss+xml" />
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 18 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The Mathematics of Bullet Hell Patterns</title>
+      <link>https://wayfarer-games.com/blog/?post=bullet-hell-math</link>
+      <guid>https://wayfarer-games.com/blog/?post=bullet-hell-math</guid>
+      <description>How great danmaku patterns aren&apos;t hand-placed — they&apos;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.</description>
+      <pubDate>Wed, 18 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Welcome to the Wayfarer Devlog</title>
+      <link>https://wayfarer-games.com/blog/?post=welcome-to-the-devlog</link>
+      <guid>https://wayfarer-games.com/blog/?post=welcome-to-the-devlog</guid>
+      <description>First post for the markdown-powered blog route.</description>
+      <pubDate>Wed, 18 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
