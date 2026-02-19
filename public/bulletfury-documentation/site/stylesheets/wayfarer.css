@@ -20,6 +20,7 @@ body {
   font-family: "Nunito", sans-serif !important;
   color: var(--white) !important;
   padding-top: 52px;
+  margin: 0 !important;
 }
 
 /* Top nav: close to the homepage treatment */
@@ -29,7 +30,7 @@ body {
   left: 0;
   right: 0;
   width: 100%;
-  padding: 6px 0;
+  padding: 10px 44px;
   background: var(--nav-bg) !important;
   border: 0 !important;
   border-bottom: 2px solid rgba(255, 138, 102, 0.2) !important;
@@ -49,9 +50,9 @@ body {
 }
 
 .navbar .container {
-  width: min(96vw, 1440px);
-  max-width: 1440px;
-  padding: 0 24px;
+  width: 100%;
+  max-width: none;
+  padding: 0;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -341,7 +342,7 @@ footer p {
   }
 
   .navbar .container {
-    padding: 0 14px;
+    padding: 0;
   }
 
   .navbar-brand {
@@ -353,6 +354,10 @@ footer p {
     padding: 8px;
     border-radius: 12px;
     background: rgba(20, 18, 38, 0.96);
+  }
+
+  .navbar.fixed-top {
+    padding: 10px 12px;
   }
 
   body > .container {
