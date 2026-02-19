@@ -15,10 +15,11 @@ I'll let you in on a secret: it's all circles! Most of the best patterns are jus
 So let's start at the beginning: spawning bullets in a circle. When dealing with circles, we like polar coordinates - that's an angle and a radius. We'll use the number of bullets to work out the angle, and then we'll convert the polar coordinates to an x and y position so our game engine knows where to put them:
 
 ```cs
-for (int i=0;i<numBullets;++i)
+for (int i=0; i<numBullets; ++i)
 {
-    var angle = (float)i/numBullets * 360;
-    var position = (cos(angle) * radius, sin(angle) * radius);
+    float angleDeg = (float)i / numBullets * 360f;
+    float angleRad = angleDeg * Mathf.Deg2Rad;
+    var position = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * radius;
 }
 ```
 
@@ -40,7 +41,7 @@ var p1 = PolarToCartesian(angle, radius);
 var p2 = PolarToCartesian(nextAngle, radius);
 
 // Now we fill the gap between them!
-for (int j = 0; j < numPerSide; j++)
+for (int j = 0; j < numPerSide; ++j)
 {
     // Calculate how far along the line we are (from 0 to 1)
     float t = (float)j / numPerSide;
@@ -63,16 +64,15 @@ Here's what that looks like as we increase the number of bullets per side:
 </video>
 
 ## Arcs!
-An extra way to add some visual interest is to limit the _arc_ of the circle. Instead of doing the hard coded 360° in, we'll swap that out for an arc that we can define from 0-360:
+An extra way to add some visual interest is to limit the _arc_ of the circle. Instead of doing the hard-coded 360°, we'll swap that out for an arc that we can define from 0-360:
 ```cs
-var angle = (i * arc / numPoints);
+var angle = i * (arc / (numPoints - 1f));
 ```
 One extra bit of polish here is adding an offset, so the shape is centered:
 ```cs
-var offset = arc / 2f - (0.5f * arc);
-var angle = (i * arc / numPoints) + offset;
+var angle = i * (arc / (numPoints - 1f)) - (arc * 0.5f);
 ```
-Now here's what that looks like as we increase the number of bullets per side:
+Now here's what that looks like as we increase the number of points:
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-arc.webm" type="video/webm">
   <source src="/blog/posts/bullet-hell-arc.mp4" type="video/mp4">
@@ -94,9 +94,9 @@ Vector2 direction = spawnerTransform.up;
   Your browser does not support the video tag.
 </video>
 
-Out from the center of the shape (radial), which forms a circle over time. We can just normalize the spawn position of the bullet:
+Out from the center of the shape (radial), which forms a circle over time. If your spawner isn't at the world origin, normalize the vector from the spawner to the spawn point:
 ```cs
-Vector2 direction = spawnPosition.normalized;
+Vector2 direction = (spawnPosition - (Vector2)spawnerTransform.position).normalized;
 ```
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-sphereized.webm" type="video/webm">
@@ -117,7 +117,7 @@ Vector2 direction = edgeMidpoint.normalized;
 
 Along the points of the shape, which shoots bullets diagonally. To do this, we just grab the direction of the closest corner:
 ```cs
-Vector2 direction = t < 0.5f ? vertexA : vertexB;
+Vector2 direction = (t < 0.5f ? vertexA : vertexB).normalized;
 ```
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-point.webm" type="video/webm">
