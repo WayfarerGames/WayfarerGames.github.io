@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap");
+
+:root {
+  --bg: #141226;
+  --poly: #5ad6ff;
+  --lime: #ff8a66;
+  --lav: #b693ff;
+  --white: #fafcff;
+  --muted: rgba(250, 252, 255, 0.72);
+  --card: rgba(255, 255, 255, 0.04);
+  --line: rgba(255, 255, 255, 0.14);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: "Nunito", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(90, 214, 255, 0.18), transparent 30%),
+    radial-gradient(circle at 88% 10%, rgba(255, 138, 102, 0.16), transparent 34%),
+    radial-gradient(circle at 50% 84%, rgba(182, 147, 255, 0.16), transparent 32%);
+}
+
+.container,
+.navbar,
+.col-md-9,
+.col-md-3 {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar.navbar-default {
+  background: rgba(20, 18, 38, 0.9);
+  border: 0;
+  border-bottom: 2px solid rgba(255, 138, 102, 0.2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+}
+
+.navbar-default .navbar-brand {
+  color: var(--poly);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: var(--white);
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: var(--muted);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  background: rgba(90, 214, 255, 0.14);
+  color: var(--poly);
+  border-radius: 999px;
+}
+
+.bs-sidebar .nav > li > a {
+  color: var(--muted);
+  border-radius: 10px;
+  margin-bottom: 4px;
+  transition: all 0.16s ease;
+}
+
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li.active > a {
+  background: rgba(255, 138, 102, 0.12);
+  color: var(--lime);
+}
+
+.bs-sidebar .nav .nav > li > a {
+  padding-left: 22px;
+  color: rgba(250, 252, 255, 0.62);
+}
+
+.bs-sidebar.affix {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  padding: 12px 10px;
+  backdrop-filter: blur(6px);
+}
+
+.col-md-9[role="main"] {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 28px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Fredoka", sans-serif;
+  color: var(--white);
+}
+
+h1 {
+  color: var(--poly);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+h2 {
+  color: var(--lime);
+}
+
+h3 {
+  color: var(--lav);
+}
+
+p,
+li {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+a {
+  color: var(--poly);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus {
+  color: var(--lime);
+}
+
+code,
+pre {
+  border-radius: 10px;
+}
+
+code {
+  background: rgba(90, 214, 255, 0.12);
+  color: var(--poly);
+  border: 1px solid rgba(90, 214, 255, 0.25);
+}
+
+pre code {
+  display: block;
+  background: #100f1d;
+  color: #f7faff;
+  border-color: rgba(182, 147, 255, 0.3);
+  padding: 12px 14px;
+}
+
+table {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table th {
+  background: rgba(90, 214, 255, 0.14);
+  color: var(--white);
+  font-family: "Fredoka", sans-serif;
+}
+
+table th,
+table td {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.admonition {
+  border: 1px solid rgba(255, 138, 102, 0.45);
+  border-left-width: 4px;
+  border-radius: 12px;
+  background: rgba(255, 138, 102, 0.08);
+  padding: 12px 14px;
+}
+
+.admonition > .admonition-title {
+  font-family: "Fredoka", sans-serif;
+  color: var(--lime);
+  margin: 0 0 8px;
+}
+
+.pager li > a,
+.pager li > span {
+  color: var(--poly);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(90, 214, 255, 0.35);
+  border-radius: 999px;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+  color: var(--bg);
+  background: var(--poly);
+  border-color: var(--poly);
+}
+
+.hr,
+hr {
+  border-top-color: rgba(255, 255, 255, 0.16);
+}
+
+.dropdown-menu {
+  background: #1b1830;
+  border: 1px solid var(--line);
+}
+
+.dropdown-menu > li > a {
+  color: var(--muted);
+}
+
+.dropdown-menu > li > a:hover {
+  color: var(--white);
+  background: rgba(90, 214, 255, 0.12);
+}

@@ -5,6 +5,8 @@ docs_dir: docs
 use_directory_urls: true
 theme:
   name: mkdocs
+extra_css:
+  - stylesheets/wayfarer.css
 markdown_extensions:
   - admonition
   - toc:
