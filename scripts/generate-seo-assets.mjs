@@ -15,6 +15,9 @@ const manifestPath = path.join(postsDir, "posts.json");
 const rssOutputPath = path.join(blogDir, "rss.xml");
 const robotsOutputPath = path.join(publicDir, "robots.txt");
 const sitemapOutputPath = path.join(publicDir, "sitemap.xml");
+const blogIndexPath = path.join(blogDir, "index.html");
+const hundredDaysPath = path.join(publicDir, "100-days-blog", "index.html");
+const roadToReleasePath = path.join(publicDir, "road-to-release.json");
 const BLOG_DESCRIPTION =
   "You'll learn about what I'm working on, how I work, and probably some cool stuff to do with maths in game dev.";
 
@@ -297,6 +300,68 @@ const writePostPages = (posts) => {
   }
 };
 
+const injectBlogIndexSeo = (posts) => {
+  let html = readFileSync(blogIndexPath, "utf8");
+  const links = posts
+    .map(
+      (post) =>
+        `        <li><a href="${htmlEscape(post.url)}">${htmlEscape(post.title)}</a></li>`
+    )
+    .join("\n");
+  const block = `<noscript><nav aria-label="All blog posts"><ul class="post-list">\n${links}\n      </ul></nav></noscript>`;
+  if (!html.includes("<!-- SEO_BLOG_LINKS -->")) {
+    console.warn("Blog index has no SEO_BLOG_LINKS placeholder, skipping inject");
+    return;
+  }
+  html = html.replace("<!-- SEO_BLOG_LINKS -->", block);
+  writeFileSync(blogIndexPath, html, "utf8");
+  console.log(`Injected SEO post links into ${path.relative(rootDir, blogIndexPath)}`);
+};
+
+const escapeScriptInHtml = (str) =>
+  String(str).replace(/<\/script/gi, "</scr\u200bipt");
+
+const injectHundredDaysSeo = () => {
+  let html = readFileSync(hundredDaysPath, "utf8");
+  if (!html.includes("<!-- SEO_100_DAYS_CONTENT -->")) {
+    console.warn("100-days index has no SEO_100_DAYS_CONTENT placeholder, skipping inject");
+    return;
+  }
+  let posts;
+  try {
+    posts = JSON.parse(readFileSync(roadToReleasePath, "utf8"));
+  } catch (err) {
+    console.warn("Could not read road-to-release.json:", err?.message);
+    return;
+  }
+  if (!Array.isArray(posts)) posts = [];
+  const sorted = [...posts].sort(
+    (a, b) => new Date(a.pubDate || 0) - new Date(b.pubDate || 0)
+  );
+  const humanDate = (v) => {
+    const d = new Date(v);
+    return Number.isNaN(d.getTime())
+      ? ""
+      : d.toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          timeZone: "UTC",
+        });
+  };
+  const articles = sorted
+    .map((post) => {
+      const title = (post.title || "Untitled").replace(/^day\s*\d+\s*[:\-–—]\s*/i, "") || post.title || "Untitled";
+      const safeContent = escapeScriptInHtml(post.content || "");
+      return `<article class="seo-100-days-entry"><h2>${htmlEscape(title)}</h2><time datetime="${htmlEscape(post.pubDate || "")}">${htmlEscape(humanDate(post.pubDate))}</time><div class="post-body">${safeContent}</div></article>`;
+    })
+    .join("\n");
+  const block = `<div id="seo-100-days-content" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">${articles}</div>`;
+  html = html.replace("<!-- SEO_100_DAYS_CONTENT -->", block);
+  writeFileSync(hundredDaysPath, html, "utf8");
+  console.log(`Injected SEO content for ${sorted.length} 100-days posts into ${path.relative(rootDir, hundredDaysPath)}`);
+};
+
 const main = () => {
   mkdirSync(blogDir, { recursive: true });
   const posts = readPosts();
@@ -304,6 +369,8 @@ const main = () => {
   writeFileSync(robotsOutputPath, buildRobotsTxt(), "utf8");
   writeFileSync(sitemapOutputPath, buildSitemapXml(posts), "utf8");
   writePostPages(posts);
+  injectBlogIndexSeo(posts);
+  injectHundredDaysSeo();
   console.log(`Generated ${path.relative(rootDir, rssOutputPath)}`);
   console.log(`Generated ${path.relative(rootDir, robotsOutputPath)}`);
   console.log(`Generated ${path.relative(rootDir, sitemapOutputPath)}`);

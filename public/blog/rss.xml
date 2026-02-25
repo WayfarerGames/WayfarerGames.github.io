@@ -6,7 +6,14 @@
     <link>https://wayfarer-games.com/blog/</link>
     <atom:link href="https://wayfarer-games.com/blog/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-gb</language>
-    <lastBuildDate>Thu, 19 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The Architecture of Shmup Enemy Spawning</title>
+      <link>https://wayfarer-games.com/blog/shmup-spawning/</link>
+      <guid>https://wayfarer-games.com/blog/shmup-spawning/</guid>
+      <description>How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles.</description>
+      <pubDate>Wed, 25 Feb 2026 00:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>Bulletfury Goes Open Source</title>
       <link>https://wayfarer-games.com/blog/bulletfury-goes-open-source/</link>
@@ -15,7 +22,7 @@
       <pubDate>Thu, 19 Feb 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>Bullet Pattern Generation - Circles, Arcs, and Spirals</title>
+      <title>The Mathematics of Bullet Hell Patterns</title>
       <link>https://wayfarer-games.com/blog/bullet-hell-math/</link>
       <guid>https://wayfarer-games.com/blog/bullet-hell-math/</guid>
       <description>How great danmaku patterns aren&apos;t hand-placed; they&apos;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.</description>

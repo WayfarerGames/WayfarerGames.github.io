@@ -13,7 +13,7 @@
   },
   {
     "file": "bullet-hell-math.md",
-    "title": "Bullet Pattern Generation - Circles, Arcs, and Spirals",
+    "title": "The Mathematics of Bullet Hell Patterns",
     "date": "2026-02-18",
     "summary": "How great danmaku patterns aren't hand-placed; they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages."
   }

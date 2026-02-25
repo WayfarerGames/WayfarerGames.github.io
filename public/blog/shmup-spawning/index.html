@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Architecture of Shmup Enemy Spawning | Wayfarer Games Blog</title>
+  <meta name="description" content="How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/blog/shmup-spawning/">
+  <link rel="alternate" type="application/rss+xml" title="Wayfarer Games Blog RSS" href="https://wayfarer-games.com/blog/rss.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="The Architecture of Shmup Enemy Spawning | Wayfarer Games Blog">
+  <meta property="og:description" content="How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles.">
+  <meta property="og:url" content="https://wayfarer-games.com/blog/shmup-spawning/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Architecture of Shmup Enemy Spawning | Wayfarer Games Blog">
+  <meta name="twitter:description" content="How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles.">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"The Architecture of Shmup Enemy Spawning","description":"How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles.","datePublished":"2026-02-25T00:00:00.000Z","dateModified":"2026-02-25T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/shmup-spawning/","url":"https://wayfarer-games.com/blog/shmup-spawning/","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"}}
+  </script>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:30px 20px 80px; }
+    .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:10px; flex-wrap:wrap; }
+    .brand { color:var(--white); text-decoration:none; font-family:"Fredoka",sans-serif; font-weight:700; letter-spacing:.3px; }
+    .pill { font-size:13px; padding:9px 16px; }
+    .kicker { font-family:"Fredoka",sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); margin-bottom:10px; }
+    h1 { font-family:"Fredoka",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.1; margin-bottom:10px; }
+    .meta { font-size:13px; color:rgba(250,252,255,.6); margin-bottom:26px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:20px; }
+    .post-body { line-height:1.85; font-size:17px; color:rgba(250,252,255,.84); }
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 { font-family:"Fredoka",sans-serif; color:var(--white); margin:1.8em 0 .55em; line-height:1.2; }
+    .post-body h2 { font-size:1.7em; }
+    .post-body h3 { color:var(--poly); }
+    .post-body p { margin-bottom:1.15em; }
+    .post-body a { color:var(--poly); text-underline-offset:3px; text-decoration-color:rgba(90,214,255,.4); }
+    .post-body ul, .post-body ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
+    .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .post-body pre code { background:none; padding:0; color:rgba(250,252,255,.88); }
+    .post-body blockquote { border-left:3px solid var(--poly); padding:6px 0 6px 20px; margin:1.5em 0; color:rgba(250,252,255,.6); font-style:italic; background:rgba(90,214,255,.04); border-radius:0 8px 8px 0; }
+    .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
+  </style>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top-nav">
+      <a href="/" class="brand">Wayfarer Games</a>
+      <div style="display:flex; gap:8px;">
+        <a href="/blog/" class="pill pill-out">All posts</a>
+        <a href="/blog/rss.xml" class="pill pill-lime">RSS</a>
+      </div>
+    </nav>
+    <article>
+      <div class="kicker">Wayfarer Devlog</div>
+      <h1>The Architecture of Shmup Enemy Spawning</h1>
+      <div class="meta">25 Feb 2026</div>
+      <div class="post-body"><h1>The Architecture of Shmup Enemy Spawning</h1>
+<p>Hey! Since we&#39;ve already covered the math behind firing beautiful geometric bullet patterns, I thought it would be fun to tackle the other side of the shoot &#39;em up equation: the enemies firing them.</p>
+<blockquote>
+<p>This post focuses on the software architecture of building levels. For actual wave pacing and enemy placement theory, I highly recommend checking out <a href="https://youtu.be/RENI2gk0ZJA?si=PNe3QkoFeO2gRlbH">Boghog&#39;s Shmup Workshop</a></p>
+</blockquote>
+<p>I&#39;ll let you in on a secret: hardcoding your enemy spawns in your game loop is a trap. If your update loop is full of timers and nested <code>if</code> statements, making a full, five-minute level is going to be an absolute nightmare. We need a way to cleanly sequence exactly what happens and when.</p>
+<p>Enter the Command Pattern!</p>
+<h2>Timers!</h2>
+<p>Let&#39;s start by looking at what we want to avoid. When you first start building a level, it&#39;s really tempting to just count the seconds and spawn enemies based on the current time:</p>
+<pre><code class="language-cs">private float levelTimer = 0f;
+private bool waveOneSpawned = false;
+private bool waveTwoSpawned = false;
+
+void Update()
+{
+    levelTimer += Time.deltaTime;
+
+    if (levelTimer &gt;= 2.0f &amp;&amp; !waveOneSpawned)
+    {
+        SpawnEnemy(enemyPrefabA, new Vector2(5, 10));
+        waveOneSpawned = true;
+    }
+
+    if (levelTimer &gt;= 5.5f &amp;&amp; !waveTwoSpawned)
+    {
+        SpawnEnemy(enemyPrefabB, new Vector2(-5, 10));
+        waveTwoSpawned = true;
+    }
+}
+</code></pre>
+<p>Notice the problem? For a typical shmup level, you might have hundreds of spawns. This script will turn into an absolute monster, and tuning the timing of an early wave means manually tweaking all the numbers for the rest of the level. It&#39;s rigid, creates bugs, and hurts to read.</p>
+<h2>Commands!</h2>
+<p>Instead of writing the logic out procedurally, let&#39;s turn &quot;Spawning an Enemy&quot; into an object. We want to decouple <em>what</em> happens from <em>when</em> it happens.</p>
+<p>However, we don&#39;t just want fire-and-forget commands. What if we want a command that pauses the level until the screen is clear of enemies? If we use a basic loop, we&#39;ll immediately hit a wall. To pause the game&#39;s timeline, a command needs a way to tell the queue: <em>&quot;I&#39;m not done yet!&quot;</em></p>
+<p>We also want to make sure this code is incredibly clean and performant. In Unity, the rookie mistake is to use <code>FindObjectsOfType&lt;Enemy&gt;()</code> to check if the screen is clear. That is intensely slow and creates garbage collection spikes.</p>
+<p>Instead, we are going to design our architecture using SOLID principles so everything is fast, decoupled, and easy to extend.</p>
+<h2>Context!</h2>
+<p>First, our commands shouldn&#39;t depend on a monolithic <code>LevelManager</code> script. That breaks the Dependency Inversion Principle. Commands should depend on abstractions (interfaces).</p>
+<p>Let&#39;s create an interface that holds references to all the systems our commands might need to interact with:</p>
+<pre><code class="language-cs">public interface IEnemyTracker
+{
+    int ActiveEnemyCount { get; }
+}
+
+public interface ILevelContext
+{
+    IEnemyTracker EnemyTracker { get; }
+    // We could add IAudioService, IScoreManager, etc. here later
+
+}
+</code></pre>
+<p>Now, instead of Unity&#39;s slow methods, our actual game logic will just maintain a simple integer counter of enemies. An <code>EnemySpawner</code> increments it, and an <code>Enemy</code>&#39;s OnDestroy event decrements it. Checking if the screen is clear is now a lightning-fast <code>O(1)</code> integer check!</p>
+<h2>Wait For It...</h2>
+<p>Next, let&#39;s look at our command structure. Every command needs to be executable, and every command needs to report if it is finished:</p>
+<pre><code class="language-cs">public interface ILevelCommand
+{
+    float Timestamp { get; }
+
+    // We pass our decoupled context here
+    void Execute(ILevelContext context);
+
+    // Allows commands to block the queue from progressing
+    bool IsComplete { get; }
+}
+</code></pre>
+<p>For standard, fire-and-forget commands (like spawning an enemy), <code>IsComplete</code> will just return <code>true</code>. They finish instantly.</p>
+<p>But here is our <code>WaitUntilClearCommand</code>. Its single responsibility is to capture the enemy tracker when executed, and then constantly report its completion status based on that tracker.</p>
+<pre><code class="language-cs">
+public class WaitUntilClearCommand : ILevelCommand
+{
+    public float Timestamp { get; }
+
+    // We store a reference to the tracker once executed
+    private IEnemyTracker tracker;
+
+    public WaitUntilClearCommand(float timestamp)
+    {
+        Timestamp = timestamp;
+    }
+
+    public void Execute(ILevelContext context)
+    {
+        tracker = context.EnemyTracker;
+    }
+
+    public bool IsComplete =&gt; tracker != null &amp;&amp; tracker.ActiveEnemyCount == 0;
+}
+</code></pre>
+<p>Look at how clean that is! It knows nothing about Unity, nothing about prefabs, and nothing about timers. It just asks the tracker for the count.</p>
+<h2>The Upgraded Queue!</h2>
+<p>Finally, let&#39;s look at how our main game loop handles this. We need to introduce the concept of an <code>activeBlockingCommand</code>.</p>
+<p>If a command blocks, we stop pulling from the queue and we <em>pause the timer</em>.</p>
+<pre><code class="language-cs">
+public class LevelTimeline : MonoBehaviour
+{
+    private Queue&lt;ILevelCommand&gt; commandQueue;
+    private ILevelContext context;
+    private float levelTimer = 0f;
+
+    // Stores any command that takes time to complete
+    private ILevelCommand activeBlockingCommand = null;
+
+    void Update()
+    {
+        // 1. If we are blocked, wait until the command finishes
+        if (activeBlockingCommand != null)
+        {
+            if (activeBlockingCommand.IsComplete)
+            {
+                // Unblock
+                activeBlockingCommand = null;
+            }
+            else
+            {
+                // Still waiting? Stop doing level updates.
+                return;
+            }
+        }
+
+        // 2. We only advance time if we aren&#39;t blocked
+        levelTimer += Time.deltaTime;
+
+        // 3. Process new commands
+        while (
+            commandQueue.Count &gt; 0 &amp;&amp;
+            commandQueue.Peek().Timestamp &lt;= levelTimer
+        )
+        {
+            ILevelCommand nextCommand = commandQueue.Dequeue();
+            nextCommand.Execute(context);
+
+            // If this command isn&#39;t instantly finished, it blocks the queue!
+            if (!nextCommand.IsComplete)
+            {
+                activeBlockingCommand = nextCommand;
+                break; // Exit the while loop early
+            }
+        }
+    }
+}
+</code></pre>
+<p>Because we followed the Open/Closed Principle, our <code>LevelTimeline</code> code is completely closed for modification. We never have to touch this <code>Update</code> loop again to add new features! Want to wait for 5 seconds? Add a <code>WaitTimeCommand</code>. Want to wait until the boss reaches half health? Add a <code>WaitForBossPhaseCommand</code>!</p>
+<h2>Data!</h2>
+<p>This is where the magic really happens. Because our commands are just objects holding data (a time, a prefab, a position), we no longer have to define our levels in code.</p>
+<p>We can move our level design completely out of C#. You could write your levels in a JSON file, a CSV spreadsheet, or <code>ScriptableObjects</code>. Here is what a level might look like when serialized to JSON:</p>
+<pre><code class="language-json">[
+  {
+    &quot;type&quot;: &quot;SpawnEnemy&quot;,
+    &quot;timestamp&quot;: 2.0,
+    &quot;enemyId&quot;: &quot;Fighter&quot;,
+    &quot;position&quot;: { &quot;x&quot;: 5.0, &quot;y&quot;: 10.0 }
+  },
+  {
+    &quot;type&quot;: &quot;WaitUntilClear&quot;,
+    &quot;timestamp&quot;: 2.5
+  },
+  {
+    &quot;type&quot;: &quot;SpawnEnemy&quot;,
+    &quot;timestamp&quot;: 3.0,
+    &quot;enemyId&quot;: &quot;HeavyBomber&quot;,
+    &quot;position&quot;: { &quot;x&quot;: 0.0, &quot;y&quot;: 12.0 }
+  }
+]
+</code></pre>
+<blockquote>
+<p>N.b. if you&#39;re in Unity, you&#39;ll want to use something like Newtonsoft JSON to help with this</p>
+</blockquote>
+<p>Now you can tweak timings, add complex waiting logic, and build entire new waves without ever recompiling your game. This opens the door to player-created levels, too, which is even cooler.</p>
+<h2>Taking it further!</h2>
+<p>This architecture is the foundation of a modern shmup engine. Our engine is completely separated: the timeline handles the flow of time, the commands handle the instructions, and the context handles the game state.</p>
+<p>Once you have a timeline of commands running your game data like this, the next natural step is building a visual tool. Instead of typing out JSON, you can build a timeline editor (like Unity&#39;s Timeline or a custom visual graph) where you can literally drag and drop spawns and wait commands exactly where you want them. But it all starts with this clean, decoupled queue!</p>
+</div>
+    </article>
+  </main>
+</body>
+</html>
