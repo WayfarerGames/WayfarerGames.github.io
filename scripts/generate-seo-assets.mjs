@@ -309,11 +309,17 @@ const injectBlogIndexSeo = (posts) => {
     )
     .join("\n");
   const block = `<noscript><nav aria-label="All blog posts"><ul class="post-list">\n${links}\n      </ul></nav></noscript>`;
-  if (!html.includes("<!-- SEO_BLOG_LINKS -->")) {
-    console.warn("Blog index has no SEO_BLOG_LINKS placeholder, skipping inject");
-    return;
+  if (html.includes("<!-- SEO_BLOG_LINKS -->")) {
+    html = html.replace("<!-- SEO_BLOG_LINKS -->", block);
+  } else {
+    const existingBlock = /<noscript><nav aria-label="All blog posts"><ul class="post-list">[\s\S]*?<\/ul><\/nav><\/noscript>/;
+    if (existingBlock.test(html)) {
+      html = html.replace(existingBlock, block);
+    } else {
+      console.warn("Blog index has no SEO_BLOG_LINKS placeholder or existing block, skipping inject");
+      return;
+    }
   }
-  html = html.replace("<!-- SEO_BLOG_LINKS -->", block);
   writeFileSync(blogIndexPath, html, "utf8");
   console.log(`Injected SEO post links into ${path.relative(rootDir, blogIndexPath)}`);
 };
@@ -323,10 +329,6 @@ const escapeScriptInHtml = (str) =>
 
 const injectHundredDaysSeo = () => {
   let html = readFileSync(hundredDaysPath, "utf8");
-  if (!html.includes("<!-- SEO_100_DAYS_CONTENT -->")) {
-    console.warn("100-days index has no SEO_100_DAYS_CONTENT placeholder, skipping inject");
-    return;
-  }
   let posts;
   try {
     posts = JSON.parse(readFileSync(roadToReleasePath, "utf8"));
@@ -357,7 +359,28 @@ const injectHundredDaysSeo = () => {
     })
     .join("\n");
   const block = `<div id="seo-100-days-content" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">${articles}</div>`;
-  html = html.replace("<!-- SEO_100_DAYS_CONTENT -->", block);
+  if (html.includes("<!-- SEO_100_DAYS_CONTENT -->")) {
+    html = html.replace("<!-- SEO_100_DAYS_CONTENT -->", block);
+  } else {
+    const startMarker = '<div id="seo-100-days-content"';
+    const bodyClose = "</body>";
+    const startIdx = html.indexOf(startMarker);
+    const bodyIdx = html.indexOf(bodyClose);
+    if (startIdx !== -1 && bodyIdx > startIdx) {
+      const beforeBody = html.slice(0, bodyIdx);
+      const lastDivIdx = beforeBody.lastIndexOf("</div>");
+      if (lastDivIdx > startIdx) {
+        const afterClose = html.slice(lastDivIdx + "</div>".length);
+        html = html.slice(0, startIdx) + block + afterClose;
+      } else {
+        console.warn("100-days index: could not find closing </div>, skipping inject");
+        return;
+      }
+    } else {
+      console.warn("100-days index has no SEO_100_DAYS_CONTENT placeholder or existing block, skipping inject");
+      return;
+    }
+  }
   writeFileSync(hundredDaysPath, html, "utf8");
   console.log(`Injected SEO content for ${sorted.length} 100-days posts into ${path.relative(rootDir, hundredDaysPath)}`);
 };
