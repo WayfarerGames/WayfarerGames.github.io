@@ -1,5 +1,11 @@
 [
   {
+    "file": "shmup-spawning.md",
+    "title": "The Architecture of Shmup Enemy Spawning",
+    "date": "2026-02-25",
+    "summary": "How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles."
+  },
+  {
     "file": "bulletfury-goes-open-source.md",
     "title": "Bulletfury Goes Open Source",
     "date": "2026-02-19",
