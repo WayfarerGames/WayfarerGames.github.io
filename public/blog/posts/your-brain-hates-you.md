@@ -58,7 +58,7 @@ If you know your brain is an energy-efficient machine looking for shortcuts, yel
 
 ### 1. Micro-Dose Progress (Build Momentum)
 
-If you're stuck, your task is too vague. Radically lower the energy required to start. Open the project. Hit Play. Write the next micro-step where you can’t miss it (a sticky note, a README, or a task list). The win is simply having the project open and one tiny change committed.
+If you're stuck, your task is too vague. Lower the energy required to start. Open the project. Hit Play. Write the next micro-step where you can’t miss it (a sticky note, a README, or a task list). The win is simply having the project open and one tiny change committed.
 
 ### 2. Use Prototyping as a "Cheap Win"
 
@@ -71,7 +71,7 @@ You need a hard constraint to stop reward substitution. Here are a good couple o
 - Share progress only in spaces that create accountability (like a build log with a set deadline), not just praise.
 - You are not allowed to post a screenshot or tweet about a feature for public validation until you have a playable, tested build.
 
-## The Dopamine Trap Shipping Checklist
+## A Checklist for Shipping
 
 Game development is a marathon filled with uncertainty. Keep this checklist handy to keep your brain on track:
 
