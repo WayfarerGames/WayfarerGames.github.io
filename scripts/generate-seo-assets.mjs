@@ -279,7 +279,7 @@ const buildPostPageHtml = (post) => {
       </div>
     </nav>
     <article>
-      <div class="kicker">Wayfarer Devlog</div>
+      <div class="kicker">A Collection of Thoughts</div>
       <h1>${htmlEscape(post.title)}</h1>
       <div class="meta">${htmlEscape(articleDate)}</div>
       <div class="post-body">${post.html}</div>
