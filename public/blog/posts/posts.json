@@ -1,5 +1,11 @@
 [
   {
+    "file": "your-brain-hates-you.md",
+    "title": "Your Brain Hates You",
+    "date": "2026-03-01",
+    "summary": "Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps."
+  },
+  {
     "file": "shmup-spawning.md",
     "title": "The Architecture of Shmup Enemy Spawning",
     "date": "2026-02-25",

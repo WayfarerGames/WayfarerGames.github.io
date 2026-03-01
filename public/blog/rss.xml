@@ -6,7 +6,14 @@
     <link>https://wayfarer-games.com/blog/</link>
     <atom:link href="https://wayfarer-games.com/blog/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-gb</language>
-    <lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Your Brain Hates You</title>
+      <link>https://wayfarer-games.com/blog/your-brain-hates-you/</link>
+      <guid>https://wayfarer-games.com/blog/your-brain-hates-you/</guid>
+      <description>Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps.</description>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>The Architecture of Shmup Enemy Spawning</title>
       <link>https://wayfarer-games.com/blog/shmup-spawning/</link>

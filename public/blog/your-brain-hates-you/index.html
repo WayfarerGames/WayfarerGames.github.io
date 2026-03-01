@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Brain Hates You | Wayfarer Games Blog</title>
+  <meta name="description" content="Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/blog/your-brain-hates-you/">
+  <link rel="alternate" type="application/rss+xml" title="Wayfarer Games Blog RSS" href="https://wayfarer-games.com/blog/rss.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Your Brain Hates You | Wayfarer Games Blog">
+  <meta property="og:description" content="Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps.">
+  <meta property="og:url" content="https://wayfarer-games.com/blog/your-brain-hates-you/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your Brain Hates You | Wayfarer Games Blog">
+  <meta name="twitter:description" content="Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps.">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Your Brain Hates You","description":"Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps.","datePublished":"2026-03-01T00:00:00.000Z","dateModified":"2026-03-01T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/your-brain-hates-you/","url":"https://wayfarer-games.com/blog/your-brain-hates-you/","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"}}
+  </script>
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:30px 20px 80px; }
+    .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:10px; flex-wrap:wrap; }
+    .brand { color:var(--white); text-decoration:none; font-family:"Fredoka",sans-serif; font-weight:700; letter-spacing:.3px; }
+    .pill { font-size:13px; padding:9px 16px; }
+    .kicker { font-family:"Fredoka",sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); margin-bottom:10px; }
+    h1 { font-family:"Fredoka",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.1; margin-bottom:10px; }
+    .meta { font-size:13px; color:rgba(250,252,255,.6); margin-bottom:26px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:20px; }
+    .post-body { line-height:1.85; font-size:17px; color:rgba(250,252,255,.84); }
+    .post-body h1, .post-body h2, .post-body h3, .post-body h4 { font-family:"Fredoka",sans-serif; color:var(--white); margin:1.8em 0 .55em; line-height:1.2; }
+    .post-body h2 { font-size:1.7em; }
+    .post-body h3 { color:var(--poly); }
+    .post-body p { margin-bottom:1.15em; }
+    .post-body a { color:var(--poly); text-underline-offset:3px; text-decoration-color:rgba(90,214,255,.4); }
+    .post-body ul, .post-body ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
+    .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .post-body pre code { background:none; padding:0; color:rgba(250,252,255,.88); }
+    .post-body blockquote { border-left:3px solid var(--poly); padding:6px 0 6px 20px; margin:1.5em 0; color:rgba(250,252,255,.6); font-style:italic; background:rgba(90,214,255,.04); border-radius:0 8px 8px 0; }
+    .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
+  </style>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top-nav">
+      <a href="/" class="brand">Wayfarer Games</a>
+      <div style="display:flex; gap:8px;">
+        <a href="/blog/" class="pill pill-out">All posts</a>
+        <a href="/blog/rss.xml" class="pill pill-lime">RSS</a>
+      </div>
+    </nav>
+    <article>
+      <div class="kicker">Wayfarer Devlog</div>
+      <h1>Your Brain Hates You</h1>
+      <div class="meta">1 Mar 2026</div>
+      <div class="post-body"><h1>Your Brain Hates You</h1>
+<p>Hey! Today, instead of systems and tech stuff, I want to step back and talk about the hardest thing to debug: your own brain.</p>
+<p>I&#39;ll let you in on a secret: your brain often works against finishing. This isn’t a moral failing or a lack of discipline. It is just predictable human behaviour given uncertainty and long timelines. Common symptoms include doomscrolling, endless code refactoring, announcing features you haven&#39;t built, and writing massive design docs that never ship.</p>
+<p>By the end of this post, you’ll understand the forces causing it, and you&#39;ll have a concrete checklist to turn &quot;I should work on my game&quot; into a repeatable shipping loop.</p>
+<h2>The Problem</h2>
+<p>Saying your brain &quot;hates&quot; you is a bit dramatic. The truth is, your brain loves you! It is an ancient survival machine designed to keep you alive, which means its priority is conserving energy and avoiding threats. It is constantly scanning your environment for the path of least resistance.</p>
+<p>This brings us to dopamine.</p>
+<blockquote>
+<p>Dopamine is heavily involved in wanting, drive, and learning what’s worth pursuing, especially through anticipation and reward prediction. While this is a simplified model, it’s incredibly useful for us game devs to understand. Your brain quickly learns which actions deliver fast rewards with low effort, and it will heavily bias you toward those. Because your brain wants to avoid threats, it is always looking for shortcuts that deliver quick reward signals (novelty, social approval, certainty) without the cost of building.</p>
+</blockquote>
+<p>This leads to three common traps that quietly stall games for months:</p>
+<h2>Trap 1: Talking Instead of Doing</h2>
+<p>Have you ever had an amazing idea for a mechanic, run straight to Discord or Twitter to announce it, and soaked in all the &quot;Wow, that sounds incredible!&quot; replies?</p>
+<p>Publicly announcing goals can create a false sense of completion and identity (&quot;I&#39;m the kind of person making this awesome game&quot;). Your brain generated the drive to build something, but you fed it a cheap, immediate social reward instead. The anticipation is resolved.</p>
+<p>The result? You are left with much less drive to do the hard, ambiguous part next. This isn’t a strict rule to never share. It just means you shouldn&#39;t cash the praise check before you’ve done the work (a well-documented psychological phenomenon often called the social reality effect).</p>
+<h2>Trap 2: Decisions Based On Vibes</h2>
+<p>Because your brain wants the path of least resistance, it prefers to make design decisions based on hypotheticals. Running a Twitter poll or posting a community questionnaire is a low-effort reward signal disguised as actual development.</p>
+<p>I learned this the hard way during a playtest. A tester read over the concepts for two different game modes. Based purely on the idea, they filled out their pre-play feedback form and confidently stated that Option A was the right choice. Then, I actually built both.</p>
+<ul>
+<li><strong>Option A:</strong> Player abandoned it after 10 minutes.</li>
+<li><strong>Option B:</strong> Player engaged for a full hour.</li>
+</ul>
+<p>People will tell you one thing and do another! In playtests, you can treat what people tell you as a hypothesis, but you learn a lot more from observed behavior. In a 20 to 30 minute test, track these specific metrics:</p>
+<ul>
+<li><strong>First 60 seconds:</strong> Note points of confusion.</li>
+<li><strong>Time-to-first-fun:</strong> Wait for their first smile, laugh, or &quot;oh!&quot; moment.</li>
+<li><strong>Retries:</strong> Count the number of voluntary attempts after failing.</li>
+<li><strong>Engagement:</strong> Notice when they ask a question versus when they just keep playing.</li>
+<li><strong>Persistence:</strong> See if they choose to continue when given an explicit out.</li>
+</ul>
+<h2>Trap 3: Ambiguity Avoidance</h2>
+<p>A lot of procrastination in game dev isn’t pleasure-seeking. It’s ambiguity mixed with a fear of wasted effort. When the next step in your project is unclear (like &quot;Fix the combat system&quot;), the brain flags it as a high-energy threat. In this context, &quot;threat&quot; often just means uncertainty plus potential wasted effort plus ego risk (finding out your idea isn&#39;t fun). It seeks clear, easy rewards elsewhere, like watching a YouTube tutorial.</p>
+<blockquote>
+<p><strong>Conversion Rule:</strong> Rewrite any task until it starts with a verb and can be done in 10 minutes. For example, replace &quot;Fix combat&quot; with &quot;Spawn one enemy in an empty room and log time-to-kill with a debug print.&quot;</p>
+</blockquote>
+<h2>The Fix: Design a Pro-Shipping Environment</h2>
+<p>If you know your brain is an energy-efficient machine looking for shortcuts, yelling at yourself to &quot;just work harder&quot; won&#39;t fix anything. Instead, you need to design your environment and workflow so the &quot;easy path&quot; points toward shipping.</p>
+<h3>1. Micro-Dose Progress (Build Momentum)</h3>
+<p>If you&#39;re stuck, your task is too vague. Radically lower the energy required to start. Open the project. Hit Play. Write the next micro-step where you can’t miss it (a sticky note, a README, or a task list). The win is simply having the project open and one tiny change committed.</p>
+<h3>2. Use Prototyping as a &quot;Cheap Win&quot;</h3>
+<p>Stop theory-crafting the perfect system in your head to avoid the work. Make crappy throwaway prototypes using primitive shapes and borrowed constraints from an existing game. Or make it on paper! It gives your brain the fast, low-friction win it craves, but in a productive way.</p>
+<h3>3. Lock the Social Reward</h3>
+<p>You need a hard constraint to stop reward substitution. Here are a good couple of rules I like:</p>
+<ul>
+<li>Share progress only in spaces that create accountability (like a build log with a set deadline), not just praise.</li>
+<li>You are not allowed to post a screenshot or tweet about a feature for public validation until you have a playable, tested build.</li>
+</ul>
+<h2>The Dopamine Trap Shipping Checklist</h2>
+<p>Game development is a marathon filled with uncertainty. Keep this checklist handy to keep your brain on track:</p>
+<ul>
+<li><strong>Daily micro-win:</strong> Define one task that takes &lt;15 minutes and ends in a visible change.</li>
+<li><strong>Prototype rule:</strong> Any mechanic idea gets 60 minutes of ugly implementation before discussion.</li>
+<li><strong>Social lock:</strong> No posting until there’s a playable build and one external playtest note.</li>
+<li><strong>Behavior &gt; opinions:</strong> Measure time-on-task, retries, and voluntary re-engagement.</li>
+<li><strong>Reduce friction:</strong> Ensure your project opens in &lt;30 seconds. Keep a &quot;next task&quot; note in your repo so you never start with a blank slate.</li>
+<li><strong>Weekly ship:</strong> Package one build every 7 days, even if it’s small and ugly.</li>
+<li><strong>Weekly review:</strong> Spend 10 minutes asking what shipped, what stalled, and what’s the next smallest playable slice.</li>
+</ul>
+<p><strong>Template:</strong></p>
+<ul>
+<li>This week’s smallest playable slice: ____</li>
+<li>This week’s playtest question: ____</li>
+<li>Ship date/time: ____</li>
+</ul>
+<p>Pick one item from your backlog right now. Set a 15-minute timer. Define the smallest visible change and do only that. Stop while it’s still easy, so tomorrow has low friction.</p>
+</div>
+    </article>
+  </main>
+</body>
+</html>
