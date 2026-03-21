@@ -260,22 +260,7 @@ const buildSitemapXml = (posts) => {
   ].join("\n");
 };
 
-const buildPostPageHtml = (post) => {
-  const pageTitle = `${post.title} | Wayfarer Games Blog`;
-  const description = post.summary || BLOG_DESCRIPTION;
-  const articleDate = post.date ? humanDate(post.date) : "";
-  const publishedISO = post.date ? new Date(post.date).toISOString() : "";
-  const previewImageUrl = post.imageUrl || `${SITE_URL}/logo.png`;
-  const previewVideoMeta = post.videoUrl
-    ? [
-        `  <meta property="og:video" content="${htmlEscape(post.videoUrl)}">`,
-        post.videoType
-          ? `  <meta property="og:video:type" content="${htmlEscape(post.videoType)}">`
-          : "",
-      ]
-        .filter(Boolean)
-        .join("\n")
-    : "";
+const buildPostSchema = (post, description, publishedISO, previewImageUrl) => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -305,74 +290,101 @@ const buildPostPageHtml = (post) => {
     };
   }
 
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${htmlEscape(pageTitle)}</title>
-  <meta name="description" content="${htmlEscape(description)}">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${htmlEscape(post.url)}">
-  <link rel="alternate" type="application/rss+xml" title="Wayfarer Games Blog RSS" href="${htmlEscape(`${SITE_URL}/blog/rss.xml`)}">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Wayfarer Games">
-  <meta property="og:title" content="${htmlEscape(pageTitle)}">
-  <meta property="og:description" content="${htmlEscape(description)}">
-  <meta property="og:url" content="${htmlEscape(post.url)}">
-  <meta property="og:image" content="${htmlEscape(previewImageUrl)}">
-${previewVideoMeta ? `${previewVideoMeta}\n` : ""}  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${htmlEscape(pageTitle)}">
-  <meta name="twitter:description" content="${htmlEscape(description)}">
-  <meta name="twitter:image" content="${htmlEscape(previewImageUrl)}">
-  <script type="application/ld+json">
-    ${JSON.stringify(schema)}
-  </script>
-  <style>
-    * { box-sizing:border-box; margin:0; padding:0; }
-    .wrap { max-width:900px; margin:0 auto; padding:30px 20px 80px; }
-    .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:10px; flex-wrap:wrap; }
-    .brand { color:var(--white); text-decoration:none; font-family:"Fredoka",sans-serif; font-weight:700; letter-spacing:.3px; }
-    .pill { font-size:13px; padding:9px 16px; }
-    .kicker { font-family:"Fredoka",sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); margin-bottom:10px; }
-    h1 { font-family:"Fredoka",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.1; margin-bottom:10px; }
-    .meta { font-size:13px; color:rgba(250,252,255,.6); margin-bottom:26px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:20px; }
-    .post-body { line-height:1.85; font-size:17px; color:rgba(250,252,255,.84); }
-    .post-body h1, .post-body h2, .post-body h3, .post-body h4 { font-family:"Fredoka",sans-serif; color:var(--white); margin:1.8em 0 .55em; line-height:1.2; }
-    .post-body h2 { font-size:1.7em; }
-    .post-body h3 { color:var(--poly); }
-    .post-body p { margin-bottom:1.15em; }
-    .post-body a { color:var(--poly); text-underline-offset:3px; text-decoration-color:rgba(90,214,255,.4); }
-    .post-body ul, .post-body ol { padding-left:1.6em; margin-bottom:1.15em; }
-    .post-body pre { background:rgba(0,0,0,.38); border:1.5px solid rgba(255,255,255,.08); border-radius:12px; padding:20px 22px; overflow-x:auto; margin:1.5em 0; }
-    .post-body code { background:rgba(90,214,255,.1); color:var(--poly); padding:2px 7px; border-radius:5px; font-size:.87em; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    .post-body pre code { background:none; padding:0; color:rgba(250,252,255,.88); }
-    .post-body blockquote { border-left:3px solid var(--poly); padding:6px 0 6px 20px; margin:1.5em 0; color:rgba(250,252,255,.6); font-style:italic; background:rgba(90,214,255,.04); border-radius:0 8px 8px 0; }
-    .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
-  </style>
-  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-  <main class="wrap">
-    <nav class="top-nav">
-      <a href="/" class="brand">Wayfarer Games</a>
-      <div style="display:flex; gap:8px;">
-        <a href="/blog/" class="pill pill-out">All posts</a>
-        <a href="/blog/rss.xml" class="pill pill-lime">RSS</a>
-      </div>
-    </nav>
-    <article>
-      <div class="kicker">A Collection of Thoughts</div>
-      <h1>${htmlEscape(post.title)}</h1>
-      <div class="meta">${htmlEscape(articleDate)}</div>
-      <div class="post-body">${post.html}</div>
-    </article>
-  </main>
-</body>
-</html>
-`;
+  return schema;
+};
+
+const replaceOne = (html, pattern, replacement) => {
+  if (!pattern.test(html)) {
+    throw new Error(`Could not find pattern: ${pattern}`);
+  }
+  return html.replace(pattern, replacement);
+};
+
+const buildPostPageHtml = (post) => {
+  const pageTitle = `${post.title} | Wayfarer Games Blog`;
+  const description = post.summary || BLOG_DESCRIPTION;
+  const publishedISO = post.date ? new Date(post.date).toISOString() : "";
+  const previewImageUrl = post.imageUrl || `${SITE_URL}/logo.png`;
+  const schema = buildPostSchema(post, description, publishedISO, previewImageUrl);
+  let html = readFileSync(blogIndexPath, "utf8");
+
+  html = replaceOne(html, /<title>[\s\S]*?<\/title>/, `<title>${htmlEscape(pageTitle)}</title>`);
+  html = replaceOne(
+    html,
+    /<meta name="description" content="[^"]*">/,
+    `<meta name="description" content="${htmlEscape(description)}">`
+  );
+  html = replaceOne(
+    html,
+    /<link rel="canonical" href="[^"]*">/,
+    `<link rel="canonical" href="${htmlEscape(post.url)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta property="og:type" content="[^"]*">/,
+    '<meta property="og:type" content="article">'
+  );
+  html = replaceOne(
+    html,
+    /<meta property="og:title" content="[^"]*">/,
+    `<meta property="og:title" content="${htmlEscape(pageTitle)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta property="og:description" content="[^"]*">/,
+    `<meta property="og:description" content="${htmlEscape(description)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta property="og:url" content="[^"]*">/,
+    `<meta property="og:url" content="${htmlEscape(post.url)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta property="og:image" content="[^"]*">/,
+    `<meta property="og:image" content="${htmlEscape(previewImageUrl)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta name="twitter:title" content="[^"]*">/,
+    `<meta name="twitter:title" content="${htmlEscape(pageTitle)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta name="twitter:description" content="[^"]*">/,
+    `<meta name="twitter:description" content="${htmlEscape(description)}">`
+  );
+  html = replaceOne(
+    html,
+    /<meta name="twitter:image" content="[^"]*">/,
+    `<meta name="twitter:image" content="${htmlEscape(previewImageUrl)}">`
+  );
+  html = replaceOne(
+    html,
+    /<script type="application\/ld\+json" id="blogSchema">[\s\S]*?<\/script>/,
+    `  <script type="application/ld+json" id="blogSchema">\n    ${JSON.stringify(schema, null, 2)}\n  </script>`
+  );
+
+  html = html.replace(/\n\s*<meta property="og:video" content="[^"]*">/g, "");
+  html = html.replace(/\n\s*<meta property="og:video:type" content="[^"]*">/g, "");
+
+  if (post.videoUrl) {
+    const videoMeta = [
+      `  <meta property="og:video" content="${htmlEscape(post.videoUrl)}">`,
+      post.videoType
+        ? `  <meta property="og:video:type" content="${htmlEscape(post.videoType)}">`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    html = replaceOne(
+      html,
+      /<meta name="twitter:card" content="summary_large_image">/,
+      `${videoMeta}\n  <meta name="twitter:card" content="summary_large_image">`
+    );
+  }
+
+  return html;
 };
 
 const writePostPages = (posts) => {
@@ -476,8 +488,8 @@ const main = () => {
   writeFileSync(rssOutputPath, buildRssXml(posts), "utf8");
   writeFileSync(robotsOutputPath, buildRobotsTxt(), "utf8");
   writeFileSync(sitemapOutputPath, buildSitemapXml(posts), "utf8");
-  writePostPages(posts);
   injectBlogIndexSeo(posts);
+  writePostPages(posts);
   injectHundredDaysSeo();
   console.log(`Generated ${path.relative(rootDir, rssOutputPath)}`);
   console.log(`Generated ${path.relative(rootDir, robotsOutputPath)}`);
