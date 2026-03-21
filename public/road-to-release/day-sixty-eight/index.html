@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 68: Squashing the Low FPS Double Damage Bug | Wayfarer Games</title>
+  <meta name="description" content="Well, I spent 2.5 of today’s 0.5 hours working on the game fixing a major bug 😬 low framerates (~40fps or lower), where the time between frames is at least double the time between fixed update frames, cause bullets to collide twice. That means the player deals double damage agai">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-sixty-eight/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 68: Squashing the Low FPS Double Damage Bug | Wayfarer Games">
+  <meta property="og:description" content="Well, I spent 2.5 of today’s 0.5 hours working on the game fixing a major bug 😬 low framerates (~40fps or lower), where the time between frames is at least double the time between fixed update frames, cause bullets to collide twice. That means the player deals double damage agai">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-sixty-eight/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 68: Squashing the Low FPS Double Damage Bug | Wayfarer Games">
+  <meta name="twitter:description" content="Well, I spent 2.5 of today’s 0.5 hours working on the game fixing a major bug 😬 low framerates (~40fps or lower), where the time between frames is at least double the time between fixed update frames, cause bullets to collide twice. That means the player deals double damage agai">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Squashing the Low FPS Double Damage Bug",
+  "alternativeHeadline": "Day 68",
+  "description": "Well, I spent 2.5 of today’s 0.5 hours working on the game fixing a major bug 😬 low framerates (~40fps or lower), where the time between frames is at least double the time between fixed update frames, cause bullets to collide twice. That means the player deals double damage agai",
+  "datePublished": "2023-08-10T18:33:13.000Z",
+  "dateModified": "2023-08-10T18:33:13.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-sixty-eight/",
+  "url": "https://wayfarer-games.com/road-to-release/day-sixty-eight/",
+  "image": "https://wayfarer-games.com/logo.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 68</div>
+        <h1>Squashing the Low FPS Double Damage Bug</h1>
+        <p class="summary">Well, I spent 2.5 of today’s 0.5 hours working on the game fixing a major bug 😬 low framerates (~40fps or lower), where the time between frames is at least double the time between fixed update frames, cause bullets to collide twice. That means the player deals double damage agai</p>
+        <div class="meta">
+          <span>10 Aug 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Well, I spent 2.5 of today’s 0.5 hours working on the game fixing a major bug 😬 low framerates (~40fps or lower), where the time between frames is at least double the time between fixed update frames, cause bullets to collide twice. That means the player deals double damage against the bosses, which is terrible for a number of reasons. The flag for the bullet being killed isn’t updated until the next real frame redraw, and the bullet isn’t moved until the next real frame redraw, so if two physics updates happen in the same visual frame the game will register that collision twice.</p><p class="" style="white-space:pre-wrap;">This has been something of a headache to work my brain through, what you’re reading here is the culmination of many hours of trying to process what’s going on - with the help of @ktyl on the Wayfarer Games Discord server 😄 and even that explanation requires a bunch of knowledge about how Unity works. To be perfectly honest, it was a real effort to work out what was even happening in the first place! There’s a double damage cheat, which I assumed was the actual problem. Once you get in your head that a problem is caused by a specific thing, you lose a lot of time trying to engineer solutions to work around that thing - which ultimately gets you nowhere because it wasn’t even the cause anyway!</p><p class="" style="white-space:pre-wrap;">It’s tough to let go of things like that, but this could’ve lasted a LOT longer. I’m quite impressed that we found the cause (low FPS) as quickly as we did, given how tightly I was holding on to it being the fault of the cheat code… The virtual machine is what did it in the end. I actually managed to get triple damage because the VM ran at such a low framerate that <strong>three</strong> fixed updates were happening in the same visual update. Working out how to fix it was another challenge, but I could simulate the issue by setting Application.targetFramerate to something low enough, which made testing things <strong>much </strong>easier. I’m probably going to have to run it at low FPS consistently during my testing to make sure there are no other issues like this, so I’ve added a keyboard shortcut.</p><p class="" style="white-space:pre-wrap;">Oh, and my hacky solution was to just do bullet collision checks in Update instead of Fixed Update. Once Polyfury is released, I’ll go back and fix it properly in Bulletfury, and probably Polyfury too with the inevitable post-release bugfix update. Now I’ve worked out what’s actually happening and why, it should be relatively easy to solve.</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Heptagram tomorrow. For reals this time. </p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-sixty-eight/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

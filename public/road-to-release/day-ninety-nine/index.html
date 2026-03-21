@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 99: The Penultimate Day: Xbox Woes &amp; Final Touches | Wayfarer Games</title>
+  <meta name="description" content="The penultimate day! There’s only one day left of this challenge, one more blog post to write. One more major panic at 8pm because I haven’t written my post. I’ve got a big postmortem post in the works for tomorrow, I’m sure you’ll be pleased to know, but for now here’s a roundup">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-ninety-nine/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 99: The Penultimate Day: Xbox Woes &amp; Final Touches | Wayfarer Games">
+  <meta property="og:description" content="The penultimate day! There’s only one day left of this challenge, one more blog post to write. One more major panic at 8pm because I haven’t written my post. I’ve got a big postmortem post in the works for tomorrow, I’m sure you’ll be pleased to know, but for now here’s a roundup">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-ninety-nine/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 99: The Penultimate Day: Xbox Woes &amp; Final Touches | Wayfarer Games">
+  <meta name="twitter:description" content="The penultimate day! There’s only one day left of this challenge, one more blog post to write. One more major panic at 8pm because I haven’t written my post. I’ve got a big postmortem post in the works for tomorrow, I’m sure you’ll be pleased to know, but for now here’s a roundup">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Penultimate Day: Xbox Woes & Final Touches",
+  "alternativeHeadline": "Day 99",
+  "description": "The penultimate day! There’s only one day left of this challenge, one more blog post to write. One more major panic at 8pm because I haven’t written my post. I’ve got a big postmortem post in the works for tomorrow, I’m sure you’ll be pleased to know, but for now here’s a roundup",
+  "datePublished": "2023-09-15T17:46:18.000Z",
+  "dateModified": "2023-09-15T17:46:18.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-ninety-nine/",
+  "url": "https://wayfarer-games.com/road-to-release/day-ninety-nine/",
+  "image": "https://wayfarer-games.com/logo.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 99</div>
+        <h1>The Penultimate Day: Xbox Woes &amp; Final Touches</h1>
+        <p class="summary">The penultimate day! There’s only one day left of this challenge, one more blog post to write. One more major panic at 8pm because I haven’t written my post. I’ve got a big postmortem post in the works for tomorrow, I’m sure you’ll be pleased to know, but for now here’s a roundup</p>
+        <div class="meta">
+          <span>15 Sept 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">The penultimate day! There’s only one day left of this challenge, one more blog post to write. One more major panic at 8pm because I haven’t written my post. </p><p class="" style="white-space:pre-wrap;">I’ve got a big postmortem post in the works for tomorrow, I’m sure you’ll be pleased to know, but for now here’s a roundup of what I did today:</p><ul data-rte-list="default"><li><p class="" style="white-space:pre-wrap;">died a little inside because the Xbox build consistently crashed, but only on the Master build with submission encryption enabled. Pain. Unity doesn’t write logs when it builds like this, so that was another few hours lost!</p></li><li><p class="" style="white-space:pre-wrap;">set up ads for the trailer, replaced the Steam trailer</p></li><li><p class="" style="white-space:pre-wrap;">minor tweaks to the octagon</p></li><li><p class="" style="white-space:pre-wrap;">beat the Gauntlet with 27 million points, which is amazing and I don’t think I’ll ever be able to do it again</p></li><li><p class="" style="white-space:pre-wrap;">sent some emails</p></li><li><p class="" style="white-space:pre-wrap;">finally made the credits screen</p></li><li><p class="" style="white-space:pre-wrap;">looked at my presskit, died a little bit inside, and gave in to exhaustion and had a nap</p></li></ul><p class="" style="white-space:pre-wrap;">As you can see, even with the game technically “done”, there is still a lot to do! Tomorrow is going to be almost entirely <em>writing</em>, and I’m no good at that. I’m dreading it a little.</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Tomorrow I have posts to write and the presskit to do. I really <strong>really </strong>need to do the presskit, and the press release.</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-ninety-nine/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

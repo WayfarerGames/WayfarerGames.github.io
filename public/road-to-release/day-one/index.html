@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 1: 100 Days of Dev Begins: Setup &amp; Options Menu Rework | Wayfarer Games</title>
+  <meta name="description" content="Hey everyone, I&#39;m excited to share with you an update on Polyfury! I&#39;ve been working on it for way too long, and I&#39;m finally starting to see the light at the end of the tunnel. Today I&#39;m all set up for 100 days of dev! I wrote down my to-do list and made sure everything was up on">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-one/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 1: 100 Days of Dev Begins: Setup &amp; Options Menu Rework | Wayfarer Games">
+  <meta property="og:description" content="Hey everyone, I&#39;m excited to share with you an update on Polyfury! I&#39;ve been working on it for way too long, and I&#39;m finally starting to see the light at the end of the tunnel. Today I&#39;m all set up for 100 days of dev! I wrote down my to-do list and made sure everything was up on">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-one/">
+  <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184879-5BFO80K14UIXDNUGGQLQ/Screenshot+2023-05-18+at+16.01.30.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 1: 100 Days of Dev Begins: Setup &amp; Options Menu Rework | Wayfarer Games">
+  <meta name="twitter:description" content="Hey everyone, I&#39;m excited to share with you an update on Polyfury! I&#39;ve been working on it for way too long, and I&#39;m finally starting to see the light at the end of the tunnel. Today I&#39;m all set up for 100 days of dev! I wrote down my to-do list and made sure everything was up on">
+  <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184879-5BFO80K14UIXDNUGGQLQ/Screenshot+2023-05-18+at+16.01.30.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "100 Days of Dev Begins: Setup & Options Menu Rework",
+  "alternativeHeadline": "Day 1",
+  "description": "Hey everyone, I'm excited to share with you an update on Polyfury! I've been working on it for way too long, and I'm finally starting to see the light at the end of the tunnel. Today I'm all set up for 100 days of dev! I wrote down my to-do list and made sure everything was up on",
+  "datePublished": "2023-05-24T08:48:19.000Z",
+  "dateModified": "2023-05-24T08:48:19.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-one/",
+  "url": "https://wayfarer-games.com/road-to-release/day-one/",
+  "image": "https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184879-5BFO80K14UIXDNUGGQLQ/Screenshot+2023-05-18+at+16.01.30.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 1</div>
+        <h1>100 Days of Dev Begins: Setup &amp; Options Menu Rework</h1>
+        <p class="summary">Hey everyone, I&#39;m excited to share with you an update on Polyfury! I&#39;ve been working on it for way too long, and I&#39;m finally starting to see the light at the end of the tunnel. Today I&#39;m all set up for 100 days of dev! I wrote down my to-do list and made sure everything was up on</p>
+        <div class="meta">
+          <span>24 May 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Hey everyone, I'm excited to share with you an update on Polyfury! I've been working on it for way too long, and I'm finally starting to see the light at the end of the tunnel.</p><h2 style="white-space:pre-wrap;"><strong>Today</strong></h2><p class="" style="white-space:pre-wrap;">I'm all set up for 100 days of dev! I wrote down my to-do list and made sure everything was up on the repository. (Oops, it had been 6 months since my last commit! Don't do what I do. 🙃)</p><p class="" style="white-space:pre-wrap;">I also set up the blog on Squarespace and created a mailing list.</p><p class="" style="white-space:pre-wrap;">Oh, and I should probably get to work on the game! The first major bit of work for me to do is a reworking of the options menu to prepare for the final demo update. I'm adding some extra accessibility options and cheat codes, and I'm also cleaning up the code and fixing some controller bugs. I spent around 4 hours on all of this, here’s the changelog:</p><ul data-rte-list="default"><li><p class="" style="white-space:pre-wrap;">Deleted the old menu, because it was bad and broken. Making progress sometimes requires deleting a bunch of stuff 👍</p></li><li><p class="" style="white-space:pre-wrap;">Added a new, better menu copied over from another project, with fancy tabbed navigation that works on a controller</p></li><li><p class="" style="white-space:pre-wrap;">Fixed an issue where clicking somewhere with the mouse makes it impossible to navigate the menu</p></li><li><p class="" style="white-space:pre-wrap;">Fixed a visual issue with cheat code entry</p></li></ul>
+</div>
+<div class="
+ sqs-gallery-container
+ sqs-gallery-block-grid
+ sqs-gallery-aspect-ratio-widescreen
+ sqs-gallery-thumbnails-per-row-2
+ sqs-gallery-block-show-meta
+ sqs-gallery-block-meta-only-title
+ block-animation-none
+ clear"
+>
+ <div class="sqs-gallery">
+      <div class="slide" data-type="image" data-animation-role="image">
+       <div class="margin-wrapper">
+        <a
+           role="presentation"
+          
+        >
+         <noscript><img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184391-CI7MOFSY3PPIMUC5IS5F/Screenshot+2023-05-18+at+15.48.17.png"></noscript><img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184391-CI7MOFSY3PPIMUC5IS5F/Screenshot+2023-05-18+at+15.48.17.png">
+        </a>
+         <div class="image-slide-title">Before</div>
+       </div>
+      </div>
+      <div class="slide" data-type="image" data-animation-role="image">
+       <div class="margin-wrapper">
+        <a
+           role="presentation"
+          
+        >
+         <noscript><img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184879-5BFO80K14UIXDNUGGQLQ/Screenshot+2023-05-18+at+16.01.30.png"></noscript><img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1684422184879-5BFO80K14UIXDNUGGQLQ/Screenshot+2023-05-18+at+16.01.30.png">
+        </a>
+         <div class="image-slide-title">After</div>
+       </div>
+      </div>
+ </div>
+</div>
+<style type="text/css" id="design-grid-css">
+#block-yui_3_17_2_1_1684422134159_3436 .sqs-gallery-block-grid .sqs-gallery-design-grid { margin-right: -20px; }
+#block-yui_3_17_2_1_1684422134159_3436 .sqs-gallery-block-grid .sqs-gallery-design-grid-slide .margin-wrapper { margin-right: 20px; margin-bottom: 20px; }
+</style>
+<div class="sqs-html-content">
+ <h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">By the weekend, I hope to be finished with the new menu bits. I need to add a ton of extra accessibility options that are already technically in the game, just not actually exposed anywhere…</p>
+</div>
+<hr />
+<div class="newsletter-form-wrapper
+ newsletter-form-wrapper--layoutFloat
+ newsletter-form-wrapper--alignCenter
+ "
+ >
+ <form
+   class="newsletter-form"
+   data-form-id="6464aeef2372df5ee3e81ccc"
+   autocomplete="on"
+   method="POST"
+   novalidate
+   onsubmit="return (function (form) {
+  Y.use('squarespace-form-submit', 'node', function usingFormSubmit(Y) {
+   (new Y.Squarespace.FormSubmit(form)).submit({
+    formId: '6464aeef2372df5ee3e81ccc',
+    collectionId: '',
+    objectName: 'post-64649fb3f0e5826b503b9a12'
+   });
+  });
+  return false;
+ })(this);">
+  <header class="newsletter-form-header">
+   <h2 class="newsletter-form-header-title">Subscribe</h2>
+   <div class="newsletter-form-header-description"><p class="" style="white-space:pre-wrap;">Want to hear the latest Wayfarer Games news and join Polyfury testing? Subscribe now and be the first to know about competitions and prizes!</p></div>
+  </header>
+  <div class="newsletter-form-body">
+   <div class="newsletter-form-fields-wrapper form-fields" style="vertical-align: middle;">
+      <div id="email-yui_3_17_2_1_1684319413797_6124" class="newsletter-form-field-wrapper form-item field email required" style="vertical-align: bottom;">
+       <label class="newsletter-form-field-label title" for="email-yui_3_17_2_1_1684319413797_6124-field">Email Address</label>
+       <input id="email-yui_3_17_2_1_1684319413797_6124-field" class="newsletter-form-field-element field-element" name="email" x-autocompletetype="email" autocomplete="email" type="email" spellcheck="false" placeholder="Email Address" />
+      </div>
+   </div>
+   <div data-animation-role="button" class="newsletter-form-button-wrapper submit-wrapper" style="vertical-align: middle;">
+    <button
+      
+     type="submit"
+     value="Sign Up"
+    >
+     <span class="newsletter-form-spinner sqs-spin light large"></span>
+     <span class="newsletter-form-button-label">Sign Up</span>
+     <span class="newsletter-form-button-icon"></span>
+    </button>
+   </div>
+  </div>
+  <div class="newsletter-form-footnote"><p class="" style="white-space:pre-wrap;">We respect your privacy, and you’ll only get one email a week.</p></div>
+  <div class="hidden form-submission-text">Thank you!</div>
+  <div class="hidden form-submission-html" data-submission-html=""></div>
+ </form>
+</div>
+<iframe src="https://assetstore.unity.com/linkmaker/embed/package/247937/widget-wide?aid=1101lwk2s&amp;wmode=opaque" data-embed="true" style="width:100%; height:130px; border:0px;"></iframe><div class="video-caption-wrapper"><div class="video-caption"><p class="" style="white-space:pre-wrap;">Making your own games? Check out Artificer Pro - released this month!</p></div></div></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-one/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 76: Laser Tweaks &amp; Tutorial Complete | Wayfarer Games</title>
+  <meta name="description" content="From last week: “the massive new feature I added with no external testing just kinda works…” Turns out it doesn’t ;) but that’s fine, I mostly expected that. It isn’t really bugs though, it’s more balance tweaks that needed to be made! And those have all been made now. Turns out ">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-seventy-six/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 76: Laser Tweaks &amp; Tutorial Complete | Wayfarer Games">
+  <meta property="og:description" content="From last week: “the massive new feature I added with no external testing just kinda works…” Turns out it doesn’t ;) but that’s fine, I mostly expected that. It isn’t really bugs though, it’s more balance tweaks that needed to be made! And those have all been made now. Turns out ">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-seventy-six/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 76: Laser Tweaks &amp; Tutorial Complete | Wayfarer Games">
+  <meta name="twitter:description" content="From last week: “the massive new feature I added with no external testing just kinda works…” Turns out it doesn’t ;) but that’s fine, I mostly expected that. It isn’t really bugs though, it’s more balance tweaks that needed to be made! And those have all been made now. Turns out ">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Laser Tweaks & Tutorial Complete",
+  "alternativeHeadline": "Day 76",
+  "description": "From last week: “the massive new feature I added with no external testing just kinda works…” Turns out it doesn’t ;) but that’s fine, I mostly expected that. It isn’t really bugs though, it’s more balance tweaks that needed to be made! And those have all been made now. Turns out ",
+  "datePublished": "2023-08-19T18:53:45.000Z",
+  "dateModified": "2023-08-19T18:53:45.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-seventy-six/",
+  "url": "https://wayfarer-games.com/road-to-release/day-seventy-six/",
+  "image": "https://wayfarer-games.com/logo.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 76</div>
+        <h1>Laser Tweaks &amp; Tutorial Complete</h1>
+        <p class="summary">From last week: “the massive new feature I added with no external testing just kinda works…” Turns out it doesn’t ;) but that’s fine, I mostly expected that. It isn’t really bugs though, it’s more balance tweaks that needed to be made! And those have all been made now. Turns out </p>
+        <div class="meta">
+          <span>19 Aug 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">From last week: “the massive new feature I added with no external testing just kinda works…”</p><p class="" style="white-space:pre-wrap;">Turns out it doesn’t ;) but that’s fine, I mostly expected that. It isn’t really <strong>bugs</strong> though, it’s more balance tweaks that needed to be made! And those have all been made now.</p><p class="" style="white-space:pre-wrap;">Turns out when you fire a giant laser, people like it to do a little bit of damage. Who knew.</p><p class="" style="white-space:pre-wrap;">I did also manage to <strong>finish</strong> the tutorial, which is cool - it only took me about 4 hours. It’s… not necessarily my finest design work, but it does the job for now. I’ll be changing the text til the game releases, probably, and I want to add an option to choose whether to autofire the laser, but I think this 30 second little warm up is good enough for onboarding. Before I upload it tomorrow, though, I’ll add something like “Press R to skip/restart the game” at the bottom, which also lets the player know that R is quick reset! Handy.</p>
+</div>
+<div class="intrinsic" style="max-width:100%"><div class="embed-block-wrapper " style="padding-bottom:0.56308657%;"><div class="sqs-native-video" data-config-block-id="yui_3_17_2_1_1692470680967_6810" data-config-settings="null" data-config-thumbnail="null" data-config-video="&#123;&quot;id&quot;:&quot;64e10db29d24935a7f15e196&quot;,&quot;recordType&quot;:61,&quot;addedOn&quot;:1692470706126,&quot;updatedOn&quot;:1692470755036,&quot;workflowState&quot;:1,&quot;authorId&quot;:&quot;5bdaf0ba7d062d0395f26fee&quot;,&quot;systemDataId&quot;:&quot;73da3b39-9317-46d9-86c0-9acf303d838c&quot;,&quot;systemDataVariants&quot;:&quot;1918:1080,640:360&quot;,&quot;systemDataSourceType&quot;:&quot;mp4&quot;,&quot;filename&quot;:&quot;movie_044.mp4&quot;,&quot;body&quot;:null,&quot;likeCount&quot;:0,&quot;commentCount&quot;:0,&quot;publicCommentCount&quot;:0,&quot;commentState&quot;:1,&quot;unsaved&quot;:false,&quot;author&quot;:&#123;&quot;id&quot;:&quot;5bdaf0ba7d062d0395f26fee&quot;,&quot;displayName&quot;:&quot;Dom &#124; theChief&quot;,&quot;firstName&quot;:&quot;Dom&quot;,&quot;lastName&quot;:&quot;Harris&quot;,&quot;avatarUrl&quot;:&quot;https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/5bdaf0ba7d062d0395f26fee/f6412d57cc64480d8a095393250f3a3b/f6412d57cc64480d8a095393250f3a3b.jpeg?format=300w&quot;,&quot;websiteUrl&quot;:&quot;https://wayfarer-games.com&quot;,&quot;avatarAssetUrl&quot;:&quot;https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/5bdaf0ba7d062d0395f26fee/f6412d57cc64480d8a095393250f3a3b/f6412d57cc64480d8a095393250f3a3b.jpeg?format=300w&quot;&#125;,&quot;contentType&quot;:&quot;video/mp4&quot;,&quot;structuredContent&quot;:&#123;&quot;_type&quot;:&quot;SqspHostedVideo&quot;,&quot;videoCodec&quot;:&quot;h264&quot;,&quot;audioCodec&quot;:&quot;aac&quot;,&quot;alexandriaUrl&quot;:&quot;https://video.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/73da3b39-9317-46d9-86c0-9acf303d838c/&#123;variant&#125;&quot;,&quot;alexandriaLibraryId&quot;:&quot;6086d006dce47b2b3ccc28ec&quot;,&quot;aspectRatio&quot;:1.775925925925926,&quot;durationSeconds&quot;:36.616667&#125;,&quot;videoCodec&quot;:&quot;h264&quot;,&quot;audioCodec&quot;:&quot;aac&quot;,&quot;alexandriaUrl&quot;:&quot;https://video.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/73da3b39-9317-46d9-86c0-9acf303d838c/&#123;variant&#125;&quot;,&quot;alexandriaLibraryId&quot;:&quot;6086d006dce47b2b3ccc28ec&quot;,&quot;aspectRatio&quot;:1.775925925925926,&quot;durationSeconds&quot;:36.616667,&quot;items&quot;:[],&quot;pushedServices&quot;:&#123;&#125;,&quot;pendingPushedServices&quot;:&#123;&#125;,&quot;usageId&quot;:&quot;88a9ae9b-8e43-3dc2-81fe-1ea966f131f7&quot;,&quot;assetProtectionLevel&quot;:&quot;LIBRARY&quot;,&quot;originalSize&quot;:&quot;1918:1080&quot;,&quot;recordTypeLabel&quot;:&quot;sqsp-hosted-video&quot;&#125;"><div class="native-video-player"></div></div></div></div>
+ 
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Honestly, this tutorial is a really quick hack, but it does do the job and isn’t <strong>super </strong>intrusive. It will have to do for now, I’m sure people will complain if they <strong>really </strong>hate it.</p><p class="" style="white-space:pre-wrap;">Tomorrow <span class="sqsrte-text-highlight" data-text-attribute-id="7a49cdc1-1950-494f-b98e-51205a1dfc7f">on my day off</span> I’ll upload a new version with a bunch of fixes and the new tutorial. This is going to change scoring, but scores should be higher on average, and the max should also be higher. I’ve made it a bit more consistent, too, each Pentagon phase change now starts with a specific pattern. The big spin attack in the intro, then the pale aimed splitting bullets, then the red area splitting bullets, then the pentagram, which is largely unchanged (though I made timings a bit easier).</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Upload the new version, then I really need to crack on with more content.</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-seventy-six/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

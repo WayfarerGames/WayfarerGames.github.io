@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 100: Polyfury Launched: A 100-Day Postmortem | Wayfarer Games</title>
+  <meta name="description" content="We’re done. I reached it. The end. Polyfury is in review, due to be released on Monday on Steam. GO WISHLIST IT RIGHT NOW What even happened I made a game! Polyfury is a circular bullet hell with 7 levels. The longest level is about 3 minutes, you can beat the game in 15 minutes ">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-one-hundred/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 100: Polyfury Launched: A 100-Day Postmortem | Wayfarer Games">
+  <meta property="og:description" content="We’re done. I reached it. The end. Polyfury is in review, due to be released on Monday on Steam. GO WISHLIST IT RIGHT NOW What even happened I made a game! Polyfury is a circular bullet hell with 7 levels. The longest level is about 3 minutes, you can beat the game in 15 minutes ">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-one-hundred/">
+  <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/e5e984cf-bf5b-4002-af93-dba560eedebc/367bd.gif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 100: Polyfury Launched: A 100-Day Postmortem | Wayfarer Games">
+  <meta name="twitter:description" content="We’re done. I reached it. The end. Polyfury is in review, due to be released on Monday on Steam. GO WISHLIST IT RIGHT NOW What even happened I made a game! Polyfury is a circular bullet hell with 7 levels. The longest level is about 3 minutes, you can beat the game in 15 minutes ">
+  <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/e5e984cf-bf5b-4002-af93-dba560eedebc/367bd.gif">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Polyfury Launched: A 100-Day Postmortem",
+  "alternativeHeadline": "Day 100",
+  "description": "We’re done. I reached it. The end. Polyfury is in review, due to be released on Monday on Steam. GO WISHLIST IT RIGHT NOW What even happened I made a game! Polyfury is a circular bullet hell with 7 levels. The longest level is about 3 minutes, you can beat the game in 15 minutes ",
+  "datePublished": "2023-09-16T19:23:34.000Z",
+  "dateModified": "2023-09-16T19:23:34.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-one-hundred/",
+  "url": "https://wayfarer-games.com/road-to-release/day-one-hundred/",
+  "image": "https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/e5e984cf-bf5b-4002-af93-dba560eedebc/367bd.gif",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 100</div>
+        <h1>Polyfury Launched: A 100-Day Postmortem</h1>
+        <p class="summary">We’re done. I reached it. The end. Polyfury is in review, due to be released on Monday on Steam. GO WISHLIST IT RIGHT NOW What even happened I made a game! Polyfury is a circular bullet hell with 7 levels. The longest level is about 3 minutes, you can beat the game in 15 minutes </p>
+        <div class="meta">
+          <span>16 Sept 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">We’re done. I reached it. The end. Polyfury is in review, due to be released on Monday on Steam. </p>
+</div>
+<div>
+ <a
+  href="https://store.steampowered.com/app/1804980/Polyfury/"
+  class="sqs-block-button-element--large sqs-button-element--secondary sqs-block-button-element"
+ >
+  GO WISHLIST IT RIGHT NOW
+ </a>
+</div>
+<div class="sqs-html-content">
+ <h2 style="white-space:pre-wrap;"><strong>What even happened</strong></h2><p class="" style="white-space:pre-wrap;">I made a game! Polyfury is a circular bullet hell with 7 levels. The longest level is about 3 minutes, you can beat the game in 15 minutes if you’re good. Most people will take a <strong>lot</strong> longer than that, though. Over the last <strong>100 days</strong> (excluding Sundays), I have worked on the game <strong>every single day.</strong> Sometimes, just half an hour. Once, 20 hours in a single day. That wasn’t a good day. Polyfury started life as a Ludum Dare entry, <a href="https://ldjam.com/events/ludum-dare/47/event-horizon/polyfury-a-postmortem">read the postmortem</a> I did of that one. Because of that jam, I cancelled my other main project at the time and thought “hey - I can make this in no time at all”. That was <strong>three years ago.</strong> Suffice to say I was incorrect. </p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1694727298351-A8LCV05SZS5WB870WQS1/1000008087.gif">
+      </div>
+     </div>
+    </figure>
+  </div>
+<div class="sqs-html-content">
+ <h2 style="white-space:pre-wrap;"><strong>Euroshmup beginnings</strong></h2><p class="" style="white-space:pre-wrap;">It started life as what the shmup community generally refers to as a “euroshmup” - it’s a somewhat derogatory term for games that don’t really get why shmups are fun, and it absolutely applied to the original version of Polyfury. There were a ton of bullets, sure, but you were basically forced to get hit by a lot of them. The movement was insane, really fast and uncontrollable. There wasn’t really a way to earn score, and it just didn’t “feel” right. It got a lot of positive feedback from the LD community, but there was definitely something missing.</p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/e5e984cf-bf5b-4002-af93-dba560eedebc/367bd.gif">
+      </div>
+     </div>
+    </figure>
+  </div>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">I originally intended to release it as a quick little iOS game with 3 or 4 levels, maybe make some money from it, and move on. I realised, however, that this “short” project was an ideal candidate to fulfill a dream I’ve had since I realised making your own games was possible, around the age of 10 - I could get this game on Xbox. The scope was small, it didn’t have high demands for art or music or anything that I wasn’t already comfortable with. I could actually <strong>do it. </strong>I applied to ID@Xbox, and got accepted 🎉</p><h2 style="white-space:pre-wrap;"><strong>Smooth sailing</strong></h2><p class="" style="white-space:pre-wrap;">At that point, it was no longer a small project. Getting stuff working on Xbox was <strong>tough</strong>, and a full rewrite was needed. Once that was done, though, it was smooth sailing - just a bunch of content right?</p><p class="" style="white-space:pre-wrap;">Wrong!</p><p class="" style="white-space:pre-wrap;">I got the tech working, and a spot in the ID@Xbox Summer Demo Fest in 2022. The first level was done, I was pretty happy with it and got a bunch of great feedback. I’d had a successful Kickstarter that raised a little over £1,000, so I even had external pressure. But I burnt out <strong>hard</strong>. Getting it ready for the demo fest killed me a little bit, I had such a short amount of time to get things ready and after that, I couldn’t stand working on it for a while. An entire year passed. I got the Pentagon level done, which was cool, but progress was slow. I wasn’t really treating it like something that was ever going to be “finished”. I had no deadline, I had no goal or anything like that. I was just working on it every now and then because “I need to work on it”. </p><h2 style="white-space:pre-wrap;"><strong>Okay, maybe not smooth sailing</strong></h2><p class="" style="white-space:pre-wrap;">On top of that burnout, the baby was born about 6 months before. I don’t recommend trying to finish a game as a new parent 😂 I have loved every minute of being a parent, but it’s a full time job on top of the day job, and hobbies just sort of disappear for a while. Plus, it’s a pretty convenient excuse. “Hey Dom, it’s been a year since your intended release date for Kickstarter, why are there only two levels” - baby! Really, though, it was an excuse. I just wasn’t feeling like working on the game, and it was tough. I considered cancelling the project many times, but if I couldn’t take this “tiny project” past the finish line, I really wasn’t going to do anything else. Stubbornness prevailed.</p><h2 style="white-space:pre-wrap;"><strong>The road to release</strong></h2><p class="" style="white-space:pre-wrap;">Steam announced their first Shmup Fest, and suddenly I had a deadline. If I didn’t get the game done before shmup fest, Polyfury was either never getting finished, or wasn’t going to sell anything. I’m not hugely doing this to get money, but I’d like to make back at least a little of what I spent. I convinced myself that this was it, it was shmup fest or cancelled project. I could actually finish this, and I could do it in 100 days. Hey, that would be a cool idea for a blog, and would keep me accountable!</p><p class="" style="white-space:pre-wrap;">You can read the first day <a href="https://wayfarer-games.com/road-to-release/day-one/">here</a>, and I did genuinely work and post every day, except one while I was on holiday because the internet died and my scheduled posts ran out, and forgetting to post early this week because my brain was dead. What a difference this little blog made. There’s a lot to be said for accountability, and without it I don’t think I’d have forced myself to work as consistently as I did. Without it, Polyfury would not be on the cusp of release.</p><p class="" style="white-space:pre-wrap;">I’m going to write up a proper postmortem of the game once it’s actually in the wild and people have bought it. I will be as open as I can be about sales figures, though I expect neither Steam nor Xbox will want me to share full figues. Sign up to the mailing list below to be notified of that!</p><p class="" style="white-space:pre-wrap;">Thank you for reading, and if you’ve been following along - thank you for being part of the journey. If not, click some of the links around ;) try the game, <a href="https://discord.gg/Et5SpCc">join the Discord</a>, say hello!</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-one-hundred/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 5: Implementing Game Speed &amp; Editor Scripting Helper | Wayfarer Games</title>
+  <meta name="description" content="We figured out a great way to help with game speed on the Wayfarer Games Discord server! Join below: Join Discord There’s now a base class with a bunch of helper methods, which makes handling game speed much easier to manage. However, there’s a new field on some 80 objects - it w">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-five/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 5: Implementing Game Speed &amp; Editor Scripting Helper | Wayfarer Games">
+  <meta property="og:description" content="We figured out a great way to help with game speed on the Wayfarer Games Discord server! Join below: Join Discord There’s now a base class with a bunch of helper methods, which makes handling game speed much easier to manage. However, there’s a new field on some 80 objects - it w">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-five/">
+  <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/42c4d135-6874-484d-b0ac-316ea1622d98/Screenshot+2023-05-29+at+14.37.36.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 5: Implementing Game Speed &amp; Editor Scripting Helper | Wayfarer Games">
+  <meta name="twitter:description" content="We figured out a great way to help with game speed on the Wayfarer Games Discord server! Join below: Join Discord There’s now a base class with a bunch of helper methods, which makes handling game speed much easier to manage. However, there’s a new field on some 80 objects - it w">
+  <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/42c4d135-6874-484d-b0ac-316ea1622d98/Screenshot+2023-05-29+at+14.37.36.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Implementing Game Speed & Editor Scripting Helper",
+  "alternativeHeadline": "Day 5",
+  "description": "We figured out a great way to help with game speed on the Wayfarer Games Discord server! Join below: Join Discord There’s now a base class with a bunch of helper methods, which makes handling game speed much easier to manage. However, there’s a new field on some 80 objects - it w",
+  "datePublished": "2023-05-29T13:44:24.000Z",
+  "dateModified": "2023-05-29T13:44:24.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-five/",
+  "url": "https://wayfarer-games.com/road-to-release/day-five/",
+  "image": "https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/42c4d135-6874-484d-b0ac-316ea1622d98/Screenshot+2023-05-29+at+14.37.36.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 5</div>
+        <h1>Implementing Game Speed &amp; Editor Scripting Helper</h1>
+        <p class="summary">We figured out a great way to help with game speed on the Wayfarer Games Discord server! Join below: Join Discord There’s now a base class with a bunch of helper methods, which makes handling game speed much easier to manage. However, there’s a new field on some 80 objects - it w</p>
+        <div class="meta">
+          <span>29 May 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">We figured out a great way to help with game speed on the Wayfarer Games Discord server! Join below:</p>
+</div>
+<div>
+ <a
+  href="https://wayfarer-games.com/discord"
+  class="sqs-block-button-element--medium sqs-button-element--primary sqs-block-button-element"
+ >
+  Join Discord
+ </a>
+</div>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">There’s now a base class with a bunch of helper methods, which makes handling game speed much easier to manage. However, there’s a new field on some 80 objects - it would be <strong>pain</strong> to have to manually assign every one. Luckily, this is where <strong>editor scripting</strong> comes in <em>incredibly </em>useful. Writing little tools like this can save hours of pain, if not dozens of hours on larger projects. In Unity, you can add [UnityEditor.MenuItem] to a static method, and it will appear in a nice little dropdown menu in the top bar. Here’s the code:</p>
+</div>
+<pre class="code_syntax" style="color:#000000;background:#ffffff;"><span class="line_wrapper">#<span style="color:#800000; font-weight:bold; ">if</span> UNITY_EDITOR</span>
+<span class="line_wrapper"><span style="color:#808030; ">[</span>UnityEditor<span style="color:#808030; ">.</span>MenuItem<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Polyfury/Assign GameSpeed</span><span style="color:#800000; ">"</span><span style="color:#808030; ">)</span><span style="color:#808030; ">]</span></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">public</span> <span style="color:#800000; font-weight:bold; ">static</span> <span style="color:#800000; font-weight:bold; ">void</span> <span style="color:#005fd2; ">AssignGameSpeedFloat</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span></span>
+<span class="line_wrapper"><span style="color:#800080; ">{</span></span>
+<span class="line_wrapper">  <span style="color:#800000; font-weight:bold; ">var</span> objects <span style="color:#808030; ">=</span> FindObjectsOfType<span style="color:#808030; ">&lt;</span>BaseTimeSyncedObject<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">true</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">  <span style="color:#800000; font-weight:bold; ">var</span> gameSpeed <span style="color:#808030; ">=</span> Resources<span style="color:#808030; ">.</span>FindObjectsOfTypeAll<span style="color:#808030; ">&lt;</span>GameSpeedFloat<span style="color:#808030; ">&gt;</span><span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>First<span style="color:#808030; ">(</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">  </span>
+<span class="line_wrapper">  <span style="color:#800000; font-weight:bold; ">int</span> count <span style="color:#808030; ">=</span> <span style="color:#008c00; ">0</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">  <span style="color:#800000; font-weight:bold; ">foreach</span> <span style="color:#808030; ">(</span><span style="color:#800000; font-weight:bold; ">var</span> o <span style="color:#800000; font-weight:bold; ">in</span> objects<span style="color:#808030; ">)</span></span>
+<span class="line_wrapper">  <span style="color:#800080; ">{</span></span>
+<span class="line_wrapper">    <span style="color:#800000; font-weight:bold; ">if</span> <span style="color:#808030; ">(</span>o<span style="color:#808030; ">.</span>gameSpeed <span style="color:#808030; ">=</span><span style="color:#808030; ">=</span> <span style="color:#800000; font-weight:bold; ">null</span><span style="color:#808030; ">)</span></span>
+<span class="line_wrapper">    <span style="color:#800080; ">{</span></span>
+<span class="line_wrapper">      o<span style="color:#808030; ">.</span>gameSpeed <span style="color:#808030; ">=</span> gameSpeed<span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">      Debug<span style="color:#808030; ">.</span>Log<span style="color:#808030; ">(</span><span style="color:#800000; ">"</span><span style="color:#0000e6; ">Adding GameSpeed to </span><span style="color:#800000; ">"</span> <span style="color:#808030; ">+</span> o<span style="color:#808030; ">.</span>name<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">    <span style="color:#800080; ">}</span></span>
+<span class="line_wrapper">  <span style="color:#800080; ">}</span></span>
+<span class="line_wrapper"><span style="color:#800080; ">}</span></span>
+<span class="line_wrapper">#endif</span></pre>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">As you can see, all I’m doing is grabbing all the <code>BaseTimeSynced</code> objects in the scene (the <code>true</code> parameter here just means “include inactive objects), then setting the <code>gameSpeed</code> field to the first <code>GameSpeedFloat</code> it finds in the project.</p><p class="" style="white-space:pre-wrap;">We use Unity’s Resources system here - this is actually one of the few uses where it’s actually okay to do so 😂 searching the whole project by a string is generally a bad idea, doing it by a Type is much quicker.</p><p class="" style="white-space:pre-wrap;">This little function is added to a menu item that appears like this: </p>
+</div>
+   <figure>
+    <div class="intrinsic">
+      <div>
+      <div class="sqs-image-shape-container-element
+        content-fit
+      " >
+       <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/42c4d135-6874-484d-b0ac-316ea1622d98/Screenshot+2023-05-29+at+14.37.36.png">
+       <div class="image-overlay" style="overflow: hidden;-webkit-mask-image: -webkit-radial-gradient(white, black);"></div>
+      </div>
+      </div>
+    </div>
+   </figure>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">You can see I’m using <code>#if UNITY_EDITOR</code> here to make sure this editor code isn’t included in the project build. Being comfortable with editor scripting in Unity can speed you up an awful lot, feel free to ask any questions you’ve got about tooling if you get stuck.</p>
+</div>
+<div class="sqs-html-content">
+ <h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Oops, I’m still doing UI stuff sorry 😂 tomorrow I’ll sort the making balance tweaks for the Hexagon in preparation for the next round of testing, and talk about how I’m handling collision detection.</p>
+</div>
+<hr />
+<iframe src="https://assetstore.unity.com/linkmaker/embed/package/247937/widget-wide?aid=1101lwk2s&amp;wmode=opaque" data-embed="true" style="width:100%; height:130px; border:0px;"></iframe><div class="video-caption-wrapper"><div class="video-caption"><p class="" style="white-space:pre-wrap;">Making your own games? Check out Artificer Pro - released this month!</p></div></div></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-five/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

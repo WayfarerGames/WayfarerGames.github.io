@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 64: Dev Diary: The Evolution of Polyfury&#39;s Movement | Wayfarer Games</title>
+  <meta name="description" content="Hello from the past - I hope the future is good. This is one of a couple of scheduled posts that I’ve written just in case I’m ill/there’s a family emergency/I don’t have any internet at all. I hope I’m never in a position where I have no internet at all, that would suck. Since t">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-sixty-four/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 64: Dev Diary: The Evolution of Polyfury&#39;s Movement | Wayfarer Games">
+  <meta property="og:description" content="Hello from the past - I hope the future is good. This is one of a couple of scheduled posts that I’ve written just in case I’m ill/there’s a family emergency/I don’t have any internet at all. I hope I’m never in a position where I have no internet at all, that would suck. Since t">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-sixty-four/">
+  <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/ae7b9347-d9dc-4586-9ec2-c59c6ba7afa4/ezgif.com-optimize%2839%29.gif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 64: Dev Diary: The Evolution of Polyfury&#39;s Movement | Wayfarer Games">
+  <meta name="twitter:description" content="Hello from the past - I hope the future is good. This is one of a couple of scheduled posts that I’ve written just in case I’m ill/there’s a family emergency/I don’t have any internet at all. I hope I’m never in a position where I have no internet at all, that would suck. Since t">
+  <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/ae7b9347-d9dc-4586-9ec2-c59c6ba7afa4/ezgif.com-optimize%2839%29.gif">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Dev Diary: The Evolution of Polyfury's Movement",
+  "alternativeHeadline": "Day 64",
+  "description": "Hello from the past - I hope the future is good. This is one of a couple of scheduled posts that I’ve written just in case I’m ill/there’s a family emergency/I don’t have any internet at all. I hope I’m never in a position where I have no internet at all, that would suck. Since t",
+  "datePublished": "2023-08-04T18:53:59.000Z",
+  "dateModified": "2023-08-04T18:53:59.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-sixty-four/",
+  "url": "https://wayfarer-games.com/road-to-release/day-sixty-four/",
+  "image": "https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/ae7b9347-d9dc-4586-9ec2-c59c6ba7afa4/ezgif.com-optimize%2839%29.gif",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 64</div>
+        <h1>Dev Diary: The Evolution of Polyfury&#39;s Movement</h1>
+        <p class="summary">Hello from the past - I hope the future is good. This is one of a couple of scheduled posts that I’ve written just in case I’m ill/there’s a family emergency/I don’t have any internet at all. I hope I’m never in a position where I have no internet at all, that would suck. Since t</p>
+        <div class="meta">
+          <span>4 Aug 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Hello from the past - I hope the future is good. This is one of a couple of scheduled posts that I’ve written just in case I’m ill/there’s a family emergency/I don’t have any internet at all. I hope I’m never in a position where I have no internet at all, that would suck.</p><p class="" style="white-space:pre-wrap;">Since this could be posted ✨ at any time ✨ I won’t be able to tell you about specific content… So lets talk about movement! </p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/3bbc86b4-b985-43a1-becf-a64927b68bdd/ezgif.com-gif-maker%282%29.gif">
+      </div>
+     </div>
+    </figure>
+  </div>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">The original game was made for a game jam with the theme “stuck in a loop” - which I obviously took incredibly literally 😉 the original game was just a single boss (a hexagon), and the movement was… bad.</p><p class="" style="white-space:pre-wrap;">The “A” key moved you anticlockwise, the “D” key moved you clockwise. Movement was incredibly fast, there was a little bit of inertia, and it was basically impossible to be precise. Oh, and the controls appear to reverse when you’re in the top half of the ring!</p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/e5e984cf-bf5b-4002-af93-dba560eedebc/367bd.gif">
+      </div>
+     </div>
+    </figure>
+  </div>
+ 
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">This meant that everyone stayed at the bottom of the ring, so “A” moves you left and “D” moves you right, which feels natural. You’re also basically forced to be hit by a load of bullets sometimes, and unavoidable damage feels crap in games like this. </p><p class="" style="white-space:pre-wrap;">However, being stuck on a ring posed a really interesting challenge, design wise. The game is essentially 1D, with only one way to move, kinda like space invaders if it had screen wrapping.</p><p class="" style="white-space:pre-wrap;">The controls needed to change, that much was obvious. I toyed with a ton of different things, but ultimately I went with “your position on the ring is precisely the position of the thumbstick”. I thought it was really cool that I could make the whole game playable with just a single joystick. That’s a neat accessibility consideration, there are very few games designed for teenagers and adults that are built around being played with just one hand. It’s also a really interesting input method that gives the player <strong>full</strong> control… and it is wonderfully simple to code - literally just:</p><pre><code>player.position = thumbstick.normalized * radius;</code></pre><p class="" style="white-space:pre-wrap;">You can be at any point on the ring at any time, and you use the joystick in a different way - generally holding it all the way to the edge for the majority of play. It never goes to rest, and it moves around a lot.</p><p class="" style="white-space:pre-wrap;">There’s one major issue with this input scheme, however - cheap controllers <strong>will not work</strong>. Cheap controllers use digital input, which is fine for most games but in Polyfury it means you only have either 8 or 16 possible positions. That obviously doesn’t work in a bullet hell game like this!</p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/d9346219-4260-4bdf-b24b-0f1fcd1d8b21/ezgif.com-optimize%2838%29.gif">
+      </div>
+     </div>
+     <figcaption class="image-caption-wrapper">
+      <div class="image-caption"><p class="" style="white-space:pre-wrap;">Thanks for the footage <a href="https://twitter.com/hermitcat64">Hermit Cat</a>! It was all the way back in 2020 so you probably don’t even remember ;)</p></div>
+     </figcaption>
+    </figure>
+  </div>
+ 
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;"><br>We had to go through a TON of revisions for this. I tried going back to the original input method, but it just felt wrong. The worst thing I tried was this abomination:</p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/ae7b9347-d9dc-4586-9ec2-c59c6ba7afa4/ezgif.com-optimize%2839%29.gif">
+      </div>
+     </div>
+     <figcaption class="image-caption-wrapper">
+      <div class="image-caption"><p class="" style="white-space:pre-wrap;">Thanks again <a href="https://twitter.com/hermitcat64">Hermit Cat</a> <strong>😁</strong></p></div>
+     </figcaption>
+    </figure>
+  </div>
+ 
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">It still makes me feel dizzy just watching it! None of this was <em>really </em>working, so I eventually just added an onboarding screen:</p>
+</div>
+<div class="intrinsic" style="max-width:100%"><div class="embed-block-wrapper " style="padding-bottom:0.5561277%;"><div class="sqs-native-video" data-config-block-id="yui_3_17_2_1_1691171831242_65773" data-config-settings="&#123;&quot;muted&quot;:true,&quot;autoPlay&quot;:true,&quot;loop&quot;:true,&quot;controls&quot;:&quot;minimal&quot;&#125;" data-config-thumbnail="null" data-config-video="&#123;&quot;id&quot;:&quot;64cd44553d36105427e67276&quot;,&quot;recordType&quot;:61,&quot;addedOn&quot;:1691173973451,&quot;updatedOn&quot;:1691174017935,&quot;workflowState&quot;:1,&quot;authorId&quot;:&quot;5bdaf0ba7d062d0395f26fee&quot;,&quot;systemDataId&quot;:&quot;0777b3b3-22ae-4190-9194-fc423adb7f94&quot;,&quot;systemDataVariants&quot;:&quot;1942:1080,648:360&quot;,&quot;systemDataSourceType&quot;:&quot;mp4&quot;,&quot;filename&quot;:&quot;ezgif.com-gif-maker_14.mp4&quot;,&quot;body&quot;:null,&quot;likeCount&quot;:0,&quot;commentCount&quot;:0,&quot;publicCommentCount&quot;:0,&quot;commentState&quot;:1,&quot;unsaved&quot;:false,&quot;author&quot;:&#123;&quot;id&quot;:&quot;5bdaf0ba7d062d0395f26fee&quot;,&quot;displayName&quot;:&quot;Dom &#124; theChief&quot;,&quot;firstName&quot;:&quot;Dom&quot;,&quot;lastName&quot;:&quot;Harris&quot;,&quot;avatarUrl&quot;:&quot;https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/5bdaf0ba7d062d0395f26fee/f6412d57cc64480d8a095393250f3a3b/f6412d57cc64480d8a095393250f3a3b.jpeg?format=300w&quot;,&quot;websiteUrl&quot;:&quot;https://wayfarer-games.com&quot;,&quot;avatarAssetUrl&quot;:&quot;https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/5bdaf0ba7d062d0395f26fee/f6412d57cc64480d8a095393250f3a3b/f6412d57cc64480d8a095393250f3a3b.jpeg?format=300w&quot;&#125;,&quot;contentType&quot;:&quot;video/mp4&quot;,&quot;structuredContent&quot;:&#123;&quot;_type&quot;:&quot;SqspHostedVideo&quot;,&quot;videoCodec&quot;:&quot;h264&quot;,&quot;audioCodec&quot;:&quot;aac&quot;,&quot;alexandriaUrl&quot;:&quot;https://video.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/0777b3b3-22ae-4190-9194-fc423adb7f94/&#123;variant&#125;&quot;,&quot;alexandriaLibraryId&quot;:&quot;6086d006dce47b2b3ccc28ec&quot;,&quot;aspectRatio&quot;:1.798148148148148,&quot;durationSeconds&quot;:18.651967&#125;,&quot;videoCodec&quot;:&quot;h264&quot;,&quot;audioCodec&quot;:&quot;aac&quot;,&quot;alexandriaUrl&quot;:&quot;https://video.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/0777b3b3-22ae-4190-9194-fc423adb7f94/&#123;variant&#125;&quot;,&quot;alexandriaLibraryId&quot;:&quot;6086d006dce47b2b3ccc28ec&quot;,&quot;aspectRatio&quot;:1.798148148148148,&quot;durationSeconds&quot;:18.651967,&quot;items&quot;:[],&quot;pushedServices&quot;:&#123;&#125;,&quot;pendingPushedServices&quot;:&#123;&#125;,&quot;usageId&quot;:&quot;386a015e-c432-31cd-8e22-4a32a93cc244&quot;,&quot;assetProtectionLevel&quot;:&quot;LIBRARY&quot;,&quot;originalSize&quot;:&quot;1942:1080&quot;,&quot;recordTypeLabel&quot;:&quot;sqsp-hosted-video&quot;&#125;"><div class="native-video-player"></div></div></div></div>
+ 
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">It just changed to one of the other two control schemes and was a band-aid solution. A seperate but related issue was the fact that if you didn’t have a controller, you could only use one of the two terrible input methods. Having three input methods (analogue, A/D, A/D with the spinny vomit cam) also came with a bunch of bloat, I had to have an input manager and a way to switch between input methods. Input is handled inside a scriptable object, and there’s a manager that reads from that. This sucks, and yes I said <strong>is</strong> because that’s how it is now, even with just a single input option…</p><p class="" style="white-space:pre-wrap;">Enter 2022, a full <strong>year</strong> after development started properly! This needed fixing, I had just ignored it for too long. As a quick fix, I made it so when you’re not using a controller, your position was the normalised mouse position - again, super simple code:</p><pre><code>player.position = mousePos.normalized * radius;</code></pre><p class="" style="white-space:pre-wrap;">It was a quick hack to get <em>something</em>, anything in there to make it not suck for keyboard users. Turns out this is the best way to play the game <em>by far</em> 😂 all of my input woes were immediately fixed by this one simple hack. There’s a minor issue in that it is basically impossible to get to the opposite side of the ring immediately, which was a trick that I want to use in later levels. I’ll probably just ditch that as an intended solution to some of the bullet patterns. It’s actually noticably easier with a mouse, so I think having that ability will balance out the difficulty on controller a little bit.</p><p class="" style="white-space:pre-wrap;">So uh… What’s the moral of the story? Test things! Test them quickly and early, the solution might be a stupid little hack that you think is going to feel terrible. Also, don’t be afraid to change the input entirely. Being able to prototype things like this quickly basically saved this game. There’s no way I could ship a good PC version and require a controller.</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Who knows, maybe another scheduled post, maybe I’m back. I’ve probably posted something on Discord!</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-sixty-four/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

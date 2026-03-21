@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 83: Heptagram Headrush: Balancing and Bug Fixing | Wayfarer Games</title>
+  <meta name="description" content="I’ve done about 12 hours work on this game today, what a way to spend the bank holiday! 😂 I will be so glad when it’s done and I can have a life again… It doesn’t feel like I’ve done 12 hours work because I have needed to spend an awfully long time balancing, tweaking, and fixin">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-eighty-three/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 83: Heptagram Headrush: Balancing and Bug Fixing | Wayfarer Games">
+  <meta property="og:description" content="I’ve done about 12 hours work on this game today, what a way to spend the bank holiday! 😂 I will be so glad when it’s done and I can have a life again… It doesn’t feel like I’ve done 12 hours work because I have needed to spend an awfully long time balancing, tweaking, and fixin">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-eighty-three/">
+  <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1693243443226-AWUXOX8AJI8FAPIYN18I/ezgif.com-optimize%2857%29.gif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 83: Heptagram Headrush: Balancing and Bug Fixing | Wayfarer Games">
+  <meta name="twitter:description" content="I’ve done about 12 hours work on this game today, what a way to spend the bank holiday! 😂 I will be so glad when it’s done and I can have a life again… It doesn’t feel like I’ve done 12 hours work because I have needed to spend an awfully long time balancing, tweaking, and fixin">
+  <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1693243443226-AWUXOX8AJI8FAPIYN18I/ezgif.com-optimize%2857%29.gif">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Heptagram Headrush: Balancing and Bug Fixing",
+  "alternativeHeadline": "Day 83",
+  "description": "I’ve done about 12 hours work on this game today, what a way to spend the bank holiday! 😂 I will be so glad when it’s done and I can have a life again… It doesn’t feel like I’ve done 12 hours work because I have needed to spend an awfully long time balancing, tweaking, and fixin",
+  "datePublished": "2023-08-28T17:37:25.000Z",
+  "dateModified": "2023-08-28T17:37:25.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-eighty-three/",
+  "url": "https://wayfarer-games.com/road-to-release/day-eighty-three/",
+  "image": "https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1693243443226-AWUXOX8AJI8FAPIYN18I/ezgif.com-optimize%2857%29.gif",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 83</div>
+        <h1>Heptagram Headrush: Balancing and Bug Fixing</h1>
+        <p class="summary">I’ve done about 12 hours work on this game today, what a way to spend the bank holiday! 😂 I will be so glad when it’s done and I can have a life again… It doesn’t feel like I’ve done 12 hours work because I have needed to spend an awfully long time balancing, tweaking, and fixin</p>
+        <div class="meta">
+          <span>28 Aug 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">I’ve done about 12 hours work on this game today, what a way to spend the bank holiday! 😂 I will be so glad when it’s done and I can have a <strong>life</strong> again…</p><p class="" style="white-space:pre-wrap;">It doesn’t feel like I’ve done 12 hours work because I have needed to spend an awfully long time balancing, tweaking, and fixing things I broke with other little tasks. Oops. Turns out the triangle twins really don’t like being constrained to a specific order!</p><p class="" style="white-space:pre-wrap;">I did manage to fix the visual issues that have plagued the heptagram’s arrow form though - here’s a gif:</p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1693243443226-AWUXOX8AJI8FAPIYN18I/ezgif.com-optimize%2857%29.gif">
+      </div>
+     </div>
+    </figure>
+  </div>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">I could not get those damn arrow heads to align to the direction they were travelling. Usually, that’s really easy - either transform.up = direction or transform.forward = direction, but <strong>no. </strong>Not this time apparently. Stupid euler angles. Here’s the final code for doing that:</p>
+</div>
+<pre class="code_syntax" style="color:#000000;background:#ffffff;"><span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">var</span> finalPos <span style="color:#808030; ">=</span> RotatePointAroundPivot<span style="color:#808030; ">(</span><span style="color:#808030; ">-</span>arrow<span style="color:#808030; ">.</span>position<span style="color:#808030; ">,</span> Vector3<span style="color:#808030; ">.</span>zero<span style="color:#808030; ">,</span> _player<span style="color:#808030; ">.</span>eulerAngles <span style="color:#808030; ">*</span> <span style="color:#008000; ">0.1</span><span style="color:#006600; ">f</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">arrow<span style="color:#808030; ">.</span>LookAt<span style="color:#808030; ">(</span>finalPos<span style="color:#808030; ">,</span> Vector3<span style="color:#808030; ">.</span>up<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper">arrow<span style="color:#808030; ">.</span>Rotate<span style="color:#808030; ">(</span>Vector3<span style="color:#808030; ">.</span>right<span style="color:#808030; ">,</span> <span style="color:#008c00; ">90</span><span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span>
+<span class="line_wrapper"><span style="color:#800000; font-weight:bold; ">var</span> dir <span style="color:#808030; ">=</span> Vector3<span style="color:#808030; ">.</span>Cross<span style="color:#808030; ">(</span><span style="color:#808030; ">(</span>finalPos<span style="color:#808030; ">-</span>arrow<span style="color:#808030; ">.</span>position<span style="color:#808030; ">)</span><span style="color:#808030; ">.</span>normalized<span style="color:#808030; ">,</span> Vector3<span style="color:#808030; ">.</span>up<span style="color:#808030; ">)</span><span style="color:#800080; ">;</span></span></pre>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Absolutely cursed, I have no idea why it needs that extra rotation at the end. Ignore the magic float there, too.</p><p class="" style="white-space:pre-wrap;">Not only was the arrow movement scuffed, but these bullet walls have been a <strong>nightmare</strong> to make sure they both move towards the player <strong>and </strong>are actually, you know, dodgeable and fun. I almost gave up with the randomisation entirely! There’s one point towards the end of the fight with three simultaneous walls. This sort of thing is the part of game dev I have found that I loathe the most 😂 </p><p class="" style="white-space:pre-wrap;">Anyway, 12 hours later and I’ve got a really intense, fun battle. With an extra surprise at the end. However, I’ve broken all the lasers so I’m gonna have to fix that before a new build goes out 🙃</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Fix the lasers - probably won’t be done tomorrow, so we’re looking at Wednesday for a new build. I’ve also got to sort some things on the Xbox admin side, and sort the next two bosses.</p><p class="" style="white-space:pre-wrap;">In two weeks.</p><p class="" style="white-space:pre-wrap;">With a nasty cold.</p><p class="" style="white-space:pre-wrap;">Yay.</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-eighty-three/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

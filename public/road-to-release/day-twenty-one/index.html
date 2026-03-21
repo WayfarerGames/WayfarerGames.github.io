@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 21: Dev Diary: The Evolution of Polyfury&#39;s Scoring | Wayfarer Games</title>
+  <meta name="description" content="Today was a little more work on the triangle twins - nothing to show off just yet, so lets talk scoring . The scoring system in this game has had a ton of different iterations. It started out just being a simple timer, but that didn’t really work because your damage output is rel">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-twenty-one/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 21: Dev Diary: The Evolution of Polyfury&#39;s Scoring | Wayfarer Games">
+  <meta property="og:description" content="Today was a little more work on the triangle twins - nothing to show off just yet, so lets talk scoring . The scoring system in this game has had a ton of different iterations. It started out just being a simple timer, but that didn’t really work because your damage output is rel">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-twenty-one/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 21: Dev Diary: The Evolution of Polyfury&#39;s Scoring | Wayfarer Games">
+  <meta name="twitter:description" content="Today was a little more work on the triangle twins - nothing to show off just yet, so lets talk scoring . The scoring system in this game has had a ton of different iterations. It started out just being a simple timer, but that didn’t really work because your damage output is rel">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Dev Diary: The Evolution of Polyfury's Scoring",
+  "alternativeHeadline": "Day 21",
+  "description": "Today was a little more work on the triangle twins - nothing to show off just yet, so lets talk scoring . The scoring system in this game has had a ton of different iterations. It started out just being a simple timer, but that didn’t really work because your damage output is rel",
+  "datePublished": "2023-06-15T19:22:39.000Z",
+  "dateModified": "2023-06-15T19:22:39.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-twenty-one/",
+  "url": "https://wayfarer-games.com/road-to-release/day-twenty-one/",
+  "image": "https://wayfarer-games.com/logo.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 21</div>
+        <h1>Dev Diary: The Evolution of Polyfury&#39;s Scoring</h1>
+        <p class="summary">Today was a little more work on the triangle twins - nothing to show off just yet, so lets talk scoring . The scoring system in this game has had a ton of different iterations. It started out just being a simple timer, but that didn’t really work because your damage output is rel</p>
+        <div class="meta">
+          <span>15 Jun 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content">
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Today was a little more work on the triangle twins - nothing to show off just yet, so lets talk <strong>scoring</strong>.</p><p class="" style="white-space:pre-wrap;">The scoring system in this game has had a ton of different iterations. It started out just being a simple timer, but that didn’t really work because your damage output is relatively fixed. It also raised the question of “why have a shoot button at all if it doesn’t make any difference”. </p><p class="" style="white-space:pre-wrap;">The next iteration was a massive overhaul. Score pips now spawn when you’re dealing damage, and at a higher rate when you’re “grazing” - which just means when you’re in danger but haven’t been hit (you can tell when you’re grazing because the screen gets lighter and your bullets change). The score multiplier doubled for every 10 pips you collect, halved if you left a score pip time out, and reset completely when you were hit. On top of all that, when you defeat the boss, all the bullets that are on screen are “cancelled”, and given to you as points that take your multiplier into account. That meant massive bonuses for defeating bosses <strong>at the right time</strong>, which means that if you want the highest scores, you need to stop shooting for a little bit and make sure the boss is shooting lots of bullets before dealing the final blow. To prevent excessive “milking” (which is intentionally not defeating a boss for long periods of time to get the best score), there was a bonus for quick completion, and a penalty for being too slow. And on top of <em>that</em>, there was also a bonus for not getting hit, and a penalty for getting hit twice. </p><p class="" style="white-space:pre-wrap;">That iteration was a <strong>resounding success.</strong> It made the game so much more interesting, and we had a bunch of really great scoring competitions. That’s not to say there weren’t issues, though! Getting hit is <strong>heavily punished.</strong> You basically had to do a perfect run to get any chance at the top of the leaderboard, which makes mistakes incredibly demoralising. The multiplier reset <em>alone</em> was punishing enough, but to lose out on an extra 50% score boost at the end of the game just exacerbated the issue. On top of punishing getting hit too heavily, it also really over-prioritised precise, methodical movement. That’s kinda boring in a game that’s supposed to be a little bit chaotic, so it just didn’t meet the goals.</p><p class="" style="white-space:pre-wrap;">So how do we fix that? Introducing <strong>@tntdragon</strong> - who dropped an absolute goldmine of information about scoring in the Discord server. If you’re in the server, just search “deathlessness” and you’ll find the post, I highly recommend reading it. There was a little bit of input from some other people in the server, but that post really shaped the next iteration. So what changed?</p><p class="" style="white-space:pre-wrap;">First things first, that death punishment was too much. Now it only halves the multiplier, and your multipler increases by <strong>one</strong> instead of doubling. There’s no explicit multiplier for not getting hit, too. </p><p class="" style="white-space:pre-wrap;">Score pips no longer expire! You can keep them all on the screen for as long as you like, but the multiplier now always decreases. It decreases faster the higher the multiplier, too, which can help incentivise that frenetic, chaotic movement that I was aiming for. They also spawn a lot more frequently, which means higher scores (which is always satisfying).</p><p class="" style="white-space:pre-wrap;">There are now extra life bonuses strewn through the levels, too. These have two purposes - they provide a bit of relief for newer players, which is absolutely necessary because this is quite a difficult game, but if you <strong>haven’t</strong> <strong>been hit</strong>, they give you a nice juicy bonus. Up to 32,000 extra points each, depending on your multiplier! That actually has an extra consequence - it means getting hit <em>after </em>the extra lives has spawned doesn’t really impact your score too much. Mistakes at the end of the battle (which tends to be a lot more difficult) are <strong>far less costly. </strong>Hooray!</p><p class="" style="white-space:pre-wrap;">The newer scoring system brings the game much closer to my vision, and makes playing for score a lot more interesting, and with less of a punishment for mistakes it’s also a lot less frustrating and more approachable. It’s not quite perfect, though, and I could really tweak it forever… I’m considering adding bonus points for letting score pips sit for longer - which would change the dynamic of gameplay a little! There’s also the possibility of doing the bullet -&gt; score conversion on phase changes, too. Lots more score, but also extra use of that mechanic and more reason to stop shooting. There might be a little test of that mechanic for the alpha testers in a few weeks, but it’s definitely not a priority.</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">That was a tangent, huh? Tomorrow will be some more work on the triangle twins. I might carry on doing a deeper dive of existing mechanics on a Thursday, too. I have a little bit of space to write without being able to do work on the game, it could be a good thing. Let me know what you think!</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-twenty-one/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

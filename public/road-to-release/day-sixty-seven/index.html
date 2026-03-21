@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 67: Syncing Sounds: Improving Boss Phase Audio | Wayfarer Games</title>
+  <meta name="description" content="Today was a frustrating day, for many reasons! Of my 6ish free hours to work on the game, 3 were spent trying to fix one bug - not the way I wanted to spend half the day. I did end up getting some work done on the Heptagram, but it was mostly Pentagon bugfixes in the end. One of ">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-sixty-seven/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 67: Syncing Sounds: Improving Boss Phase Audio | Wayfarer Games">
+  <meta property="og:description" content="Today was a frustrating day, for many reasons! Of my 6ish free hours to work on the game, 3 were spent trying to fix one bug - not the way I wanted to spend half the day. I did end up getting some work done on the Heptagram, but it was mostly Pentagon bugfixes in the end. One of ">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-sixty-seven/">
+  <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 67: Syncing Sounds: Improving Boss Phase Audio | Wayfarer Games">
+  <meta name="twitter:description" content="Today was a frustrating day, for many reasons! Of my 6ish free hours to work on the game, 3 were spent trying to fix one bug - not the way I wanted to spend half the day. I did end up getting some work done on the Heptagram, but it was mostly Pentagon bugfixes in the end. One of ">
+  <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Syncing Sounds: Improving Boss Phase Audio",
+  "alternativeHeadline": "Day 67",
+  "description": "Today was a frustrating day, for many reasons! Of my 6ish free hours to work on the game, 3 were spent trying to fix one bug - not the way I wanted to spend half the day. I did end up getting some work done on the Heptagram, but it was mostly Pentagon bugfixes in the end. One of ",
+  "datePublished": "2023-08-09T18:40:48.000Z",
+  "dateModified": "2023-08-09T18:40:48.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-sixty-seven/",
+  "url": "https://wayfarer-games.com/road-to-release/day-sixty-seven/",
+  "image": "https://wayfarer-games.com/logo.png",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 67</div>
+        <h1>Syncing Sounds: Improving Boss Phase Audio</h1>
+        <p class="summary">Today was a frustrating day, for many reasons! Of my 6ish free hours to work on the game, 3 were spent trying to fix one bug - not the way I wanted to spend half the day. I did end up getting some work done on the Heptagram, but it was mostly Pentagon bugfixes in the end. One of </p>
+        <div class="meta">
+          <span>9 Aug 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Today was a frustrating day, for many reasons! Of my 6ish free hours to work on the game, 3 were spent trying to fix <strong>one</strong><em> </em><strong>bug</strong> - not the way I wanted to spend half the day. I did end up getting some work done on the Heptagram, but it was mostly Pentagon bugfixes in the end. One of the major things I’ve wanted to sort for ages were the sudden audio transitions between boss phases. It didn’t feel good, so on the Pentagon it is now actually synced properly (sound on):</p>
+</div>
+<div class="intrinsic" style="max-width:100%"><div class="embed-block-wrapper " style="padding-bottom:0.5625%;"><div class="sqs-native-video" data-config-block-id="yui_3_17_2_1_1691605465381_5560" data-config-settings="&#123;&quot;muted&quot;:false,&quot;autoPlay&quot;:false,&quot;loop&quot;:true,&quot;controls&quot;:&quot;full&quot;&#125;" data-config-thumbnail="null" data-config-video="&#123;&quot;id&quot;:&quot;64d3da31139c6d655afd499b&quot;,&quot;recordType&quot;:61,&quot;addedOn&quot;:1691605553654,&quot;updatedOn&quot;:1691605654442,&quot;workflowState&quot;:1,&quot;authorId&quot;:&quot;5bdaf0ba7d062d0395f26fee&quot;,&quot;systemDataId&quot;:&quot;1f28dfae-1de9-47b6-b7a0-ef7ff5fcc3f0&quot;,&quot;systemDataVariants&quot;:&quot;1920:1080,640:360&quot;,&quot;systemDataSourceType&quot;:&quot;mp4&quot;,&quot;filename&quot;:&quot;movie_034.mp4&quot;,&quot;body&quot;:null,&quot;likeCount&quot;:0,&quot;commentCount&quot;:0,&quot;publicCommentCount&quot;:0,&quot;commentState&quot;:1,&quot;unsaved&quot;:false,&quot;author&quot;:&#123;&quot;id&quot;:&quot;5bdaf0ba7d062d0395f26fee&quot;,&quot;displayName&quot;:&quot;Dom &#124; theChief&quot;,&quot;firstName&quot;:&quot;Dom&quot;,&quot;lastName&quot;:&quot;Harris&quot;,&quot;avatarUrl&quot;:&quot;https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/5bdaf0ba7d062d0395f26fee/f6412d57cc64480d8a095393250f3a3b/f6412d57cc64480d8a095393250f3a3b.jpeg?format=300w&quot;,&quot;websiteUrl&quot;:&quot;https://wayfarer-games.com&quot;,&quot;avatarAssetUrl&quot;:&quot;https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/5bdaf0ba7d062d0395f26fee/f6412d57cc64480d8a095393250f3a3b/f6412d57cc64480d8a095393250f3a3b.jpeg?format=300w&quot;&#125;,&quot;contentType&quot;:&quot;video/mp4&quot;,&quot;structuredContent&quot;:&#123;&quot;_type&quot;:&quot;SqspHostedVideo&quot;,&quot;videoCodec&quot;:&quot;h264&quot;,&quot;audioCodec&quot;:&quot;aac&quot;,&quot;alexandriaUrl&quot;:&quot;https://video.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1f28dfae-1de9-47b6-b7a0-ef7ff5fcc3f0/&#123;variant&#125;&quot;,&quot;alexandriaLibraryId&quot;:&quot;6086d006dce47b2b3ccc28ec&quot;,&quot;aspectRatio&quot;:1.7777777777777777,&quot;durationSeconds&quot;:8.316667&#125;,&quot;videoCodec&quot;:&quot;h264&quot;,&quot;audioCodec&quot;:&quot;aac&quot;,&quot;alexandriaUrl&quot;:&quot;https://video.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/1f28dfae-1de9-47b6-b7a0-ef7ff5fcc3f0/&#123;variant&#125;&quot;,&quot;alexandriaLibraryId&quot;:&quot;6086d006dce47b2b3ccc28ec&quot;,&quot;aspectRatio&quot;:1.7777777777777777,&quot;durationSeconds&quot;:8.316667,&quot;items&quot;:[],&quot;pushedServices&quot;:&#123;&#125;,&quot;pendingPushedServices&quot;:&#123;&#125;,&quot;usageId&quot;:&quot;f1d8b3e8-5993-3e2d-95f9-850617b47567&quot;,&quot;assetProtectionLevel&quot;:&quot;LIBRARY&quot;,&quot;originalSize&quot;:&quot;1920:1080&quot;,&quot;recordTypeLabel&quot;:&quot;sqsp-hosted-video&quot;&#125;"><div class="native-video-player"></div></div></div></div>
+<div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">Well, <strong>sometimes</strong> synced properly. See, the issue is that this is a 22 second loop - and I absolutely do not want the player to sit around for an extra 22 seconds if they miss it, so there’s a 5 second cap. If you get to the phase transition with less than 5 seconds left on the loop, it will continue nicely as above. You can actually get it to <strong>immediately</strong> phase shift if you time it well enough - keep an eye on the clock, the track is pretty much exactly 22 seconds long so you want to try change the phase at a little before 44s, 43s would be the safe bet, but be aware it will finish the current attack first, so you’ve got to build a few seconds in for that. If you do this, you should be pretty much guaranteed the 4x multiplier for time. </p><p class="" style="white-space:pre-wrap;">If you miss that window though, there’s up to 5 seconds where the boss will centre and charge up. You can’t damage it during this time, so you’ll lose precious seconds on the clock, though you’ll still spawn points while hitting it, so you shouldn’t lose your multiplier.</p><p class="" style="white-space:pre-wrap;">I’m aiming for all bosses to have this interaction with the music, so it will be the end of sudden audio transitions! Audio synced stuff always feels really good, so it’s nice that I could get this in there today. I’ll tidy up the actual animation and sync it to the audio at some point, too :)</p><h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">I really am going to prioritise the Heptagram tomorrow, I won’t have much time to work on it but I’ll try get the intro animation done. That’s always something I put off - I’m no animator, but I think I’ve done ok with the others so far!</p>
+</div>
+<hr /></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-sixty-seven/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>

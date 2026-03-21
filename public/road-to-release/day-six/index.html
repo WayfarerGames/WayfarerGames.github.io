@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 6: Debugging Fast Laser Collisions: A Wild Goose Chase! | Wayfarer Games</title>
+  <meta name="description" content="I spent two hours (which is longer than I should’ve spent working on the game at all today) trying to work out fast rotating collision detection for the hexagon’s sweeping beams today. Fast moving rotating collision bodies are a tricky problem to solve! Games like the new Legend ">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://wayfarer-games.com/road-to-release/day-six/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Wayfarer Games">
+  <meta property="og:title" content="Day 6: Debugging Fast Laser Collisions: A Wild Goose Chase! | Wayfarer Games">
+  <meta property="og:description" content="I spent two hours (which is longer than I should’ve spent working on the game at all today) trying to work out fast rotating collision detection for the hexagon’s sweeping beams today. Fast moving rotating collision bodies are a tricky problem to solve! Games like the new Legend ">
+  <meta property="og:url" content="https://wayfarer-games.com/road-to-release/day-six/">
+  <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/0dd7b9a1-c2b0-442a-8ec4-35aebd76aea9/ezgif.com-optimize%2810%29.gif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Day 6: Debugging Fast Laser Collisions: A Wild Goose Chase! | Wayfarer Games">
+  <meta name="twitter:description" content="I spent two hours (which is longer than I should’ve spent working on the game at all today) trying to work out fast rotating collision detection for the hexagon’s sweeping beams today. Fast moving rotating collision bodies are a tricky problem to solve! Games like the new Legend ">
+  <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/0dd7b9a1-c2b0-442a-8ec4-35aebd76aea9/ezgif.com-optimize%2810%29.gif">
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Debugging Fast Laser Collisions: A Wild Goose Chase!",
+  "alternativeHeadline": "Day 6",
+  "description": "I spent two hours (which is longer than I should’ve spent working on the game at all today) trying to work out fast rotating collision detection for the hexagon’s sweeping beams today. Fast moving rotating collision bodies are a tricky problem to solve! Games like the new Legend ",
+  "datePublished": "2023-05-30T15:30:00.000Z",
+  "dateModified": "2023-05-30T15:30:00.000Z",
+  "mainEntityOfPage": "https://wayfarer-games.com/road-to-release/day-six/",
+  "url": "https://wayfarer-games.com/road-to-release/day-six/",
+  "image": "https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/0dd7b9a1-c2b0-442a-8ec4-35aebd76aea9/ezgif.com-optimize%2810%29.gif",
+  "isPartOf": {
+    "@type": "Blog",
+    "name": "100 Days of Dev",
+    "url": "https://wayfarer-games.com/100-days-blog/"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dom Harris"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wayfarer Games",
+    "url": "https://wayfarer-games.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/styles/wayfarer-shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; background:radial-gradient(circle at top, rgba(90,214,255,.14), transparent 34%), linear-gradient(180deg, #0b0f1f 0%, #141227 100%); }
+    .shell { max-width:960px; margin:0 auto; padding:28px 18px 72px; }
+    .topbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .crumb, .pill-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .crumb { color:rgba(250,252,255,.72); font-size:14px; font-weight:700; }
+    .pill-link { border:1px solid rgba(90,214,255,.22); border-radius:999px; padding:8px 14px; color:var(--poly); font-size:13px; font-weight:700; background:rgba(90,214,255,.08); }
+    .card { background:rgba(14,12,28,.82); border:1px solid rgba(255,255,255,.09); border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.35); overflow:hidden; }
+    .hero { padding:34px clamp(20px, 4vw, 44px) 28px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .eyebrow { display:inline-block; margin-bottom:14px; font-family:"Fredoka", sans-serif; font-size:13px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--poly); background:rgba(90,214,255,.12); border:1px solid rgba(90,214,255,.28); border-radius:999px; padding:7px 12px; }
+    h1 { font-family:"Fredoka", sans-serif; font-size:clamp(32px, 5vw, 60px); line-height:1.04; margin-bottom:14px; }
+    .summary { font-size:17px; line-height:1.7; color:rgba(250,252,255,.72); max-width:760px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; color:rgba(250,252,255,.48); font-size:14px; font-weight:700; }
+    .content { padding:30px clamp(20px, 4vw, 44px) 42px; line-height:1.88; font-size:17px; color:rgba(250,252,255,.84); }
+    .content h1, .content h2, .content h3, .content h4 { font-family:"Fredoka", sans-serif; line-height:1.15; margin:1.7em 0 .55em; color:var(--white); }
+    .content h2 { font-size:1.7em; }
+    .content h3 { font-size:1.3em; color:var(--poly); }
+    .content p { margin-bottom:1.15em; }
+    .content a { color:var(--poly); text-decoration-color:rgba(90,214,255,.4); text-underline-offset:3px; }
+    .content img, .content video, .content iframe { display:block; width:100%; max-width:100%; border-radius:16px; margin:1.2em 0 1.5em; border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28); }
+    .content ul, .content ol { padding-left:1.6em; margin-bottom:1.15em; }
+    .content li { margin-bottom:.35em; }
+    .content blockquote { border-left:3px solid var(--poly); padding:8px 0 8px 18px; margin:1.5em 0; color:rgba(250,252,255,.62); background:rgba(90,214,255,.05); border-radius:0 10px 10px 0; }
+    .content code { background:rgba(90,214,255,.08); color:var(--poly); padding:2px 6px; border-radius:6px; font-size:.9em; }
+    .content pre { overflow:auto; padding:18px 20px; border-radius:14px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.08); margin:1.4em 0; }
+    .content pre code { padding:0; background:none; }
+    .footer-nav { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:0 clamp(20px, 4vw, 44px) 30px; }
+    @media (max-width: 720px) {
+      .shell { padding:18px 12px 48px; }
+      .hero, .content { padding-left:18px; padding-right:18px; }
+      .footer-nav { padding-left:18px; padding-right:18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Breadcrumb">
+      <a href="/" class="crumb">Wayfarer Games</a>
+      <a href="/100-days-blog/" class="pill-link">100 Days Archive</a>
+      <a href="/road-to-release/" class="pill-link">Legacy Links</a>
+    </nav>
+    <article class="card">
+      <header class="hero">
+        <div class="eyebrow">Day 6</div>
+        <h1>Debugging Fast Laser Collisions: A Wild Goose Chase!</h1>
+        <p class="summary">I spent two hours (which is longer than I should’ve spent working on the game at all today) trying to work out fast rotating collision detection for the hexagon’s sweeping beams today. Fast moving rotating collision bodies are a tricky problem to solve! Games like the new Legend </p>
+        <div class="meta">
+          <span>30 May 2023</span>
+          <span>Polyfury development log</span>
+        </div>
+      </header>
+      <div class="content"><div class="sqs-html-content">
+ <p class="" style="white-space:pre-wrap;">I spent <strong>two hours</strong> (which is longer than I should’ve spent working on the game at all today) trying to work out fast rotating collision detection for the hexagon’s sweeping beams today.</p><p class="" style="white-space:pre-wrap;">Fast moving rotating collision bodies are a tricky problem to solve! Games like the new Legend Of Zelda make this stuff look really easy, but it’s not. Collision detection in games is basically all about faking it with maths, because doing proper simulations is really computationally expensive.</p><p class="" style="white-space:pre-wrap;">Unity’s 3D colliders (which use PhysX) have a setting for <a href="https://docs.unity3d.com/Manual/ContinuousCollisionDetection.html">speculative continuous collision</a>, which <strong>should </strong>help with that in most cases, but comes at a performance cost. That cost is pretty small for me, since only the player has a rigidbody, and it only collides with the lasers. Everything else is my own bullet tech (<a href="https://assetstore.unity.com/packages/slug/199208?aid=1101lwk2s">which you can buy on the Unity Asset Store</a> - n.b. this is an affiliate link which means I’ll earn a little bit of commission, but you won’t pay anything extra), which assumes all bullets are circles and don’t interact with each other, which makes it <strong>super speedy</strong>. There’s also some nice optimisation in that the player is always 15 units away from the centre, so I can just ignore any collisions that are less than 14 units and greater than 16 units from the centre.</p><p class="" style="white-space:pre-wrap;">However, for some reason it just wasn’t working. It did not want to register collisions on this laser while it was rotating. It works fine for the square and the pentagon, right? Both are static lasers so it <strong>must</strong> be the fact that they are rotating. I tried a bunch of different combinations of rigidbody placement, I tried changing the player movement code so it moves the rigidbody (which it technically should be doing anyway because Unity treats colliders that don’t have rigidbodies as static, so moving them by their Transform component invalidates a bunch of caching), and nothing was working.</p><p class="" style="white-space:pre-wrap;">Finally, I tried making the lasers static, with no rotation at all. Just a big sustained stationary laser. And… </p><p class="" style="white-space:pre-wrap;">It didn’t work 😂</p><p class="" style="white-space:pre-wrap;">Turns out it was just a stupid mistake I’d made 🙃 the code for enabling the lasers didn’t enable the colliders until the last bit of the animation. That was fine for the lasers in the square and pentagon levels, because they were very short lasers that didn’t stay on-screen for very long. There’s also a little bit of generosity - it only actually <strong>hits</strong> you if the laser hits you for more than a frame, which hid the problem even more.</p><p class="" style="white-space:pre-wrap;"><strong>Sigh. </strong>I am not a smart man.</p><p class="" style="white-space:pre-wrap;">Anyway, it works properly now - even with easing to make the animation itself look a little bit less rigid:</p>
+</div>
+  <div>
+    <figure>
+     <div>
+      <div class="sqs-image-shape-container-element
+       has-aspect-ratio
+      " 
+       >
+        <img src="https://images.squarespace-cdn.com/content/v1/6086d006dce47b2b3ccc28ec/0dd7b9a1-c2b0-442a-8ec4-35aebd76aea9/ezgif.com-optimize%2810%29.gif">
+      </div>
+     </div>
+    </figure>
+  </div>
+<div class="sqs-html-content">
+ <h2 style="white-space:pre-wrap;"><strong>What’s next?</strong></h2><p class="" style="white-space:pre-wrap;">Tomorrow I’ll clean up the rest of the hexagon boss - there are a couple of really cheap shots that are almost un-dodgeable, I want to make the danger nachos a little more… dangerous, and the centre of the laser in the gif above is a square, not a hexagon (I watched this gif so many times while writing this post that it’s seared into my retinas).</p>
+</div>
+<hr />
+<iframe src="https://assetstore.unity.com/linkmaker/embed/package/247937/widget-wide?aid=1101lwk2s&amp;wmode=opaque" data-embed="true" style="width:100%; height:130px; border:0px;"></iframe><div class="video-caption-wrapper"><div class="video-caption"><p class="" style="white-space:pre-wrap;">Making your own games? Check out Artificer Pro - released this month!</p></div></div></div>
+      <nav class="footer-nav" aria-label="Page links">
+        <a href="/100-days-blog/" class="pill-link">Browse the full archive</a>
+        <a href="https://wayfarer-games.com/road-to-release/day-six/" class="pill-link">Canonical URL</a>
+      </nav>
+    </article>
+  </main>
+</body>
+</html>
