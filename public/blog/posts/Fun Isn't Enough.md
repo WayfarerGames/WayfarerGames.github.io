@@ -50,6 +50,6 @@ I've got a new mechanic to replace it that is much more straightforward. If you 
   Your browser does not support the video tag.
 </video>
 
-This actually fits the aggressive vibe of the game a lot better! Drafting is something that already aligns with the way people typically play racing games, so I don't have to teach them a totally alien concept. I haven't fully playtested this specific implementation just yet—I want to make a couple more little tweaks first—but it is already miles easier to explain.
+This actually fits the aggressive vibe of the game a lot better! Drafting is something that already aligns with the way people typically play racing games, so I don't have to teach them a totally alien concept. I haven't fully playtested this specific implementation just yet - I want to make a couple more little tweaks first - but it is already miles easier to explain.
 
 Don't get too attached to your mechanics, even the really fun ones. Build an ugly prototype, validate it early, and don't be afraid to kill your darlings if your players can't figure them out.
