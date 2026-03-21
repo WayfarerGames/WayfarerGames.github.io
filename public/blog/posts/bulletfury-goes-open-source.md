@@ -10,7 +10,7 @@ Hello again! Post #2 hot off the heels of the first - Bulletfury is now open sou
 Version 2 is fully working, and it is currently being used in Polyfury: Definitive Edition to great effect (thanks Hermit Cat!).
 
 <video autoplay loop muted playsinline preload="metadata">
-  <source src="/blog/posts/polyfury-demo.mp4" type="video/mp4">
+  <source src="/blog/posts/polyfury-demo.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
 

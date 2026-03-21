@@ -14,12 +14,14 @@
   <meta property="og:description" content="How great danmaku patterns aren&#39;t hand-placed; they&#39;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.">
   <meta property="og:url" content="https://wayfarer-games.com/blog/bullet-hell-math/">
   <meta property="og:image" content="https://wayfarer-games.com/logo.png">
+  <meta property="og:video" content="https://wayfarer-games.com/blog/posts/bullet-hell-random.webm">
+  <meta property="og:video:type" content="video/webm">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Mathematics of Bullet Hell Patterns | Wayfarer Games Blog">
   <meta name="twitter:description" content="How great danmaku patterns aren&#39;t hand-placed; they&#39;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.">
   <meta name="twitter:image" content="https://wayfarer-games.com/logo.png">
   <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"The Mathematics of Bullet Hell Patterns","description":"How great danmaku patterns aren't hand-placed; they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.","datePublished":"2026-02-18T00:00:00.000Z","dateModified":"2026-02-18T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/bullet-hell-math/","url":"https://wayfarer-games.com/blog/bullet-hell-math/","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"The Mathematics of Bullet Hell Patterns","description":"How great danmaku patterns aren't hand-placed; they're mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.","datePublished":"2026-02-18T00:00:00.000Z","dateModified":"2026-02-18T00:00:00.000Z","mainEntityOfPage":"https://wayfarer-games.com/blog/bullet-hell-math/","url":"https://wayfarer-games.com/blog/bullet-hell-math/","image":"https://wayfarer-games.com/logo.png","author":{"@type":"Person","name":"Dom Harris"},"publisher":{"@type":"Organization","name":"Wayfarer Games","url":"https://wayfarer-games.com/"},"video":{"@type":"VideoObject","contentUrl":"https://wayfarer-games.com/blog/posts/bullet-hell-random.webm","thumbnailUrl":"https://wayfarer-games.com/logo.png"}}
   </script>
   <style>
     * { box-sizing:border-box; margin:0; padding:0; }
@@ -78,7 +80,6 @@
 <p>Here&#39;s what that looks like as we increase the number of bullets:
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-points.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-points.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video></p>
 <p>Notice anything? We get useful shapes out of this, not just circles! Bullets = 3 gives us a triangle, 4 gives a square, 5 a pentagon, etc.</p>
@@ -106,7 +107,6 @@ for (int j = 0; j &lt; numPerSide; ++j)
 <p>Here&#39;s what that looks like as we increase the number of bullets per side:
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-edges.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-edges.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video></p>
 <h2>Arcs!</h2>
@@ -119,7 +119,6 @@ for (int j = 0; j &lt; numPerSide; ++j)
 <p>Now here&#39;s what that looks like as we increase the number of points:
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-arc.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-arc.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video></p>
 <h2>Movement!</h2>
@@ -130,7 +129,6 @@ for (int j = 0; j &lt; numPerSide; ++j)
 </code></pre>
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-direction.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-direction.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -139,7 +137,6 @@ for (int j = 0; j &lt; numPerSide; ++j)
 </code></pre>
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-sphereized.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-sphereized.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -149,7 +146,6 @@ Vector2 direction = edgeMidpoint.normalized;
 </code></pre>
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-edge.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-edge.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -158,7 +154,6 @@ Vector2 direction = edgeMidpoint.normalized;
 </code></pre>
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-point.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-point.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -173,14 +168,12 @@ var finalPos = Quaternion.Euler(0, 0, currentRotation) * position;
 <p>And that&#39;s it!
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-spiral.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-spiral.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video></p>
 <h2>Randomness!</h2>
 <p>A quick note on randomness - pure random feels bad in bullet hell games. It is unpredictable and can often hurt the player experience. However, there is a fix if you want a bit of variation: bounded randomness. Instead of a radius of 3, we can pick a random number between 2 and 4. Instead of a speed of 5, we&#39;ll put the speed between 5 and 7. That will give you variation in how the bullets look and behave, which gives it a more &quot;natural&quot; feeling without being unfair:
 <video autoplay loop muted playsinline preload="metadata">
   <source src="/blog/posts/bullet-hell-random.webm" type="video/webm">
-  <source src="/blog/posts/bullet-hell-random.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video></p>
 <p>It&#39;s up to you whether you prefer the look of this or not, and it will depend entirely on the game!</p>

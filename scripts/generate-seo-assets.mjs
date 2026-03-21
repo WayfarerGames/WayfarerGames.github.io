@@ -110,6 +110,66 @@ const humanDate = (value) => {
   });
 };
 
+const toAbsoluteUrl = (value = "") => {
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  const normalized = value.startsWith("/") ? value : `/${value.replace(/^\/+/, "")}`;
+  return `${SITE_URL}${normalized}`;
+};
+
+const parseHtmlAttributes = (raw = "") => {
+  const attributes = {};
+  const attributePattern = /([^\s=]+)(?:=(["'])(.*?)\2)?/g;
+  let match;
+  while ((match = attributePattern.exec(raw))) {
+    const [, key, , value = ""] = match;
+    attributes[key.toLowerCase()] = value;
+  }
+  return attributes;
+};
+
+const extractPreviewMedia = (html = "") => {
+  const mediaPattern = /<img\b([^>]*?)>|<video\b([^>]*)>([\s\S]*?)<\/video>/gi;
+  let match;
+  let lastMedia = null;
+
+  while ((match = mediaPattern.exec(html))) {
+    const [, imgAttrsRaw, videoAttrsRaw, videoInner = ""] = match;
+
+    if (imgAttrsRaw !== undefined) {
+      const imgAttrs = parseHtmlAttributes(imgAttrsRaw);
+      if (!imgAttrs.src) continue;
+      lastMedia = {
+        type: "image",
+        imageUrl: toAbsoluteUrl(imgAttrs.src),
+      };
+      continue;
+    }
+
+    const videoAttrs = parseHtmlAttributes(videoAttrsRaw);
+    const posterUrl = videoAttrs.poster ? toAbsoluteUrl(videoAttrs.poster) : "";
+    const sources = [...videoInner.matchAll(/<source\b([^>]*?)>/gi)]
+      .map((sourceMatch) => parseHtmlAttributes(sourceMatch[1]))
+      .filter((attrs) => attrs.src);
+    const preferredSource = sources[0];
+
+    if (!preferredSource && !posterUrl) continue;
+
+    lastMedia = {
+      type: "video",
+      imageUrl: posterUrl,
+      videoUrl: preferredSource ? toAbsoluteUrl(preferredSource.src) : "",
+      videoType: preferredSource?.type || "",
+    };
+  }
+
+  return {
+    imageUrl: lastMedia?.imageUrl || "",
+    videoUrl: lastMedia?.type === "video" ? lastMedia.videoUrl || "" : "",
+    videoType: lastMedia?.type === "video" ? lastMedia.videoType || "" : "",
+  };
+};
+
 const readPosts = () => {
   const manifestRaw = readFileSync(manifestPath, "utf8");
   const manifest = normalizeManifest(JSON.parse(manifestRaw));
@@ -123,7 +183,8 @@ const readPosts = () => {
     const slug = slugFromFileName(entry.file);
     const url = `${SITE_URL}/blog/${encodeURIComponent(slug)}/`;
     const html = marked.parse(body);
-    return { title, summary, date, slug, url, html };
+    const previewMedia = extractPreviewMedia(html);
+    return { title, summary, date, slug, url, html, ...previewMedia };
   });
 
   posts.sort((a, b) => {
@@ -204,6 +265,45 @@ const buildPostPageHtml = (post) => {
   const description = post.summary || BLOG_DESCRIPTION;
   const articleDate = post.date ? humanDate(post.date) : "";
   const publishedISO = post.date ? new Date(post.date).toISOString() : "";
+  const previewImageUrl = post.imageUrl || `${SITE_URL}/logo.png`;
+  const previewVideoMeta = post.videoUrl
+    ? [
+        `  <meta property="og:video" content="${htmlEscape(post.videoUrl)}">`,
+        post.videoType
+          ? `  <meta property="og:video:type" content="${htmlEscape(post.videoType)}">`
+          : "",
+      ]
+        .filter(Boolean)
+        .join("\n")
+    : "";
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description,
+    datePublished: publishedISO || undefined,
+    dateModified: publishedISO || undefined,
+    mainEntityOfPage: post.url,
+    url: post.url,
+    image: previewImageUrl || undefined,
+    author: {
+      "@type": "Person",
+      name: "Dom Harris",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Wayfarer Games",
+      url: `${SITE_URL}/`,
+    },
+  };
+
+  if (post.videoUrl) {
+    schema.video = {
+      "@type": "VideoObject",
+      contentUrl: post.videoUrl,
+      thumbnailUrl: previewImageUrl,
+    };
+  }
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -220,31 +320,13 @@ const buildPostPageHtml = (post) => {
   <meta property="og:title" content="${htmlEscape(pageTitle)}">
   <meta property="og:description" content="${htmlEscape(description)}">
   <meta property="og:url" content="${htmlEscape(post.url)}">
-  <meta property="og:image" content="${htmlEscape(`${SITE_URL}/logo.png`)}">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="${htmlEscape(previewImageUrl)}">
+${previewVideoMeta ? `${previewVideoMeta}\n` : ""}  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${htmlEscape(pageTitle)}">
   <meta name="twitter:description" content="${htmlEscape(description)}">
-  <meta name="twitter:image" content="${htmlEscape(`${SITE_URL}/logo.png`)}">
+  <meta name="twitter:image" content="${htmlEscape(previewImageUrl)}">
   <script type="application/ld+json">
-    ${JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      headline: post.title,
-      description,
-      datePublished: publishedISO || undefined,
-      dateModified: publishedISO || undefined,
-      mainEntityOfPage: post.url,
-      url: post.url,
-      author: {
-        "@type": "Person",
-        name: "Dom Harris",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "Wayfarer Games",
-        url: `${SITE_URL}/`,
-      },
-    })}
+    ${JSON.stringify(schema)}
   </script>
   <style>
     * { box-sizing:border-box; margin:0; padding:0; }

@@ -302,10 +302,38 @@
       return el;
     };
 
-    const setSeo = ({ title, description, canonicalUrl, type = "website" }) => {
+    const extractPreviewMediaFromHtml = (html) => {
+      const container = document.createElement("div");
+      container.innerHTML = html;
+      const mediaNodes = Array.from(container.querySelectorAll("img, video"));
+      const lastMedia = mediaNodes.at(-1);
+
+      if (!lastMedia) return { imageUrl: "", videoUrl: "", videoType: "" };
+
+      if (lastMedia.tagName === "IMG") {
+        return {
+          imageUrl: lastMedia.getAttribute("src") || "",
+          videoUrl: "",
+          videoType: "",
+        };
+      }
+
+      const poster = lastMedia.getAttribute("poster") || "";
+      const sources = Array.from(lastMedia.querySelectorAll("source"));
+      const preferredSource = sources[0];
+
+      return {
+        imageUrl: poster,
+        videoUrl: preferredSource?.getAttribute("src") || "",
+        videoType: preferredSource?.getAttribute("type") || "",
+      };
+    };
+
+    const setSeo = ({ title, description, canonicalUrl, type = "website", imageUrl = "", videoUrl = "", videoType = "" }) => {
       const safeTitle = title || defaultTitle;
       const safeDescription = description || defaultDescription;
       const safeCanonical = canonicalUrl || blogUrl;
+      const safeImage = imageUrl || `${siteUrl}/logo.png`;
       document.title = safeTitle;
 
       ensureMeta('meta[name="description"]', "meta", { name: "description" }).setAttribute("content", safeDescription);
@@ -315,9 +343,26 @@
       ensureMeta('meta[property="og:title"]', "meta", { property: "og:title" }).setAttribute("content", safeTitle);
       ensureMeta('meta[property="og:description"]', "meta", { property: "og:description" }).setAttribute("content", safeDescription);
       ensureMeta('meta[property="og:url"]', "meta", { property: "og:url" }).setAttribute("content", safeCanonical);
+      ensureMeta('meta[property="og:image"]', "meta", { property: "og:image" }).setAttribute("content", safeImage);
 
+      ensureMeta('meta[name="twitter:card"]', "meta", { name: "twitter:card" }).setAttribute("content", "summary_large_image");
       ensureMeta('meta[name="twitter:title"]', "meta", { name: "twitter:title" }).setAttribute("content", safeTitle);
       ensureMeta('meta[name="twitter:description"]', "meta", { name: "twitter:description" }).setAttribute("content", safeDescription);
+      ensureMeta('meta[name="twitter:image"]', "meta", { name: "twitter:image" }).setAttribute("content", safeImage);
+
+      const ogVideo = document.head.querySelector('meta[property="og:video"]');
+      const ogVideoType = document.head.querySelector('meta[property="og:video:type"]');
+      if (videoUrl) {
+        ensureMeta('meta[property="og:video"]', "meta", { property: "og:video" }).setAttribute("content", videoUrl);
+        if (videoType) {
+          ensureMeta('meta[property="og:video:type"]', "meta", { property: "og:video:type" }).setAttribute("content", videoType);
+        } else if (ogVideoType) {
+          ogVideoType.remove();
+        }
+      } else {
+        if (ogVideo) ogVideo.remove();
+        if (ogVideoType) ogVideoType.remove();
+      }
     };
 
     const setBlogSchema = (post = null) => {
@@ -478,7 +523,10 @@
         title: `${post.title || "Untitled"} — Wayfarer Games Blog`,
         description: post.summary || defaultDescription,
         canonicalUrl: post.url || blogUrl,
-        type: "article"
+        type: "article",
+        imageUrl: post.imageUrl ? new URL(post.imageUrl, siteUrl).toString() : "",
+        videoUrl: post.videoUrl ? new URL(post.videoUrl, siteUrl).toString() : "",
+        videoType: post.videoType || ""
       });
       setBlogSchema(post);
       emptyState.style.display = "none";
@@ -564,6 +612,8 @@
     const parseMarkdownText = (raw, fileName) => {
       const { meta, body } = parseFrontMatter(raw);
       const title = meta.title || titleFromBody(body, fileName);
+      const html = marked.parse(body);
+      const previewMedia = extractPreviewMediaFromHtml(html);
       return {
         id: `${fileName}-${Math.random().toString(36).slice(2, 9)}`,
         fileName,
@@ -573,7 +623,8 @@
         date: meta.date || "",
         summary: meta.summary || "",
         raw,
-        html: marked.parse(body)
+        html,
+        ...previewMedia
       };
     };
 
