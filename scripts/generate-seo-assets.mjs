@@ -52,7 +52,10 @@ const slugFromFileName = (fileName) =>
   fileName
     .replace(/\.(md|markdown|txt)$/i, "")
     .trim()
-    .toLowerCase();
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
 const parseFrontMatter = (content) => {
   const match = content.match(/^---\n([\s\S]*?)\n---\n?/);

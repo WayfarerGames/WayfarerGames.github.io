@@ -198,6 +198,7 @@
       </div>
       <ul class="post-list" id="postList" role="listbox" aria-label="Markdown posts"></ul>
       <noscript><nav aria-label="All blog posts"><ul class="post-list">
+        <li><a href="https://wayfarer-games.com/blog/fun-isnt-enough/">Fun Isn&#39;t Enough: Why I Killed My Best Mechanic</a></li>
         <li><a href="https://wayfarer-games.com/blog/your-brain-hates-you/">Your Brain Hates You</a></li>
         <li><a href="https://wayfarer-games.com/blog/shmup-spawning/">The Architecture of Shmup Enemy Spawning</a></li>
         <li><a href="https://wayfarer-games.com/blog/bulletfury-goes-open-source/">Bulletfury Goes Open Source</a></li>
@@ -436,7 +437,10 @@
       (fileName || "")
         .replace(/\.(md|markdown|txt)$/i, "")
         .trim()
-        .toLowerCase();
+        .toLowerCase()
+        .replace(/['’]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
 
     const getRequestedPostSlug = () => {
       const params = new URLSearchParams(window.location.search);
