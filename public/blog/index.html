@@ -577,9 +577,12 @@
     const syncPostUrl = (post, { replace = false } = {}) => {
       if (!post?.slug) return;
       const targetPath = `/blog/${encodeURIComponent(post.slug)}/`;
-      if (window.location.pathname === targetPath && !window.location.search) return;
+      // Never replace the URL when the path already matches — otherwise we strip
+      // ?query / #hash that GitHub/Giscus OAuth needs to finish sign-in.
+      if (window.location.pathname === targetPath) return;
       const method = replace ? "replaceState" : "pushState";
-      window.history[method]({ postSlug: post.slug }, "", targetPath);
+      const tail = `${window.location.search || ""}${window.location.hash || ""}`;
+      window.history[method]({ postSlug: post.slug }, "", tail ? `${targetPath}${tail}` : targetPath);
     };
 
     const updateNavButtons = () => {
