@@ -6,7 +6,14 @@
     <link>https://wayfarer-games.com/blog/</link>
     <atom:link href="https://wayfarer-games.com/blog/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-gb</language>
-    <lastBuildDate>Sat, 21 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Polyfury: What Went Wrong — A Post-Mortem</title>
+      <link>https://wayfarer-games.com/blog/polyfury-what-went-wrong/</link>
+      <guid>https://wayfarer-games.com/blog/polyfury-what-went-wrong/</guid>
+      <description>A frank look at Polyfury’s launch—sales, genre fit, mechanics that were hard to sell, marketing spend that didn’t move the needle, and lessons learned from £20k down.</description>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>Fun Isn&apos;t Enough: Why I Killed My Best Mechanic</title>
       <link>https://wayfarer-games.com/blog/fun-isnt-enough/</link>

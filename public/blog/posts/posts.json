@@ -1,5 +1,11 @@
 [
   {
+    "file": "polyfury-what-went-wrong.md",
+    "title": "Polyfury: What Went Wrong — A Post-Mortem",
+    "date": "2026-03-25",
+    "summary": "A frank look at Polyfury’s launch—sales, genre fit, mechanics that were hard to sell, marketing spend that didn’t move the needle, and lessons learned from £20k down."
+  },
+  {
     "file": "Fun Isn't Enough.md",
     "title": "Fun Isn't Enough: Why I Killed My Best Mechanic",
     "date": "2026-03-21",
