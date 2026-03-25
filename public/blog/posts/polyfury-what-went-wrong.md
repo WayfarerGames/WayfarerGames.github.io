@@ -29,7 +29,7 @@ Oh boy did I find out that those things don't matter at all 😂
 
 ## Mechanics!
 
-My game is very difficult to describe in a way that sounds fun - your ship is positioned on a ring, and your position is exactly the position of the thumbstick. That makes for some really cool bullet patterns that are actually dodgeable, even though they seem overwhelming, but it is VERY difficult to describe, and you really should be able to describe your core mechanic well. On top of that, the whole "even though they seem overwhelming" thing bit me in the ass! Because it looked so difficult, only 20% of players beat level 2 before giving up 🫠
+My game is very difficult to describe in a way that sounds fun - your ship is positioned on a ring, and your position is exactly the position of the thumbstick. That makes for some really cool bullet patterns that are actually dodgeable, even though they seem overwhelming, but it is VERY difficult to describe, and you really should be able to describe your core mechanic well. On top of that, the whole "even though they seem overwhelming" thing bit me in the ass! Because it looked so difficult, only 20% of players beat level 2 - that means 80% of players gave up before then 🫠
 
 ## Spending!
 
