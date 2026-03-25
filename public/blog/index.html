@@ -134,6 +134,10 @@
     .post-body hr { border:none; border-top:1px solid rgba(255,255,255,.08); margin:2em 0; }
     .post-body video { width:100%; border-radius:12px; border:1.5px solid rgba(255,255,255,.12); background:rgba(0,0,0,.4); margin:1.1em 0 1.4em; }
 
+    .post-comments { margin-top:48px; padding-top:36px; border-top:1px solid rgba(255,255,255,.1); animation:fadeUp .55s ease .12s both; }
+    .post-comments-title { font-family:"Fredoka",sans-serif; font-size:1.35em; font-weight:700; color:var(--white); margin-bottom:18px; }
+    .post-comments .giscus { min-height:120px; }
+
     @media (max-width: 920px) {
       nav { padding:0 14px; }
       .sidebar { width:min(300px, 46vw); }
@@ -225,6 +229,10 @@
             </div>
           </div>
           <div class="post-body" id="postBody"></div>
+          <section class="post-comments" id="postComments" aria-label="Comments">
+            <h2 class="post-comments-title">Comments</h2>
+            <div class="giscus" id="giscusRoot"></div>
+          </section>
         </article>
       </div>
     </main>
@@ -263,6 +271,7 @@
     const postHeading = document.getElementById("postHeading");
     const postDate = document.getElementById("postDate");
     const postBody = document.getElementById("postBody");
+    const postComments = document.getElementById("postComments");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const contentWrap = document.getElementById("contentWrap");
@@ -364,6 +373,74 @@
         if (ogVideo) ogVideo.remove();
         if (ogVideoType) ogVideoType.remove();
       }
+
+      if (type === "article" && safeCanonical && safeCanonical !== blogUrl) {
+        ensureMeta('meta[name="giscus:backlink"]', "meta", { name: "giscus:backlink" }).setAttribute("content", safeCanonical);
+      } else {
+        const gl = document.head.querySelector('meta[name="giscus:backlink"]');
+        if (gl) gl.remove();
+      }
+    };
+
+    let giscusConfig = null;
+    let giscusScriptInjected = false;
+
+    const loadGiscusConfig = async () => {
+      try {
+        const res = await fetch("/blog/giscus-config.json", { cache: "no-store" });
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (!data || typeof data.repo !== "string" || typeof data.repoId !== "string") return null;
+        if (typeof data.category !== "string" || typeof data.categoryId !== "string") return null;
+        return data;
+      } catch {
+        return null;
+      }
+    };
+
+    const injectGiscusScript = (cfg) => {
+      if (giscusScriptInjected || !cfg?.categoryId) return;
+      giscusScriptInjected = true;
+      const s = document.createElement("script");
+      s.src = "https://giscus.app/client.js";
+      s.async = true;
+      s.crossOrigin = "anonymous";
+      s.setAttribute("data-repo", cfg.repo);
+      s.setAttribute("data-repo-id", cfg.repoId);
+      s.setAttribute("data-category", cfg.category);
+      s.setAttribute("data-category-id", cfg.categoryId);
+      s.setAttribute("data-mapping", "pathname");
+      s.setAttribute("data-strict", "0");
+      s.setAttribute("data-reactions-enabled", "1");
+      s.setAttribute("data-emit-metadata", "0");
+      s.setAttribute("data-input-position", "bottom");
+      s.setAttribute("data-theme", "preferred_color_scheme");
+      s.setAttribute("data-lang", "en");
+      s.setAttribute("data-loading", "lazy");
+      document.body.appendChild(s);
+    };
+
+    const sendGiscusSetConfig = (post) => {
+      const iframe = document.querySelector("iframe.giscus-frame");
+      if (!iframe?.contentWindow) return false;
+      const pathname = window.location.pathname;
+      const backLink = post?.url || `${siteUrl}${pathname}`;
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { term: pathname, backLink } } },
+        "https://giscus.app"
+      );
+      return true;
+    };
+
+    const refreshGiscus = (post) => {
+      if (!giscusConfig?.categoryId) return;
+      if (sendGiscusSetConfig(post)) return;
+      injectGiscusScript(giscusConfig);
+      let tries = 0;
+      const timer = setInterval(() => {
+        tries += 1;
+        if (sendGiscusSetConfig(post) || tries > 80) clearInterval(timer);
+      }, 50);
     };
 
     const setBlogSchema = (post = null) => {
@@ -537,6 +614,7 @@
         btn.setAttribute("aria-pressed", i === index ? "true" : "false");
       });
       contentWrap.scrollTo({ top: 0, behavior: "smooth" });
+      requestAnimationFrame(() => refreshGiscus(post));
     };
 
     const renderList = () => {
@@ -649,6 +727,10 @@
 
     const loadPosts = async () => {
       try {
+        giscusConfig = await loadGiscusConfig();
+        if (postComments) {
+          postComments.style.display = giscusConfig?.categoryId ? "" : "none";
+        }
         requestedPostSlug = getRequestedPostSlug();
         const manifestRes = await fetch("/blog/posts/posts.json", { cache: "no-store" });
         if (!manifestRes.ok) throw new Error("Could not load posts manifest.");
