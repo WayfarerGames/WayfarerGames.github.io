@@ -1,7 +1,7 @@
 ---
-title: "Polyfury: What Went Wrong — A Post-Mortem"
+title: "Polyfury: What Went Wrong - A Post-Mortem"
 date: 2026-03-25
-summary: A frank look at Polyfury’s launch—sales, genre fit, mechanics that were hard to sell, marketing spend that didn’t move the needle, and lessons learned from £20k down.
+summary: A frank look at Polyfury's launch - sales, genre fit, mechanics that were hard to sell, marketing spend that didn't move the needle, and lessons learned from £20k down.
 ---
 
 # Polyfury: What Went Wrong
