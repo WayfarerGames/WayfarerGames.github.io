@@ -1,0 +1,34 @@
+@import url("https://giscus.app/themes/noborder_dark.css");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+
+/*!
+ * Wayfarer Games — Giscus theme
+ * Built on giscus noborder_dark (MIT / Primer). Overrides use the site palette from wayfarer-shared.css.
+ */
+main {
+  --primary-default: 90, 214, 255;
+  --bg-default: 20, 18, 38;
+  --color-fg-default: rgba(250, 252, 255, 0.9);
+  --color-fg-muted: rgba(250, 252, 255, 0.52);
+  --color-fg-subtle: rgba(250, 252, 255, 0.35);
+  --color-canvas-default: rgb(20, 18, 38);
+  --color-canvas-overlay: rgb(26, 24, 48);
+  --color-canvas-inset: rgba(14, 12, 28, 0.95);
+  --color-canvas-subtle: rgb(28, 26, 52);
+  --color-border-default: rgba(90, 214, 255, 0.14);
+  --color-border-muted: rgba(255, 255, 255, 0.08);
+  --color-neutral-muted: rgba(90, 214, 255, 0.12);
+  --color-accent-fg: rgb(90, 214, 255);
+  --color-accent-emphasis: rgb(130, 228, 255);
+  --color-accent-muted: rgba(90, 214, 255, 0.45);
+  --color-accent-subtle: rgba(90, 214, 255, 0.1);
+  --color-segmented-control-bg: rgba(255, 255, 255, 0.06);
+  --color-segmented-control-button-bg: rgb(14, 12, 28);
+  --color-segmented-control-button-selected-border: rgba(90, 214, 255, 0.35);
+  --color-action-list-item-default-hover-bg: rgba(90, 214, 255, 0.08);
+  --color-btn-primary-bg: rgba(90, 214, 255, 0.22);
+  --color-btn-primary-border: rgba(90, 214, 255, 0.4);
+  --color-btn-primary-hover-bg: rgba(90, 214, 255, 0.32);
+  --color-btn-primary-hover-border: rgba(90, 214, 255, 0.55);
+  font-family: "Nunito", ui-sans-serif, system-ui, sans-serif;
+}

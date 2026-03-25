@@ -144,7 +144,7 @@
 
     .post-comments { margin-top:48px; padding-top:36px; border-top:1px solid rgba(255,255,255,.1); animation:fadeUp .55s ease .12s both; }
     .post-comments-title { font-family:"Fredoka",sans-serif; font-size:1.35em; font-weight:700; color:var(--white); margin-bottom:18px; }
-    .post-comments .giscus { min-height:120px; }
+    .post-comments .giscus { min-height:120px; border-radius:14px; overflow:hidden; }
 
     @media (max-width: 920px) {
       nav { padding:0 14px; }
@@ -289,6 +289,7 @@
     const blogSchema = document.getElementById("blogSchema");
     const siteUrl = "https://wayfarer-games.com";
     const blogUrl = `${siteUrl}/blog/`;
+    const getGiscusThemeUrl = () => new URL("/styles/giscus-wayfarer.css", window.location.origin).href;
     const defaultTitle = "Blog — Wayfarer Games";
     const defaultDescription = "You'll learn about what I'm working on, how I work, and probably some cool stuff to do with maths in game dev.";
     const openSidebar = () => {
@@ -422,7 +423,7 @@
       s.setAttribute("data-reactions-enabled", "1");
       s.setAttribute("data-emit-metadata", "0");
       s.setAttribute("data-input-position", "bottom");
-      s.setAttribute("data-theme", "preferred_color_scheme");
+      s.setAttribute("data-theme", getGiscusThemeUrl());
       s.setAttribute("data-lang", "en");
       s.setAttribute("data-loading", "lazy");
       document.body.appendChild(s);
@@ -434,7 +435,7 @@
       const pathname = window.location.pathname;
       const backLink = post?.url || `${siteUrl}${pathname}`;
       iframe.contentWindow.postMessage(
-        { giscus: { setConfig: { term: pathname, backLink } } },
+        { giscus: { setConfig: { term: pathname, backLink, theme: getGiscusThemeUrl() } } },
         "https://giscus.app"
       );
       return true;
