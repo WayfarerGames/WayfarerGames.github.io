@@ -35,6 +35,12 @@ const xmlEscape = (text = "") =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
 
+/** CDATA for RSS content:encoded; split any literal ]]> so the document stays valid XML. */
+const rssCdata = (html = "") => {
+  const safe = String(html).replaceAll("]]>", "]]]]><![CDATA[>");
+  return `<![CDATA[${safe}]]>`;
+};
+
 const normalizeManifest = (payload) => {
   if (!Array.isArray(payload)) return [];
   return payload
@@ -315,12 +321,16 @@ const buildRssXml = (posts) => {
   const items = posts
     .map((post) => {
       const pubDate = toPubDate(post.date);
+      const summary = post.summary || stripMarkdown(stripHtml(post.html || "")).slice(0, 280);
+      const bodyHtml = (post.html || "").trim();
+      const encodedPayload = bodyHtml || `<p>${summary}</p>`;
       return [
         "    <item>",
         `      <title>${xmlEscape(post.title)}</title>`,
         `      <link>${xmlEscape(post.url)}</link>`,
-        `      <guid>${xmlEscape(post.url)}</guid>`,
-        `      <description>${xmlEscape(post.summary)}</description>`,
+        `      <guid isPermaLink="true">${xmlEscape(post.url)}</guid>`,
+        `      <description>${xmlEscape(summary)}</description>`,
+        `      <content:encoded>${rssCdata(encodedPayload)}</content:encoded>`,
         pubDate ? `      <pubDate>${xmlEscape(pubDate)}</pubDate>` : "",
         "    </item>",
       ]
@@ -331,7 +341,7 @@ const buildRssXml = (posts) => {
 
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">',
     "  <channel>",
     "    <title>Wayfarer Games Blog</title>",
     `    <description>${xmlEscape(BLOG_DESCRIPTION)}</description>`,

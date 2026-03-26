@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Wayfarer Games Blog</title>
     <description>You&apos;ll learn about what I&apos;m working on, how I work, and probably some cool stuff to do with maths in game dev.</description>
@@ -10,43 +10,491 @@
     <item>
       <title>Polyfury: What Went Wrong - A Post-Mortem</title>
       <link>https://wayfarer-games.com/blog/polyfury-what-went-wrong/</link>
-      <guid>https://wayfarer-games.com/blog/polyfury-what-went-wrong/</guid>
+      <guid isPermaLink="true">https://wayfarer-games.com/blog/polyfury-what-went-wrong/</guid>
       <description>A frank look at Polyfury&apos;s launch - sales, genre fit, mechanics that were hard to sell, marketing spend that didn&apos;t move the needle, and lessons learned from £20k down.</description>
+      <content:encoded><![CDATA[<h1>Polyfury: What Went Wrong</h1>
+<p>I think it&#39;s time I did the post-mortem for this - I released it at the end of 2023, I spent £20,000 on it and made maybe £5,000 back. You can read the &quot;how I released it&quot; at the end of my <a href="https://wayfarer-games.com/100-days-blog/#post-polyfury-launched-a-100-day-postmortem-99-2023-09-16">100 days of dev</a> blog that I wrote during the last 100 days of development - that&#39;s the optimistic &quot;omg I made it&quot; post. This post is not that. This post is <em>what went wrong</em>.</p>
+<p>First things first - sales!</p>
+<ul>
+<li>I got £1000 from a kickstarter campaign, which provided a little bit of dev funding</li>
+<li>On Steam, it made $1,000. That it made any money at all is a miracle in hindsight! This isn&#39;t horrible for an indie&#39;s first release.</li>
+<li>On Xbox, it made roughly £1,500.</li>
+<li>The bullet spawning tool I released alongside it made the remaining money - another £1,500</li>
+</ul>
+<p>So what went wrong?</p>
+<h2>Genre!</h2>
+<p>Steam players don&#39;t like arcade games. Steam players like games with a good amount of content - if you&#39;re good enough at my game, you can beat it in 15 minutes. Console players are similar, but they are a little more open to arcade stuff. This is the main reason the game didn&#39;t really sell very well, I think! Genre is half the battle, and damn it Chris Z was right about arcade games. At least I got to tell him that in person at GDC...</p>
+<h2>Hubris!</h2>
+<p>I had at that point been making games for 15 years. I had done it professionally for 10. I can make a game that is <strong>fun</strong> (at least JW of Vlambeer thinks so). I can make a game that is polished. I made a game that put accessibility first - it is high contrast by default, playable with just a thumbstick or a mouse, it ticked all the boxes (and was nominated for MCV/DEVELOP Accessibility Innovation of the Year).</p>
+<p>Oh boy did I find out that those things don&#39;t matter at all 😂</p>
+<h2>Mechanics!</h2>
+<p>My game is very difficult to describe in a way that sounds fun - your ship is positioned on a ring, and your position is exactly the position of the thumbstick. That makes for some really cool bullet patterns that are actually dodgeable, even though they seem overwhelming, but it is VERY difficult to describe, and you really should be able to describe your core mechanic well. On top of that, the whole &quot;even though they seem overwhelming&quot; thing bit me in the ass! Because it looked so difficult, only 20% of players beat level 2 - that means 80% of players gave up before then 🫠</p>
+<h2>Spending!</h2>
+<p>If I hadn&#39;t spent £20k on the game, it could much more easily be called a success. Probably the most worthwhile money I spent was on music, and that was all I needed to spend really. The rest was pretty much useless - I did paid ads on reddit, youtube, tiktok, and twitter (only youtube and tiktok made any difference at all). I did marketing courses. I ran a huge ARG that was lots of fun but cost me so much money 😂 I gave away pizza on my Discord server, I ran competitions with cool physical prizes, none of it moved the needle, all of it cost money. I guess the people who <em>were</em> in my Discord were happy, which isn&#39;t nothing.</p>
+<h2>Dumbassery!</h2>
+<p>I got to the front page of r/indiedev. Do you know what was missing from that post? A STEAM LINK. A good amount of people knew about the game, but they did not have anywhere to follow through, so I launched the game with ~1000 wishlists. This was not my only mistake! I released on steam a week before the shmup fest, so as the shmup fest started my launch discount ran out and I couldn&#39;t add another. I made the musician rewrite all the music after he&#39;d already done the entire soundtrack. There were some things to do with the Xbox release that I can&#39;t talk about. I did Steam Next Fest two full years before launch.</p>
+<p>Also, I added a new mechanic that dramatically altered gameplay one single month before release. This forced me to hack together a rushed 30-second tutorial in about four hours, then required a complete re-balance of the scoring system right at the finish line. Don&#39;t... don&#39;t do this if you can help it. It made the game much better, but I strongly advise against this!</p>
+<h2>Pricing!</h2>
+<p>The game was originally priced at £12.99, or $15 - this was a terrible idea. I thought the &quot;premium&quot; price tag would make it more attractive, and I gave £1 per sale to a charity called SpecialEffect. That killed my bottom line, so the price tag couldn&#39;t be too low or I&#39;d be losing money if people bought it on sale. On top of that, the game was actually pretty popular in Brazil, so I should&#39;ve adjusted regional pricing.</p>
+<h2>Pacing!</h2>
+<p>I worked without a deadline or goal for over 2 years. I don&#39;t really recommend that, treating the game like this meant it would never be finished. Then I switched track entirely, pulling all-nighters and crunching for 20 hours in a single day, which led to a lot of the dumbassery in the end. If you&#39;re reading this and wondering what you can do better than me, there is little that will be more impactful than setting yourself clear boundaries!</p>
+<h2>Conclusion</h2>
+<p>Was this a failure? If you only look at it from a financial point of view (and I <strong>did</strong> only look at it from a financial point of view for the first... year?), yes, it was a bit of a disaster. I won&#39;t sugar-coat it, I was bitter and grumpy. <em>Was</em>. I have since realised that it was a very good opportunity to get a game published on Xbox by myself, and I learned a TON from doing it. Hopefully I&#39;ve been able to pass on some of the lessons I&#39;ve learned.</p>]]></content:encoded>
       <pubDate>Wed, 25 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Fun Isn&apos;t Enough: Why I Killed My Best Mechanic</title>
       <link>https://wayfarer-games.com/blog/fun-isnt-enough/</link>
-      <guid>https://wayfarer-games.com/blog/fun-isnt-enough/</guid>
+      <guid isPermaLink="true">https://wayfarer-games.com/blog/fun-isnt-enough/</guid>
       <description>How an ugly prototype and a painful playtest taught me that a mechanic can be incredibly fun, but still be wrong for your game if it&apos;s too hard to teach.</description>
+      <content:encoded><![CDATA[<h1>Fun Isn&#39;t Enough</h1>
+<p>Hey! Today I want to step back from code architecture and talk about game design. Specifically, how playtesting can prove a mechanic is incredibly fun...  and also that you need to delete it 😂</p>
+<p>I’ve been working on an aggressive, <em>Burnout</em>-style racing game, and I wanted a strong mechanical hook to make it stand out from the crowd. So, I prototyped a neat bouncing mechanic.</p>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bounce.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<p>Here is how it worked: instead of braking into corners and losing speed, you hold a button to become perfectly frictionless and bouncy, allowing you to bounce off the walls. If you let go of the button when you are closely aligned with the track&#39;s forward direction, you get a generous boost refill.</p>
+<p>Once you figured out how it worked, it felt AMAZING. It was so much faster and gave you these insane lines through corners. </p>
+<p>There was a major problem though, have you spotted it?</p>
+<h2>The Teaching Trap</h2>
+<p>This mechanic was too difficult to explain and teach.</p>
+<p>I put together a dedicated tutorial flow that forced the player to use the mechanic on a really simple track. I put it in front of 10 to 15 people, and basically all of them completely failed. I had to physically step in and explain how to do it.</p>
+<p>Once they finally got it, most people had a blast! But that doesn&#39;t actually matter. If your game isn&#39;t simple to understand right out of the gate, it will have a massive churn rate. Players just won&#39;t stick around long enough to find the fun.</p>
+<p>Sometimes your game&#39;s unique selling point is the exact thing working against it. It was a bit of a gut punch to realize this. It was a genuinely fun, highly unique mechanic, but that uniqueness fought against every natural instinct players bring into a racing game (like &quot;brake for corners&quot; and &quot;try not to hit the walls&quot;).</p>
+<h2>Throwaway Code</h2>
+<p>Thankfully, I didn&#39;t lose months to this idea. </p>
+<p>The bounce prototype took about a week to implement fully. I knew I needed to validate it, so I didn&#39;t get attached to the code. I didn&#39;t spend a single minute on clean architecture or SOLID principles. I just threw it in as a hacky mess so I could get it into players&#39; hands. </p>
+<blockquote>
+<p><strong>The Lesson:</strong> Test early and test often. If you spend three months building perfectly decoupled architecture for a mechanic that takes 10 minutes to explain, you are building a beautiful ship that will immediately sink.</p>
+</blockquote>
+<p>Because the code was cheap, throwing it away didn&#39;t hurt. </p>
+<h2>The Pivot</h2>
+<p>I&#39;ve got a new mechanic to replace it that is much more straightforward. If you stick behind other drivers for long enough, you gain the ability to pierce right through them, shattering them into a million pieces.</p>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/pierce.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<p>This actually fits the aggressive vibe of the game a lot better! Drafting is something that already aligns with the way people typically play racing games, so I don&#39;t have to teach them a totally alien concept. I haven&#39;t fully playtested this specific implementation just yet - I want to make a couple more little tweaks first - but it is already miles easier to explain.</p>
+<p>Don&#39;t get too attached to your mechanics, even the really fun ones. Build an ugly prototype, validate it early, and don&#39;t be afraid to kill your darlings if your players can&#39;t figure them out.</p>]]></content:encoded>
       <pubDate>Sat, 21 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Your Brain Hates You</title>
       <link>https://wayfarer-games.com/blog/your-brain-hates-you/</link>
-      <guid>https://wayfarer-games.com/blog/your-brain-hates-you/</guid>
+      <guid isPermaLink="true">https://wayfarer-games.com/blog/your-brain-hates-you/</guid>
       <description>Why your brain actively works against finishing your game and how to design a your environment to overcome common dopamine traps.</description>
+      <content:encoded><![CDATA[<h1>Your Brain Hates You</h1>
+<p>Hey! Today, instead of systems and tech stuff, I want to step back and talk about the hardest thing to debug: your own brain.</p>
+<p>I&#39;ll let you in on a secret: your brain often works against finishing. This isn’t a moral failing or a lack of discipline. It is just predictable human behaviour given uncertainty and long timelines. Common symptoms include doomscrolling, endless code refactoring, announcing features you haven&#39;t built, and writing massive design docs that never ship.</p>
+<p>By the end of this post, you’ll understand the forces causing it, and you&#39;ll have a concrete checklist to turn &quot;I should work on my game&quot; into a repeatable shipping loop.</p>
+<h2>The Problem</h2>
+<p>Saying your brain &quot;hates&quot; you is a bit dramatic. The truth is, your brain loves you! It is an ancient survival machine designed to keep you alive, which means its priority is conserving energy and avoiding threats. It is constantly scanning your environment for the path of least resistance.</p>
+<p>This brings us to dopamine.</p>
+<blockquote>
+<p>Dopamine is heavily involved in wanting, drive, and learning what’s worth pursuing, especially through anticipation and reward prediction. While this is a simplified model, it’s incredibly useful for us game devs to understand. Your brain quickly learns which actions deliver fast rewards with low effort, and it will heavily bias you toward those. Because your brain wants to avoid threats, it is always looking for shortcuts that deliver quick reward signals (novelty, social approval, certainty) without the cost of building.</p>
+</blockquote>
+<p>This leads to three common traps that quietly stall games for months:</p>
+<h2>Trap 1: Talking Instead of Doing</h2>
+<p>Have you ever had an amazing idea for a mechanic, run straight to Discord or Twitter to announce it, and soaked in all the &quot;Wow, that sounds incredible!&quot; replies?</p>
+<p>Publicly announcing goals can create a false sense of completion and identity (&quot;I&#39;m the kind of person making this awesome game&quot;). Your brain generated the drive to build something, but you fed it a cheap, immediate social reward instead. The anticipation is resolved.</p>
+<p>The result? You are left with much less drive to do the hard, ambiguous part next. This isn’t a strict rule to never share. It just means you shouldn&#39;t cash the praise check before you’ve done the work (a well-documented psychological phenomenon often called the social reality effect).</p>
+<h2>Trap 2: Decisions Based On Vibes</h2>
+<p>Because your brain wants the path of least resistance, it prefers to make design decisions based on hypotheticals. Running a Twitter poll or posting a community questionnaire is a low-effort reward signal disguised as actual development.</p>
+<p>I learned this the hard way during a playtest. A tester read over the concepts for two different game modes. Based purely on the idea, they filled out their pre-play feedback form and confidently stated that Option A was the right choice. Then, I actually built both.</p>
+<ul>
+<li><strong>Option A:</strong> Player abandoned it after 10 minutes.</li>
+<li><strong>Option B:</strong> Player engaged for a full hour.</li>
+</ul>
+<p>People will tell you one thing and do another! In playtests, you can treat what people tell you as a hypothesis, but you learn a lot more from observed behavior. In a 20 to 30 minute test, track these specific metrics:</p>
+<ul>
+<li><strong>First 60 seconds:</strong> Note points of confusion.</li>
+<li><strong>Time-to-first-fun:</strong> Wait for their first smile, laugh, or &quot;oh!&quot; moment.</li>
+<li><strong>Retries:</strong> Count the number of voluntary attempts after failing.</li>
+<li><strong>Engagement:</strong> Notice when they ask a question versus when they just keep playing.</li>
+<li><strong>Persistence:</strong> See if they choose to continue when given an explicit out.</li>
+</ul>
+<h2>Trap 3: Ambiguity Avoidance</h2>
+<p>A lot of procrastination in game dev isn’t pleasure-seeking. It’s ambiguity mixed with a fear of wasted effort. When the next step in your project is unclear (like &quot;Fix the combat system&quot;), the brain flags it as a high-energy threat. In this context, &quot;threat&quot; often just means uncertainty plus potential wasted effort plus ego risk (finding out your idea isn&#39;t fun). It seeks clear, easy rewards elsewhere, like watching a YouTube tutorial.</p>
+<blockquote>
+<p><strong>Conversion Rule:</strong> Rewrite any task until it starts with a verb and can be done in 10 minutes. For example, replace &quot;Fix combat&quot; with &quot;Spawn one enemy in an empty room and log time-to-kill with a debug print.&quot;</p>
+</blockquote>
+<h2>The Fix: Design a Pro-Shipping Environment</h2>
+<p>If you know your brain is an energy-efficient machine looking for shortcuts, yelling at yourself to &quot;just work harder&quot; won&#39;t fix anything. Instead, you need to design your environment and workflow so the &quot;easy path&quot; points toward shipping.</p>
+<h3>1. Micro-Dose Progress (Build Momentum)</h3>
+<p>If you&#39;re stuck, your task is too vague. Lower the energy required to start. Open the project. Hit Play. Write the next micro-step where you can’t miss it (a sticky note, a README, or a task list). The win is simply having the project open and one tiny change committed.</p>
+<h3>2. Use Prototyping as a &quot;Cheap Win&quot;</h3>
+<p>Stop theory-crafting the perfect system in your head to avoid the work. Make crappy throwaway prototypes using primitive shapes and borrowed constraints from an existing game. Or make it on paper! It gives your brain the fast, low-friction win it craves, but in a productive way.</p>
+<h3>3. Lock the Social Reward</h3>
+<p>You need a hard constraint to stop reward substitution. Here are a good couple of rules I like:</p>
+<ul>
+<li>Share progress only in spaces that create accountability (like a build log with a set deadline), not just praise.</li>
+<li>You are not allowed to post a screenshot or tweet about a feature for public validation until you have a playable, tested build.</li>
+</ul>
+<h2>A Checklist for Shipping</h2>
+<p>Game development is a marathon filled with uncertainty. Keep this checklist handy to keep your brain on track:</p>
+<ul>
+<li><strong>Daily micro-win:</strong> Define one task that takes &lt;15 minutes and ends in a visible change.</li>
+<li><strong>Prototype rule:</strong> Any mechanic idea gets 60 minutes of ugly implementation before discussion.</li>
+<li><strong>Social lock:</strong> No posting until there’s a playable build and one external playtest note.</li>
+<li><strong>Behavior &gt; opinions:</strong> Measure time-on-task, retries, and voluntary re-engagement.</li>
+<li><strong>Reduce friction:</strong> Ensure your project opens in &lt;30 seconds. Keep a &quot;next task&quot; note in your repo so you never start with a blank slate.</li>
+<li><strong>Weekly ship:</strong> Package one build every 7 days, even if it’s small and ugly.</li>
+<li><strong>Weekly review:</strong> Spend 10 minutes asking what shipped, what stalled, and what’s the next smallest playable slice.</li>
+</ul>
+<p><strong>Template:</strong></p>
+<ul>
+<li>This week’s smallest playable slice: ____</li>
+<li>This week’s playtest question: ____</li>
+<li>Ship date/time: ____</li>
+</ul>
+<p>Pick one item from your backlog right now. Set a 15-minute timer. Define the smallest visible change and do only that. Stop while it’s still easy, so tomorrow has low friction.</p>]]></content:encoded>
       <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>The Architecture of Shmup Enemy Spawning</title>
       <link>https://wayfarer-games.com/blog/shmup-spawning/</link>
-      <guid>https://wayfarer-games.com/blog/shmup-spawning/</guid>
+      <guid isPermaLink="true">https://wayfarer-games.com/blog/shmup-spawning/</guid>
       <description>How to stop hardcoding your level waves and start building data-driven enemy spawns using the Command Pattern and SOLID principles.</description>
+      <content:encoded><![CDATA[<h1>The Architecture of Shmup Enemy Spawning</h1>
+<p>Hey! Since we&#39;ve already covered the math behind firing beautiful geometric bullet patterns, I thought it would be fun to tackle the other side of the shoot &#39;em up equation: the enemies firing them.</p>
+<blockquote>
+<p>This post focuses on the software architecture of building levels. For actual wave pacing and enemy placement theory, I highly recommend checking out <a href="https://youtu.be/RENI2gk0ZJA?si=PNe3QkoFeO2gRlbH">Boghog&#39;s Shmup Workshop</a></p>
+</blockquote>
+<p>I&#39;ll let you in on a secret: hardcoding your enemy spawns in your game loop is a trap. If your update loop is full of timers and nested <code>if</code> statements, making a full, five-minute level is going to be an absolute nightmare. We need a way to cleanly sequence exactly what happens and when.</p>
+<p>Enter the Command Pattern!</p>
+<h2>Timers!</h2>
+<p>Let&#39;s start by looking at what we want to avoid. When you first start building a level, it&#39;s really tempting to just count the seconds and spawn enemies based on the current time:</p>
+<pre><code class="language-cs">private float levelTimer = 0f;
+private bool waveOneSpawned = false;
+private bool waveTwoSpawned = false;
+
+void Update()
+{
+    levelTimer += Time.deltaTime;
+
+    if (levelTimer &gt;= 2.0f &amp;&amp; !waveOneSpawned)
+    {
+        SpawnEnemy(enemyPrefabA, new Vector2(5, 10));
+        waveOneSpawned = true;
+    }
+
+    if (levelTimer &gt;= 5.5f &amp;&amp; !waveTwoSpawned)
+    {
+        SpawnEnemy(enemyPrefabB, new Vector2(-5, 10));
+        waveTwoSpawned = true;
+    }
+}
+</code></pre>
+<p>Notice the problem? For a typical shmup level, you might have hundreds of spawns. This script will turn into an absolute monster, and tuning the timing of an early wave means manually tweaking all the numbers for the rest of the level. It&#39;s rigid, creates bugs, and hurts to read.</p>
+<h2>Commands!</h2>
+<p>Instead of writing the logic out procedurally, let&#39;s turn &quot;Spawning an Enemy&quot; into an object. We want to decouple <em>what</em> happens from <em>when</em> it happens.</p>
+<p>However, we don&#39;t just want fire-and-forget commands. What if we want a command that pauses the level until the screen is clear of enemies? If we use a basic loop, we&#39;ll immediately hit a wall. To pause the game&#39;s timeline, a command needs a way to tell the queue: <em>&quot;I&#39;m not done yet!&quot;</em></p>
+<p>We also want to make sure this code is incredibly clean and performant. In Unity, the rookie mistake is to use <code>FindObjectsOfType&lt;Enemy&gt;()</code> to check if the screen is clear. That is intensely slow and creates garbage collection spikes.</p>
+<p>Instead, we are going to design our architecture using SOLID principles so everything is fast, decoupled, and easy to extend.</p>
+<h2>Context!</h2>
+<p>First, our commands shouldn&#39;t depend on a monolithic <code>LevelManager</code> script. That breaks the Dependency Inversion Principle. Commands should depend on abstractions (interfaces).</p>
+<p>Let&#39;s create an interface that holds references to all the systems our commands might need to interact with:</p>
+<pre><code class="language-cs">public interface IEnemyTracker
+{
+    int ActiveEnemyCount { get; }
+}
+
+public interface ILevelContext
+{
+    IEnemyTracker EnemyTracker { get; }
+    // We could add IAudioService, IScoreManager, etc. here later
+
+}
+</code></pre>
+<p>Now, instead of Unity&#39;s slow methods, our actual game logic will just maintain a simple integer counter of enemies. An <code>EnemySpawner</code> increments it, and an <code>Enemy</code>&#39;s OnDestroy event decrements it. Checking if the screen is clear is now a lightning-fast <code>O(1)</code> integer check!</p>
+<h2>Wait For It...</h2>
+<p>Next, let&#39;s look at our command structure. Every command needs to be executable, and every command needs to report if it is finished:</p>
+<pre><code class="language-cs">public interface ILevelCommand
+{
+    float Timestamp { get; }
+
+    // We pass our decoupled context here
+    void Execute(ILevelContext context);
+
+    // Allows commands to block the queue from progressing
+    bool IsComplete { get; }
+}
+</code></pre>
+<p>For standard, fire-and-forget commands (like spawning an enemy), <code>IsComplete</code> will just return <code>true</code>. They finish instantly.</p>
+<p>But here is our <code>WaitUntilClearCommand</code>. Its single responsibility is to capture the enemy tracker when executed, and then constantly report its completion status based on that tracker.</p>
+<pre><code class="language-cs">
+public class WaitUntilClearCommand : ILevelCommand
+{
+    public float Timestamp { get; }
+
+    // We store a reference to the tracker once executed
+    private IEnemyTracker tracker;
+
+    public WaitUntilClearCommand(float timestamp)
+    {
+        Timestamp = timestamp;
+    }
+
+    public void Execute(ILevelContext context)
+    {
+        tracker = context.EnemyTracker;
+    }
+
+    public bool IsComplete =&gt; tracker != null &amp;&amp; tracker.ActiveEnemyCount == 0;
+}
+</code></pre>
+<p>Look at how clean that is! It knows nothing about Unity, nothing about prefabs, and nothing about timers. It just asks the tracker for the count.</p>
+<h2>The Upgraded Queue!</h2>
+<p>Finally, let&#39;s look at how our main game loop handles this. We need to introduce the concept of an <code>activeBlockingCommand</code>.</p>
+<p>If a command blocks, we stop pulling from the queue and we <em>pause the timer</em>.</p>
+<pre><code class="language-cs">
+public class LevelTimeline : MonoBehaviour
+{
+    private Queue&lt;ILevelCommand&gt; commandQueue;
+    private ILevelContext context;
+    private float levelTimer = 0f;
+
+    // Stores any command that takes time to complete
+    private ILevelCommand activeBlockingCommand = null;
+
+    void Update()
+    {
+        // 1. If we are blocked, wait until the command finishes
+        if (activeBlockingCommand != null)
+        {
+            if (activeBlockingCommand.IsComplete)
+            {
+                // Unblock
+                activeBlockingCommand = null;
+            }
+            else
+            {
+                // Still waiting? Stop doing level updates.
+                return;
+            }
+        }
+
+        // 2. We only advance time if we aren&#39;t blocked
+        levelTimer += Time.deltaTime;
+
+        // 3. Process new commands
+        while (
+            commandQueue.Count &gt; 0 &amp;&amp;
+            commandQueue.Peek().Timestamp &lt;= levelTimer
+        )
+        {
+            ILevelCommand nextCommand = commandQueue.Dequeue();
+            nextCommand.Execute(context);
+
+            // If this command isn&#39;t instantly finished, it blocks the queue!
+            if (!nextCommand.IsComplete)
+            {
+                activeBlockingCommand = nextCommand;
+                break; // Exit the while loop early
+            }
+        }
+    }
+}
+</code></pre>
+<p>Because we followed the Open/Closed Principle, our <code>LevelTimeline</code> code is completely closed for modification. We never have to touch this <code>Update</code> loop again to add new features! Want to wait for 5 seconds? Add a <code>WaitTimeCommand</code>. Want to wait until the boss reaches half health? Add a <code>WaitForBossPhaseCommand</code>!</p>
+<h2>Data!</h2>
+<p>This is where the magic really happens. Because our commands are just objects holding data (a time, a prefab, a position), we no longer have to define our levels in code.</p>
+<p>We can move our level design completely out of C#. You could write your levels in a JSON file, a CSV spreadsheet, or <code>ScriptableObjects</code>. Here is what a level might look like when serialized to JSON:</p>
+<pre><code class="language-json">[
+  {
+    &quot;type&quot;: &quot;SpawnEnemy&quot;,
+    &quot;timestamp&quot;: 2.0,
+    &quot;enemyId&quot;: &quot;Fighter&quot;,
+    &quot;position&quot;: { &quot;x&quot;: 5.0, &quot;y&quot;: 10.0 }
+  },
+  {
+    &quot;type&quot;: &quot;WaitUntilClear&quot;,
+    &quot;timestamp&quot;: 2.5
+  },
+  {
+    &quot;type&quot;: &quot;SpawnEnemy&quot;,
+    &quot;timestamp&quot;: 3.0,
+    &quot;enemyId&quot;: &quot;HeavyBomber&quot;,
+    &quot;position&quot;: { &quot;x&quot;: 0.0, &quot;y&quot;: 12.0 }
+  }
+]
+</code></pre>
+<blockquote>
+<p>N.b. if you&#39;re in Unity, you&#39;ll want to use something like Newtonsoft JSON to help with this</p>
+</blockquote>
+<p>Now you can tweak timings, add complex waiting logic, and build entire new waves without ever recompiling your game. This opens the door to player-created levels, too, which is even cooler.</p>
+<h2>Taking it further!</h2>
+<p>This architecture is the foundation of a modern shmup engine. Our engine is completely separated: the timeline handles the flow of time, the commands handle the instructions, and the context handles the game state.</p>
+<p>Once you have a timeline of commands running your game data like this, the next natural step is building a visual tool. Instead of typing out JSON, you can build a timeline editor (like Unity&#39;s Timeline or a custom visual graph) where you can literally drag and drop spawns and wait commands exactly where you want them. But it all starts with this clean, decoupled queue!</p>]]></content:encoded>
       <pubDate>Wed, 25 Feb 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Bulletfury Goes Open Source</title>
       <link>https://wayfarer-games.com/blog/bulletfury-goes-open-source/</link>
-      <guid>https://wayfarer-games.com/blog/bulletfury-goes-open-source/</guid>
+      <guid isPermaLink="true">https://wayfarer-games.com/blog/bulletfury-goes-open-source/</guid>
       <description>Bulletfury V2 is now fully open source, with Unity collision support, scene previews, performance improvements, and a deep module system for custom bullet behaviors.</description>
+      <content:encoded><![CDATA[<h1>Bulletfury Goes Open Source</h1>
+<p>Hello again! Post #2 hot off the heels of the first - Bulletfury is now open source!</p>
+<p>Version 2 is fully working, and it is currently being used in Polyfury: Definitive Edition to great effect (thanks Hermit Cat!).</p>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/polyfury-demo.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<p>There are lots of really cool changes from V1, too. Here&#39;s a brief summary:</p>
+<ul>
+<li>Works with Unity&#39;s collisions. That means no more custom collider components.</li>
+<li>Scene view preview, like particle systems.</li>
+<li>Improved performance (read: no more memory leak lol).</li>
+<li>In depth module system for deep customization. This is my favorite thing really; it&#39;s so easy to add new spawner and bullet behaviors.</li>
+<li>Massive overhaul of the editor interface. It looks pretty cool.</li>
+<li>Performance hints: if you are using modules that impact performance (for example, the &quot;track object&quot; module calculates the direction to an object for every bullet every frame), you&#39;ll get a little indicator and explanation.</li>
+</ul>
+<p>V2 is a significant step up. I&#39;ve learned a lot by releasing a full game using my own tool, and the core engine is now completely free and open source.</p>
+<p>You can grab the open source repo here: <a href="https://github.com/WayfarerGames/bulletfury">github.com/WayfarerGames/bulletfury</a>.</p>
+<p>There is an asterisk there, though: I&#39;ve put a lot of time and effort into this, so I&#39;ve separated some more interesting modules into the paid asset store version. Here&#39;s what that version has:</p>
+<ul>
+<li>Object tracking for homing missiles.</li>
+<li>Bouncing bullets (a commonly requested feature!).</li>
+<li>Same-device deterministic mode with replays and rewinding!<ul>
+<li>N.B. this isn&#39;t guaranteed cross-device deterministic, so you can&#39;t use it for shared replays or online multiplayer unfortunately. I would love that, but it is so much work.</li>
+</ul>
+</li>
+<li>Aimed bullets with aim prediction.</li>
+<li>Sub spawners for bomb bullets.</li>
+<li>Sin waves so you can wobble your bullets.</li>
+<li>Force over time so you can apply extra forces.</li>
+<li>Spawn from transform so you can change where your bullets initially spawn from.</li>
+</ul>
+<p>More will be added over time to the premium version, and this is a free upgrade for anyone who has bought V1.</p>
+<p>If you can&#39;t afford the £15 price tag, though, I&#39;ve made all of this solely through the module system - so you can probably write it yourself!</p>]]></content:encoded>
       <pubDate>Thu, 19 Feb 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>The Mathematics of Bullet Hell Patterns</title>
       <link>https://wayfarer-games.com/blog/bullet-hell-math/</link>
-      <guid>https://wayfarer-games.com/blog/bullet-hell-math/</guid>
+      <guid isPermaLink="true">https://wayfarer-games.com/blog/bullet-hell-math/</guid>
       <description>How great danmaku patterns aren&apos;t hand-placed; they&apos;re mathematical functions. A walkthrough of a single algorithm, evolved from a point on a circle into spiraling, fractal barrages.</description>
+      <content:encoded><![CDATA[<h1>The Mathematics of Bullet Hell Patterns</h1>
+<p>Hey! As I put the finishing touches on the open source version of Bulletfury, I thought it would be fun to talk bullet spawning and maths (everyone&#39;s favourite).</p>
+<blockquote>
+<p>This post focuses on implementation math. For design theory I&#39;ll point you to <a href="https://sparen.github.io/ph3tutorials/danmakudesign.html">Sparen&#39;s Danmaku Design Guides</a>, which are excellent.</p>
+</blockquote>
+<p>I&#39;ll let you in on a secret: it&#39;s all circles! Most of the best patterns are just different types of circles under the hood. We&#39;ll start off simple and evolve the process until it&#39;s clear how the craziest bullet hell games make their pretty patterns.</p>
+<h2>Circles!</h2>
+<p>So let&#39;s start at the beginning: spawning bullets in a circle. When dealing with circles, we like polar coordinates - that&#39;s an angle and a radius. We&#39;ll use the number of bullets to work out the angle, and then we&#39;ll convert the polar coordinates to an x and y position so our game engine knows where to put them:</p>
+<pre><code class="language-cs">for (int i=0; i&lt;numBullets; ++i)
+{
+    float angleDeg = (float)i / numBullets * 360f;
+    float angleRad = angleDeg * Mathf.Deg2Rad;
+    var position = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * radius;
+}
+</code></pre>
+<p>Here&#39;s what that looks like as we increase the number of bullets:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-points.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video></p>
+<p>Notice anything? We get useful shapes out of this, not just circles! Bullets = 3 gives us a triangle, 4 gives a square, 5 a pentagon, etc.</p>
+<h2>Polygons!</h2>
+<p>Now let&#39;s fill in the edges. To do that, we need to create bullets between two points - so we&#39;ll take this point and the next point, and interpolate between them. Linearly. We&#39;re gonna use lerp.</p>
+<pre><code class="language-cs">// We already know the angles for our corners from the Circle step
+var p1 = PolarToCartesian(angle, radius);
+var p2 = PolarToCartesian(nextAngle, radius);
+
+// Now we fill the gap between them!
+for (int j = 0; j &lt; numPerSide; ++j)
+{
+    // Calculate how far along the line we are (from 0 to 1)
+    float t = (float)j / numPerSide;
+    
+    // A little offset to center the bullets nicely on the line
+    t += (1f / numPerSide) / 2f; 
+
+    // Find the exact point on the edge
+    var position = Vector2.Lerp(p1, p2, t);
+    
+    SpawnBullet(position);
+}
+</code></pre>
+<p>Here&#39;s what that looks like as we increase the number of bullets per side:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edges.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video></p>
+<h2>Arcs!</h2>
+<p>An extra way to add some visual interest is to limit the <em>arc</em> of the circle. Instead of doing the hard-coded 360°, we&#39;ll swap that out for an arc that we can define from 0-360:</p>
+<pre><code class="language-cs">var angle = i * (arc / (numPoints - 1f));
+</code></pre>
+<p>One extra bit of polish here is adding an offset, so the shape is centered:</p>
+<pre><code class="language-cs">var angle = i * (arc / (numPoints - 1f)) - (arc * 0.5f);
+</code></pre>
+<p>Now here&#39;s what that looks like as we increase the number of points:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-arc.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video></p>
+<h2>Movement!</h2>
+<p>Bullets should, obviously, move. We&#39;re going to keep it simple here and just set an initial direction and make the bullets move in that direction for their whole lifetime. </p>
+<p>We have a few options here! We can make the bullets move:</p>
+<p>All together in the same direction - I use the <code>up</code> direction of the spawner GameObject, so you can rotate the object to aim:</p>
+<pre><code class="language-cs">Vector2 direction = spawnerTransform.up;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-direction.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<p>Out from the center of the shape (radial), which forms a circle over time. If your spawner isn&#39;t at the world origin, normalize the vector from the spawner to the spawn point:</p>
+<pre><code class="language-cs">Vector2 direction = (spawnPosition - (Vector2)spawnerTransform.position).normalized;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-sphereized.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<p>Perpendicular to the edges of the polygon, which keeps the shape. We get the direction at the midpoint of the edge for this:</p>
+<pre><code class="language-cs">Vector2 edgeMidpoint = Vector2.Lerp(vertexA, vertexB, 0.5f);
+Vector2 direction = edgeMidpoint.normalized;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-edge.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<p>Along the points of the shape, which shoots bullets diagonally. To do this, we just grab the direction of the closest corner:</p>
+<pre><code class="language-cs">Vector2 direction = (t &lt; 0.5f ? vertexA : vertexB).normalized;
+</code></pre>
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-point.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+<h2>Spirals!</h2>
+<p>This is where the fun begins. Most of the patterns you see in bullet hell games will use spirals a <em>lot</em> - but there is no complexity here! All we do is rotate the spawned position by an angle, and change that angle over time:</p>
+<pre><code class="language-cs">// In your Update loop
+currentRotation += angularSpeed * Time.deltaTime;
+
+// Apply this rotation to the final spawn position
+var finalPos = Quaternion.Euler(0, 0, currentRotation) * position;
+</code></pre>
+<p>And that&#39;s it!
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-spiral.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video></p>
+<h2>Randomness!</h2>
+<p>A quick note on randomness - pure random feels bad in bullet hell games. It is unpredictable and can often hurt the player experience. However, there is a fix if you want a bit of variation: bounded randomness. Instead of a radius of 3, we can pick a random number between 2 and 4. Instead of a speed of 5, we&#39;ll put the speed between 5 and 7. That will give you variation in how the bullets look and behave, which gives it a more &quot;natural&quot; feeling without being unfair:
+<video autoplay loop muted playsinline preload="metadata">
+  <source src="/blog/posts/bullet-hell-random.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video></p>
+<p>It&#39;s up to you whether you prefer the look of this or not, and it will depend entirely on the game!</p>
+<h2>Taking it further!</h2>
+<p>This is only the beginning. In Bulletfury there are even more options, but they all start from the circular base. We&#39;ve got bullet groups - which is a separate circle spawned from every point on the original circle. There are modules for making bullets rotate their direction over time, apply an extra force, change speed over time, track objects, spawn two bullets with different speeds in the same position, the list goes on, but it all starts with this.</p>]]></content:encoded>
       <pubDate>Wed, 18 Feb 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>
