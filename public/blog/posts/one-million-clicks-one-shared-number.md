@@ -1,12 +1,12 @@
 ---
-title: One Million Clicks, One Shared Number
+title: One Button MMO
 date: 2026-07-23
 summary: The technical tradeoffs behind letting thousands of players mutate one value without losing clicks, double-counting retries, or producing two winners.
 ---
 
-# One Million Clicks, One Shared Number
+# One Button MMO
 
-Hey! I've been working on [*Million Countdown*](https://wayfarergames.itch.io/million-clicks), a game where everyone shares one enormous number and clicks it down from 1,000,000 to zero.
+Hey! I've been working on [*Million Countdown*](https://wayfarergames.itch.io/million-clicks), a game where everyone clicks one button that counts down from 1,000,000 to zero.
 
 That's the whole pitch. There's one button. You press it. The number gets smaller.
 

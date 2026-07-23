@@ -12,8 +12,8 @@
       <link>https://wayfarer-games.com/blog/one-million-clicks-one-shared-number/</link>
       <guid isPermaLink="true">https://wayfarer-games.com/blog/one-million-clicks-one-shared-number/</guid>
       <description>The technical tradeoffs behind letting thousands of players mutate one value without losing clicks, double-counting retries, or producing two winners.</description>
-      <content:encoded><![CDATA[<h1>One Million Clicks, One Shared Number</h1>
-<p>Hey! I&#39;ve been working on <a href="https://wayfarergames.itch.io/million-clicks"><em>Million Countdown</em></a>, a game where everyone shares one enormous number and clicks it down from 1,000,000 to zero.</p>
+      <content:encoded><![CDATA[<h1>One Button MMO</h1>
+<p>Hey! I&#39;ve been working on <a href="https://wayfarergames.itch.io/million-clicks"><em>Million Countdown</em></a>, a game where everyone clicks one button that counts down from 1,000,000 to zero.</p>
 <p>That&#39;s the whole pitch. There&#39;s one button. You press it. The number gets smaller.</p>
 <p>This sounds like it should be the easiest game I&#39;ve ever made 😂</p>
 <p>It is not.</p>
