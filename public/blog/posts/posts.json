@@ -1,5 +1,11 @@
 [
   {
+    "file": "one-million-clicks-one-shared-number.md",
+    "title": "One Million Clicks, One Shared Number",
+    "date": "2026-07-23",
+    "summary": "The technical tradeoffs behind letting thousands of players mutate one value without losing clicks, double-counting retries, or producing two winners."
+  },
+  {
     "file": "polyfury-what-went-wrong.md",
     "title": "Polyfury: What Went Wrong - A Post-Mortem",
     "date": "2026-03-25",
