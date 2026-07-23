@@ -8,7 +8,7 @@
     <language>en-gb</language>
     <lastBuildDate>Thu, 23 Jul 2026 00:00:00 GMT</lastBuildDate>
     <item>
-      <title>One Million Clicks, One Shared Number</title>
+      <title>One Button MMO</title>
       <link>https://wayfarer-games.com/blog/one-million-clicks-one-shared-number/</link>
       <guid isPermaLink="true">https://wayfarer-games.com/blog/one-million-clicks-one-shared-number/</guid>
       <description>The technical tradeoffs behind letting thousands of players mutate one value without losing clicks, double-counting retries, or producing two winners.</description>
