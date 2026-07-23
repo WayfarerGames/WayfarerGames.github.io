@@ -1,6 +1,6 @@
 [
   {
-    "file": "one-million-clicks-one-shared-number.md",
+    "file": "one-button-mmo.md",
     "title": "One Button MMO",
     "date": "2026-07-23",
     "summary": "The technical tradeoffs behind letting thousands of players mutate one value without losing clicks, double-counting retries, or producing two winners."
